@@ -1,0 +1,80 @@
+[	
+	{
+	"terminal" : [0, "roxterm"],
+	"calculator" : [10, "gcalctool"],
+	"unison" : [30, "unison-x11"]
+	},
+	{
+	"im" : [40, [
+		{
+		"pidgin" : [0, "pidgin"],
+		"skype" : [10, "skype"]
+		},
+		{
+		"all" : [0, "_all" ]
+		}
+	]],
+	"chat" : [45, {
+		"mumble" : [0, "mumble"],
+		"xchat" : [10, "xchat"]
+		}],
+	"browser" : [50, [
+		{
+		"opera" : [0, "opera"],
+		"firefox" : [10, "firefox"],
+		"chromium" : [20, "chromium"]
+		}
+		]],
+	"mail" : [60, [
+		{
+		"evolution" : [0, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"],
+		"thunderbird" : [10, "thunderbird"]
+		}
+		]],
+	"dl/ul" : [70, [
+		{
+		"vuze" : [0, "vuze"],
+		"amule" : [10, "amule"]
+		},
+		{
+		"gftp" : [0, "gftp"]
+		}
+		]]
+	},
+	{
+	"pim" : [0, [
+		{
+		"evolution" : [0, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"]	
+		}
+		]],
+	"dev" : [10, [
+		{
+		"eclipse" : [0, "eclipse"],
+		"gvim" : [10, "gvim"]
+		}
+		]],
+	"multimedia" : [20, [	
+		{
+		"vlc" : [0, "vlc"],
+		"k3b" : [10, "k3b"],
+		"exaile" : [20, "exaile"]
+		}
+		]],
+	"office" : [25, [
+		{
+		"open-office" : [0, "soffice"]
+		}
+		]],
+	"system" : [30, [
+		{
+		"virtualbox" : [0, "VirtualBox"],
+		"thunar" : [10, "thunar"]
+		}
+		]]
+	},
+	{"session" : [0, {
+		"halt" : [0, "sudo shutdown -h now"],
+		"reboot" : [10, "sudo shutdown -r now"]
+	}]
+	}
+]

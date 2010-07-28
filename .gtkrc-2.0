@@ -1,0 +1,8 @@
+# DO NOT EDIT!  This file will be overwritten by LXAppearance.
+# Any customization should be done in ~/.gtkrc-2.0.mine
+
+gtk-theme-name="Human-Blue"
+gtk-icon-theme-name="gnome"
+gtk-font-name="Sans 11"
+gtk-toolbar-style=2
+include "/home/marco/.gtkrc-2.0.mine"

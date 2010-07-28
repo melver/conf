@@ -1,0 +1,125 @@
+#
+# Marco's .conkyrc
+#
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+ 
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+ 
+# fiddle with window
+use_spacer right
+
+# Use Xft?
+use_xft yes
+xftfont DejaVu Sans:size=11
+xftalpha 0.9
+text_buffer_size 2048
+ 
+# Update interval in seconds
+update_interval 3.0
+ 
+# Minimum size of text area
+minimum_size 290 5
+ 
+# Draw shades?
+draw_shades yes
+ 
+# Text stuff
+draw_outline no # amplifies text if yes
+draw_borders no
+uppercase no # set to yes if you want all text to be in uppercase
+ 
+# Stippled borders?
+stippled_borders 3
+ 
+# border margins
+#border_margin 9
+ 
+# border width
+border_width 10
+ 
+# Default colors and also border colors, grey90 == #e5e5e5
+#default_color grey
+#if bright desktop background:
+
+default_color 333333
+color0 1111ee
+
+#else:
+
+#default_color efefbf
+#color0 aaaaff
+
+#endif
+
+ 
+own_window_colour brown
+own_window_transparent yes
+ 
+# Text alignment, other possible values are commented
+#alignment top_left
+#alignment top_right
+#alignment bottom_left
+alignment bottom_right
+ 
+# Gap between borders of screen and text
+gap_x 10
+gap_y 10
+
+# New configuration
+if_up_strictness address
+
+# stuff after 'TEXT' will be formatted on screen
+TEXT
+
+$color
+${color0}SYSTEM ${hr 2}$color
+$nodename $sysname $kernel on $machine
+Uptime: $uptime
+ 
+${color0}CPU ${hr 2}$color
+Core 1:  ${freq 1}MHz  $alignr${hwmon 1 temp 1}°C  ${cpubar cpu1 6,70}${if_existing /sys/devices/system/cpu/cpu1}
+Core 2:  ${freq 2}MHz  $alignr${hwmon 2 temp 1}°C  ${cpubar cpu2 6,70}${endif}
+${cpugraph normal cpu0 000000 ffffff}
+ 
+${color0}MEMORY / DISK Usage ${hr 2}$color
+RAM:   $mem   ${membar 6}$color
+Swap:  $swap   ${swapbar 6}$color
+ 
+root:  ${fs_used /}   ${fs_bar 6 /}$color 
+home:  ${fs_used /home}   ${fs_bar 6 /home}$color
+ 
+${color0}NETWORK ${hr 2}$color
+${if_up eth0}IP (eth0):$alignr${addr eth0}
+Down: ${downspeed eth0} k/s ${alignr}Up: ${upspeed eth0} k/s
+${downspeedgraph eth0 20,90} ${alignr}${upspeedgraph eth0 20,90}
+Total: ${totaldown eth0} ${alignr}Total: ${totalup eth0}
+
+${endif}${if_up wlan0}IP (wlan0):$alignr${addr wlan0}
+Link Quality: ${wireless_link_qual_perc wlan0}% ${alignr}Bitrate: ${wireless_bitrate wlan0}
+Down: ${downspeed wlan0} k/s ${alignr}Up: ${upspeed wlan0} k/s
+${downspeedgraph wlan0 20,90} ${alignr}${upspeedgraph wlan0 20,90}
+Total: ${totaldown wlan0} ${alignr}Total: ${totalup wlan0}
+
+${endif}${if_up wlan1}IP (wlan1):$alignr${addr wlan1}
+Link Quality: ${wireless_link_qual_perc wlan1}% ${alignr}Bitrate: ${wireless_bitrate wlan1}
+Down: ${downspeed wlan1} k/s ${alignr}Up: ${upspeed wlan1} k/s
+${downspeedgraph wlan1 20,90} ${alignr}${upspeedgraph wlan1 20,90}
+Total: ${totaldown wlan1} ${alignr}Total: ${totalup wlan1}
+
+${endif}${if_up ppp0}IP (ppp0):$alignr${addr ppp0}
+Down: ${downspeed ppp0} k/s ${alignr}Up: ${upspeed ppp0} k/s
+${downspeedgraph ppp0 20,90} ${alignr}${upspeedgraph ppp0 20,90}
+Total: ${totaldown ppp0} ${alignr}Total: ${totalup ppp0}
+
+${endif}${execi 30 netstat -apnut|awk 'BEGIN{tcp_l=0;tcp_e=0;udp=0;udp_e=0}/tcp.*LISTEN/{tcp_l+=1}/tcp.*ESTAB/{tcp_e+=1}/udp/{udp+=1}/udp.*ESTAB/{udp_e+=1}END{print "TCP LISTEN: "tcp_l"\nTCP ESTABLISHED: "tcp_e"\nUDP: "(udp-udp_e)"+"udp_e}'}
+
+${if_existing /tmp/conky.notes}${color0}NOTES ${hr 2}$color
+${tail /tmp/conky.notes 10}
+
+${endif}
