@@ -39,6 +39,7 @@ main = do
                                          title     =? "glxgears"  --> doFloat,
                                          className =? "Gimp"      --> doFloat,
                                          title     ~? "Skype"     --> doFloat,
+                                         className =? "Skype"     --> doFloat,
                                          className =? "Pidgin"    --> doFloat,
                                          className =? "Vlc"       --> doFloat ]
                         <+> manageDocks
