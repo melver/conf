@@ -209,7 +209,7 @@
 
     augroup me_htmlcssjs
       au!
-      au FileType html,css,javascript set ts=2 | set sw=2 | set sts=2 | set noet | call SetList(0)
+      au FileType html,xhtml,css,javascript set ts=2 | set sw=2 | set sts=2 | set noet | call SetList(0)
       au BufNewFile *.htm,*.html,*.css,*.js set fileformat=unix
     augroup END
 
