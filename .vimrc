@@ -164,12 +164,12 @@
       au BufNewFile *.pl set fileformat=unix
     augroup END
 
-    augroup me_vimrc
+    augroup me_vim
       au!
       " Unmap ö and ä so it can be used in vimrc, list is on by default
       "au BufRead,BufNewFile *vimrc iunmap ö| iunmap ä| call SetList(1)
       au FileType vim set ts=8 | set sw=2 | set sts=2 | set et | set ai | call SetList(1)
-      au BufNewFile *vimrc set fileformat=unix
+      au BufNewFile *.vim,*vimrc set fileformat=unix
     augroup END
 
     augroup me_dot
