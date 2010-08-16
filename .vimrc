@@ -219,6 +219,12 @@
       au BufNewFile *.xml set fileformat=unix
     augroup END
 
+    augroup me_rst
+      au!
+      au FileType rst set ts=8 | set sw=4 | set sts=4 | set tw=79 | set et | set spell | call SetList(1)
+      au BufNewFile *.rst set fileformat=unix
+    augroup END
+
 " }
 
 " GUI Settings {

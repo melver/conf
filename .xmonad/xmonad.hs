@@ -41,7 +41,8 @@ main = do
                                          title     ~? "Skype"     --> doFloat,
                                          className =? "Skype"     --> doFloat,
                                          className =? "Pidgin"    --> doFloat,
-                                         className =? "Vlc"       --> doFloat ]
+                                         className =? "Vlc"       --> doFloat,
+                                         className =? "Xmessage"  --> doCenterFloat ]
                         <+> manageDocks
          , keys = \c -> mykeys c `M.union` keys defaultConfig c
          , modMask = mod4Mask -- use Windows key as mod
