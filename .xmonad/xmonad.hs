@@ -37,9 +37,8 @@ main = do
                         <+> composeAll [ className =? "fontforge" --> doFloat,
                                          className =? "MPlayer"   --> doFloat,
                                          title     =? "glxgears"  --> doFloat,
-                                         className =? "Gimp"      --> doFloat,
-                                         title     ~? "Skype"     --> doFloat,
-                                         className =? "Skype"     --> doFloat,
+                                         className ~? "Gimp"      --> doFloat,
+                                         className ~? "Skype"     --> doFloat,
                                          className =? "Pidgin"    --> doFloat,
                                          className =? "Vlc"       --> doFloat,
                                          className =? "Xmessage"  --> doCenterFloat ]
