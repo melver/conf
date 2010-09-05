@@ -65,5 +65,5 @@ main = do
              , ((modm, xK_b), sendMessage ToggleStruts)
              , ((modm, xK_p), spawn "exe=`$HOME/0wnfiles/coding/python/lib/dmenu-apps.py echo` && eval \"exec $exe\"")
              , ((modm, xK_f), spawn "opera")
-             , ((modm, xK_e), spawn "$HOME/0wnfiles/temp/scripts/launch-evolution.sh")
+             , ((modm, xK_e), spawn "thunderbird")
              , ((controlMask .|. modm, xK_l), spawn "$HOME/0wnfiles/coding/shell/xlock-screenoff.sh") ]
