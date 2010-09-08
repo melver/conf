@@ -141,9 +141,10 @@
       au BufNewFile *.py,*.pyw set fileformat=unix
     augroup END
 
-    augroup me_ccpp
+    augroup me_ccppobjc
       au!
       au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au FileType objc                          set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
       au BufNewFile *.c,*.cpp,*.h,*.hpp set fileformat=unix
     augroup END
 
