@@ -235,7 +235,7 @@
       set lines=35
       set mousehide
       set guioptions=aegimrLt
-      colorscheme soso
+      "colorscheme soso
     endif
 " }
 

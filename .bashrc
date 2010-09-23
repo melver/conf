@@ -10,6 +10,9 @@ alias ll='ls -al'
 alias vinom='vim --cmd "let no_mouse_please=1" --cmd "set mouse=" -c "set mouse="'
 alias vimproj='vim +Project'
 alias vimprojc='vim +"Project .vimprojects"'
+alias gvimproj='gvim +Project'
+alias gvimprojc='gvim +"Project .vimprojects"'
+
 
 PS1='[\u@\h]:\w\$ '
 
