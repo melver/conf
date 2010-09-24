@@ -13,6 +13,7 @@ alias vimprojc='vim +"Project .vimprojects"'
 alias gvimproj='gvim +Project'
 alias gvimprojc='gvim +"Project .vimprojects"'
 
+shopt -s checkwinsize
 
 PS1='[\u@\h]:\w\$ '
 
