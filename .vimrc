@@ -181,7 +181,7 @@
 
     augroup me_tex
       au!
-      au FileType tex,bib set ts=4 | set sw=4 | set sts=4 | set et | set tw=79 | set spell | call SetList(1)
+      au FileType tex,bib,plaintex set ts=4 | set sw=4 | set sts=4 | set et | set tw=79 | set spell | call SetList(1)
       au BufNewFile *.tex set fileformat=unix
     augroup END
 
