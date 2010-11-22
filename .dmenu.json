@@ -62,7 +62,8 @@
 		]],
 	"office" : [25, [
 		{
-		"open-office" : [0, "soffice"]
+		"libre-office" : [0, "libreoffice"],
+		"open-office" : [10, "soffice"]
 		}
 		]],
 	"system" : [30, [
