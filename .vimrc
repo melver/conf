@@ -154,9 +154,9 @@
       au BufNewFile *.java set fileformat=unix
     augroup END
 
-    augroup me_bash
+    augroup me_sh
       au!
-      au FileType sh,bash set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au FileType sh,bash,zsh set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
     augroup END
 
     augroup me_perl
