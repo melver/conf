@@ -22,7 +22,7 @@
 		{
 		"opera" : [0, "opera"],
 		"firefox" : [10, "firefox"],
-		"chromium" : [20, "chromium"]
+		"chromium" : [20, "chromium --disk-cache-size=52428800"]
 		}
 		]],
 	"mail" : [60, [
