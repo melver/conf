@@ -193,7 +193,7 @@
 
     augroup me_text
       au!
-      au BufRead,BufNewFile *.txt,README*,INSTALL*,*TODO set ts=4 | set sw=4 | set sts=4 | set tw=79 | set et | call SetList(0)
+      au BufRead,BufNewFile *README*,*INSTALL*,*TODO* set ts=4 | set sw=4 | set sts=4 | set tw=79 | set et | call SetList(0)
     augroup END
 
     augroup me_slice
@@ -224,6 +224,13 @@
       au!
       au FileType rst set ts=8 | set sw=4 | set sts=4 | set tw=79 | set et | set spell | call SetList(1)
       au BufNewFile *.rst set fileformat=unix
+    augroup END
+
+    augroup me_cmake
+      au!
+      au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
+      au FileType cmake set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1)
+      au BufNewFile *.cmake,CMakeLists.txt set fileformat=unix
     augroup END
 
 " }
