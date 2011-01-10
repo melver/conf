@@ -17,7 +17,7 @@ pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 defscrollback 1000
 nonblock on
 
-backtick 1 0 0 $HOME/0wnfiles/coding/python/lib/sys-stat.py
+backtick 1 0 0 sys-stat
 
 # Status line
 hardstatus alwayslastline
@@ -28,8 +28,6 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u
 #
 # xterm tweaks
 #
-
-term screen-256color
 
 #xterm understands both im/ic and doesn't have a status line.
 #Note: Do not specify im and ic in the real termcap/info file as

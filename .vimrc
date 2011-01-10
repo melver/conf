@@ -119,7 +119,8 @@
     map <C-N> <ESC>:NERDTreeToggle<CR>
 
     " Toggle list chars
-    map <F12> <ESC>:call ToggleList()<CR>
+    map <F10> <ESC>:call ToggleList()<CR>
+    map <F9> <ESC>:call ToggleList()<CR>
 
     " Fold toggle
     map <C-F> za
