@@ -21,7 +21,7 @@ backtick 1 0 0 sys-stat
 
 # Status line
 hardstatus alwayslastline
-hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %1` | %d-%m-%Y %{W}%c %{g}]'
+hardstatus string '%{= kg}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{Y} %1` |%{w}| %d-%m-%Y %{W}%c %{g}]'
 
 
 ################
