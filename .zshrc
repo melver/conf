@@ -15,7 +15,9 @@ SAVEHIST=1000
 #------------------------------
 # Variables
 #------------------------------
+
 #export PATH="${PATH}:${HOME}/bin" #TODO: fix this
+export TIMEFMT='%J  %U user %S system %P cpu %E total'
 
 #-----------------------------
 # Dircolors
