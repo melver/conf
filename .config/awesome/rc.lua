@@ -63,9 +63,10 @@ layouts = {
 -- }}}
 
 -- {{{ TAGS
+-- Individual default layout for each tag
 tags = {
-	names = { "1:term", 2, "3:web", 4, 5, 6, "7:chat", 8, 9 },
-	layout = { layouts[2], layouts[1], layouts[1], layouts[1], layouts[1],
+	names = { "1:term", "2:work", "3:web", "4:doc", "5:gfx", 6, "7:chat", "8:media", 9 },
+	layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
 				layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 
@@ -80,7 +81,9 @@ networkmenu = {
 	{ "firefox",    "firefox" },
 	{ "chromium", 	"chromium --disk-cache-size=52428800" },
 	{ "thunderbird", "thunderbird" },
-	{ "xchat",       "xchat" },
+	{ "pidgin", "pidgin" },
+	{ "skype", "skype" },
+	{ "xchat", "xchat" }
 }
 
 awesomemenu = {
@@ -88,8 +91,8 @@ awesomemenu = {
 	{ "restart",     awesome.restart },
 	{ "lock",        "xlock -mode blank" },
 	{ "quit",        awesome.quit },
-	{ "reboot",      terminal .. " -e reboot" },
-	{ "shutdown",    terminal .. " -e shutdown" }
+	{ "halt", "sudo shutdown -h now" },
+	{ "reboot", "sudo shutdown -r now" }
 }
 
 mainmenu = awful.menu({
@@ -98,7 +101,6 @@ mainmenu = awful.menu({
 		{ "awesome",   awesomemenu }
 	}
 })
-
 -- }}}
 
 -- {{{ WIDGETS
@@ -492,20 +494,28 @@ awful.rules.rules = {
 	},
 
 	-- Specific application rules
-	{ rule = { class = "MPlayer" }, properties = { floating = true } },
 	{ rule = { class = "pinentry" }, properties = { floating = true } },
-	{ rule = { class = "Gimp" }, properties = { floating = true } },
 	{ rule = { class = "Xmessage" }, properties = { floating = true }, callback = awful.titlebar.add },
 	{ rule = { class = "Gxmessage" }, properties = { floating = true }, callback = awful.titlebar.add },
-	{ rule = { class = "Vlc" }, properties = { floating = true } },
 	{ rule = { class = "Gcalctool" }, properties = { floating = true }, callback = awful.titlebar.add },
 
 	-- Mapped applications
+	{ rule = { class = "Chromium" }, properties = { tag = tags[1][3] } },
+	{ rule = { class = "Namoroka" }, properties = { tag = tags[1][3] } },
+	{ rule = { class = "Lanikai" }, properties = { tag = tags[1][3] } },
+	{ rule = { class = "Epdfview" }, properties = { tag = tags[1][4] } },
+	{ rule = { class = "Gimp" }, properties = { floating = true, tag = tags[1][5] } },
+	{ rule = { class = "Dia" }, properties = { floating = true, tag = tags[1][5] } },
+	{ rule = { class = "Inkscape" }, properties = { tag = tags[1][5] } },
+	{ rule = { class = "Eog" }, properties = { tag = tags[1][5] } },
 	{ rule = { class = "Pidgin" }, properties = { floating = true, tag = tags[1][7] }, callback = awful.titlebar.add },
 	{ rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][7] }, callback = awful.titlebar.add },
 	{ rule = { class = "Xchat" }, properties = { tag = tags[1][7] } },
-	{ rule = { class = "Chromium" }, properties = { tag = tags[1][3] } },
-	{ rule = { class = "Lanikai" }, properties = { tag = tags[1][3] } },
+	{ rule = { class = "Mumble" }, properties = { tag = tags[1][7] } },
+	{ rule = { class = "Vlc" }, properties = { floating = true , tag = tags[1][8]} },
+	{ rule = { class = "MPlayer" }, properties = { floating = true, tag = tags[1][8] } },
+	{ rule = { class = "Clementine" }, properties = { tag = tags[1][8] } }
+
 }
 -- }}}
 

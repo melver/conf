@@ -20,9 +20,9 @@
 		}],
 	"browser" : [50, [
 		{
-		"opera" : [0, "opera"],
+		"chromium" : [0, "chromium --disk-cache-size=52428800"],
 		"firefox" : [10, "firefox"],
-		"chromium" : [20, "chromium --disk-cache-size=52428800"]
+		"opera" : [20, "opera"]
 		}
 		]],
 	"mail" : [60, [
@@ -57,7 +57,8 @@
 		{
 		"vlc" : [0, "vlc"],
 		"k3b" : [10, "k3b"],
-		"exaile" : [20, "exaile"]
+		"clementine" : [20, "clementine"],
+		"exaile" : [30, "exaile"]
 		}
 		]],
 	"office" : [25, [
@@ -74,8 +75,9 @@
 		]]
 	},
 	{"session" : [0, {
-		"halt" : [0, "sudo shutdown -h now"],
-		"reboot" : [10, "sudo shutdown -r now"]
+		"lock" : [0, "xlock -mode blank"],
+		"halt" : [10, "sudo shutdown -h now"],
+		"reboot" : [20, "sudo shutdown -r now"]
 	}]
 	}
 ]
