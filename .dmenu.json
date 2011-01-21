@@ -61,10 +61,22 @@
 		"exaile" : [30, "exaile"]
 		}
 		]],
+	"graphics" : [22, [
+		{
+		"gimp" : [0, "gimp"],
+		"inkscape" : [10, "inkscape"],
+		"eog" : [20, "eog"]
+		}
+		]],
 	"office" : [25, [
 		{
 		"libre-office" : [0, "libreoffice"],
 		"open-office" : [10, "soffice"]
+		}
+		]],
+	"security" : [28, [
+		{
+		"seahorse" : [0, "seahorse"]
 		}
 		]],
 	"system" : [30, [
