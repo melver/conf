@@ -162,7 +162,7 @@
 
     augroup me_perl
       au!
-      au FileType perl set ts=4 | set sw=4 | set sts=4 | set et | call SetList(0)
+      au FileType perl set ts=8 | set sw=4 | set sts=4 | set et | call SetList(0)
       au BufNewFile *.pl set fileformat=unix
     augroup END
 
@@ -209,10 +209,16 @@
       au BufNewFile *.hs set fileformat=unix
     augroup END
 
-    augroup me_htmlcssjs
+    augroup me_htmlcss
       au!
-      au FileType html,xhtml,css,javascript set ts=2 | set sw=2 | set sts=2 | set tw=79 | set noet | call SetList(0)
-      au BufNewFile *.htm,*.html,*.css,*.js set fileformat=unix
+      au FileType html,xhtml,css set ts=2 | set sw=2 | set sts=2 | set tw=79 | set noet | call SetList(0)
+      au BufNewFile *.htm,*.html,*.css set fileformat=unix
+    augroup END
+
+    augroup me_js
+      au!
+      au FileType javascript set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au BufNewFile *.js set fileformat=unix
     augroup END
 
     augroup me_php
