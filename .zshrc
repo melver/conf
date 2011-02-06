@@ -55,8 +55,17 @@ bindkey "\eOF" end-of-line
 #------------------------------
 # Alias stuff
 #------------------------------
-alias ls="ls --color -F"
-alias ll="ls --color -lh"
+
+if [[ "$OSTYPE" =~ "linux" ]]; then
+	alias ls="ls --color=auto"
+elif [[ "$OSTYPE" =~ "freebsd" ]]; then
+	alias ls="ls -G -F"
+fi
+
+alias l="ls -F"
+alias ll="ls -lh"
+alias la="ls -al"
+
 alias vimprojc='vim +"Project .vimprojects"'
 alias gvimprojc='gvim +"Project .vimprojects"'
 

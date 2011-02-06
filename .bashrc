@@ -1,10 +1,19 @@
 # Minimalistic .bashrc
 
 # returns if not interactive shell
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
-alias ls='ls --color=auto'
-alias ll='ls -al'
+if [[ "$OSTYPE" =~ "linux" ]]; then
+	alias ls='ls --color=auto'
+elif [[ "$OSTYPE" =~ "freebsd" ]]; then
+	alias ls='ls -G'
+
+	alias pkg_add='sudo pkg_add'
+fi
+
+alias l='ls -F'
+alias ll='ls -lh'
+alias la='ls -al'
 
 # vim without mouse, using my vimrc. set before and after reading vimrc.
 alias vinom='vim --cmd "let no_mouse_please=1" --cmd "set mouse=" -c "set mouse="'
@@ -18,7 +27,7 @@ shopt -s checkwinsize
 PS1='[\u@\h]:\w\$ '
 
 xtract () {
-  if [ -f $1 ] ; then
+  if [[ -f $1 ]] ; then
     case $1 in
       *.tar.bz2)   tar xvvjf $1   ;;
       *.tar.gz)    tar xvvzf $1   ;;
