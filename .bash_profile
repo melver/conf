@@ -12,3 +12,4 @@ if [[ -f "$HOME/.mypaths" ]]; then
 		echo -n ":$line" 
 	done)"
 fi
+

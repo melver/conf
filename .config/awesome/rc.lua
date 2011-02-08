@@ -97,6 +97,7 @@ awesomemenu = {
 
 mainmenu = awful.menu({
 	items = {
+		{ "terminal", terminal },
 		{ "network",   networkmenu },
 		{ "awesome",   awesomemenu }
 	}
@@ -547,6 +548,12 @@ end)
 
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- }}}
+
+-- {{{ Autostart
+
+awful.util.spawn_with_shell("[ -x '" .. awful.util.getdir("config") .. "/autostart.sh' ] && '" .. awful.util.getdir("config") .. "/autostart.sh'")
+
 -- }}}
 
 -- {{{ vim modline
