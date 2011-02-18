@@ -25,6 +25,7 @@ alias gvimprojc='gvim +"Project .vimprojects"'
 shopt -s checkwinsize
 
 PS1='[\u@\h]:\w\$ '
+TIMEFORMAT="[time]: %2R wallclock secs = ( %2U usr secs + %2S sys secs / %P%% CPU )"
 
 xtract () {
   if [[ -f $1 ]] ; then

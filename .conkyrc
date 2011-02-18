@@ -17,7 +17,7 @@ use_spacer right
 # Use Xft?
 use_xft yes
 xftfont DejaVu Sans:size=11
-xftalpha 0.9
+xftalpha 1.0
 text_buffer_size 2048
  
 # Update interval in seconds
@@ -30,7 +30,7 @@ minimum_size 290 5
 draw_shades yes
  
 # Text stuff
-draw_outline no # amplifies text if yes
+draw_outline yes # amplifies text if yes
 draw_borders no
 uppercase no # set to yes if you want all text to be in uppercase
  
@@ -45,17 +45,20 @@ border_width 10
  
 # Default colors and also border colors, grey90 == #e5e5e5
 #default_color grey
-#if bright desktop background:
 
-default_color 333333
-color0 1111ee
+# Dark Grey/Blue:
+#default_color 333333
+#color0 1111ee
 
-#else:
-
+# Bright Grey/Blue:
 #default_color efefbf
 #color0 aaaaff
 
-#endif
+# Light blue grey/Yellow-gold
+default_color 9dbcd4
+color0 fcc006
+
+#END COLORS
 
  
 own_window_colour brown
