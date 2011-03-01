@@ -499,6 +499,7 @@ awful.rules.rules = {
 	{ rule = { class = "Xmessage" }, properties = { floating = true }, callback = awful.titlebar.add },
 	{ rule = { class = "Gxmessage" }, properties = { floating = true }, callback = awful.titlebar.add },
 	{ rule = { class = "Gcalctool" }, properties = { floating = true }, callback = awful.titlebar.add },
+	{ rule = { name = "Figure 1" }, properties = { floating = true }, callback = awful.titlebar.add },--Matplotlib
 
 	-- Mapped applications
 	{ rule = { class = "Chromium" }, properties = { tag = tags[1][3] } },
