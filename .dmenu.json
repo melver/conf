@@ -65,6 +65,7 @@
 		{
 		"gimp" : [0, "gimp"],
 		"inkscape" : [10, "inkscape"],
+		"dia" : [15, "dia"],
 		"eog" : [20, "eog"]
 		}
 		]],
