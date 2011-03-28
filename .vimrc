@@ -28,6 +28,22 @@
         let b:toggle_list = 1
       endif
     endfunction
+
+    " Source: http://weevilgenius.net/2010/07/vim-tip-highlighting-long-rows/
+    function ToggleOverLengthHi()
+      if exists("b:overlengthhi") && b:overlengthhi
+        highlight clear OverLength
+        let b:overlengthhi = 0
+        echo "overlength highlight off"
+      else
+        " adjust colors/styles as desired
+        highlight OverLength ctermbg=darkred gui=undercurl guisp=blue
+        " change '81' to be 1+(number of columns)
+        match OverLength /\%81v.\+/
+        let b:overlengthhi = 1
+        echo "overlength highlight on"
+      endif
+    endfunction
 " }
 
 " Basics {
@@ -115,8 +131,8 @@
 " }
 
 " Mappings {
-    map <C-T> <ESC>:Tlist<CR>
-    map <C-N> <ESC>:NERDTreeToggle<CR>
+    "map <C-T> <ESC>:Tlist<CR>
+    map <C-N> <ESC>:call ToggleOverLengthHi()<CR>
 
     " Toggle list chars
     map <F10> <ESC>:call ToggleList()<CR>
