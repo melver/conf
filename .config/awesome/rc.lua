@@ -418,11 +418,11 @@ globalkeys = awful.util.table.join(
 
 -- Clients
 clientkeys = awful.util.table.join(
-	awful.key({ modkey,           }, "o",                    function (c) c.fullscreen = not c.fullscreen  end),
+	awful.key({ modkey, "Control" }, "f",                    function (c) c.fullscreen = not c.fullscreen  end),
 	awful.key({ modkey, "Shift"   }, "c",                    function (c) c:kill() end),
 	awful.key({ modkey, "Control" }, "space",                awful.client.floating.toggle ),
 	awful.key({ modkey, "Control" }, "Return",               function (c) c:swap(awful.client.getmaster()) end),
-	awful.key({ modkey, "Control" }, "o",                    awful.client.movetoscreen ),
+	awful.key({ modkey,           }, "o",                    awful.client.movetoscreen ),
 	awful.key({ modkey, "Shift"   }, "r",                    function (c) c:redraw()  end),
 	awful.key({ modkey,           }, "n",                    function (c) c.minimized = not c.minimized end),
 	awful.key({ modkey,           }, "m",
@@ -502,20 +502,21 @@ awful.rules.rules = {
 	{ rule = { name = "Figure 1" }, properties = { floating = true }, callback = awful.titlebar.add },--Matplotlib
 
 	-- Mapped applications
-	{ rule = { class = "Chromium" }, properties = { tag = tags[1][3] } },
-	{ rule = { class = "Namoroka" }, properties = { tag = tags[1][3] } },
-	{ rule = { class = "Lanikai" }, properties = { tag = tags[1][3] } },
-	{ rule = { class = "Epdfview" }, properties = { tag = tags[1][4] } },
-	{ rule = { class = "Gimp" }, properties = { floating = true, tag = tags[1][5] } },
-	{ rule = { class = "Dia" }, properties = { floating = true, tag = tags[1][5] } },
-	{ rule = { class = "Inkscape" }, properties = { tag = tags[1][5] } },
-	{ rule = { class = "Eog" }, properties = { tag = tags[1][5] } },
+	{ rule = { class = "Chromium" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
+	{ rule = { class = "Firefox" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
+	{ rule = { class = "Lanikai" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
+	{ rule = { class = "Epdfview" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][4], c) end },
+	{ rule = { class = "Evince" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][4], c) end },
+	{ rule = { class = "Gimp" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
+	{ rule = { class = "Dia" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
+	{ rule = { class = "Inkscape" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
+	{ rule = { class = "Eog" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
 	{ rule = { class = "Pidgin" }, properties = { floating = true, tag = tags[1][7] }, callback = awful.titlebar.add },
 	{ rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][7] }, callback = awful.titlebar.add },
 	{ rule = { class = "Xchat" }, properties = { tag = tags[1][7] } },
 	{ rule = { class = "Mumble" }, properties = { tag = tags[1][7] } },
-	{ rule = { class = "Vlc" }, properties = { floating = true , tag = tags[1][8]} },
-	{ rule = { class = "MPlayer" }, properties = { floating = true, tag = tags[1][8] } },
+	{ rule = { class = "Vlc" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][8], c) end },
+	{ rule = { class = "MPlayer" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][8], c) end },
 	{ rule = { class = "Clementine" }, properties = { tag = tags[1][8] } }
 
 }
