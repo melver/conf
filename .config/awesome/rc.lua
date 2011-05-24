@@ -505,6 +505,7 @@ awful.rules.rules = {
 	{ rule = { class = "Chromium" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
 	{ rule = { class = "Firefox" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
 	{ rule = { class = "Lanikai" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
+	{ rule = { class = "Thunderbird" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
 	{ rule = { class = "Epdfview" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][4], c) end },
 	{ rule = { class = "Evince" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][4], c) end },
 	{ rule = { class = "Gimp" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
