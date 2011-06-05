@@ -72,7 +72,7 @@
 	"office" : [25, [
 		{
 		"libre-office" : [0, "libreoffice"],
-		"open-office" : [10, "soffice"]
+		"FBReader" : [10, "FBReader"]
 		}
 		]],
 	"security" : [28, [
