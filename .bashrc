@@ -1,7 +1,7 @@
 # Minimalistic .bashrc
 
 # returns if not interactive shell
-[[ -z "$PS1" ]] && return
+[[ $- != *i* ]] && return
 
 if [[ "$OSTYPE" =~ "linux" ]]; then
 	alias ls='ls --color=auto'
