@@ -33,7 +33,7 @@
 		]],
 	"dl/ul" : [70, [
 		{
-		"vuze" : [0, "vuze"],
+		"qbittorrent" : [0, "qbittorrent"],
 		"amule" : [10, "amule"]
 		},
 		{

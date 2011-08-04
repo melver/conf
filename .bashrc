@@ -53,3 +53,9 @@ xtract () {
   fi
 }
 
+gin () {
+	cat >> $HOME/gtd-inbox <<EOF
+[$(date)] $*
+EOF
+}
+
