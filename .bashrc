@@ -55,7 +55,7 @@ xtract () {
 
 gin () {
 	cat >> $HOME/gtd-inbox <<EOF
-[$(date)] $*
+[$(date "+%a %d/%m/%Y %H:%M %Z") @ $(hostname)] $*
 EOF
 }
 
