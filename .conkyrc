@@ -86,8 +86,8 @@ $nodename $sysname $kernel on $machine
 Uptime: $uptime
  
 ${color0}CPU ${hr 2}$color
-Core 1:  ${freq 1}MHz  $alignr${hwmon 1 temp 1}°C  ${cpubar cpu1 6,70}${if_existing /sys/devices/system/cpu/cpu1}
-Core 2:  ${freq 2}MHz  $alignr${hwmon 2 temp 1}°C  ${cpubar cpu2 6,70}${endif}
+Core 1:  ${freq 1}MHz  $alignr${hwmon 1 temp 2}°C  ${cpubar cpu1 6,70}${if_existing /sys/devices/system/cpu/cpu1}
+Core 2:  ${freq 2}MHz  $alignr${hwmon 1 temp 3}°C  ${cpubar cpu2 6,70}${endif}
 ${cpugraph normal cpu0 000000 ffffff}
  
 ${color0}MEMORY / DISK Usage ${hr 2}$color

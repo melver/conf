@@ -64,6 +64,7 @@
 	"graphics" : [22, [
 		{
 		"gimp" : [0, "gimp"],
+		"luminance-hdr" : [5, "luminance-hdr"],
 		"inkscape" : [10, "inkscape"],
 		"dia" : [15, "dia"],
 		"eog" : [20, "eog"]
