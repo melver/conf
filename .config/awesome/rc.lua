@@ -92,7 +92,8 @@ awesomemenu = {
 	{ "lock",        "xlock -mode blank" },
 	{ "quit",        awesome.quit },
 	{ "halt", "sudo shutdown -h now" },
-	{ "reboot", "sudo shutdown -r now" }
+	{ "reboot", "sudo shutdown -r now" },
+	{ "suspend", "xlock -mode blank -startCmd 'sudo pm-suspend'"}
 }
 
 mainmenu = awful.menu({

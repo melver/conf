@@ -91,7 +91,8 @@
 	{"session" : [0, {
 		"lock" : [0, "xlock -mode blank"],
 		"halt" : [10, "sudo shutdown -h now"],
-		"reboot" : [20, "sudo shutdown -r now"]
+		"reboot" : [20, "sudo shutdown -r now"],
+		"suspend" : [30, "xlock -mode blank -startCmd 'sudo pm-suspend'"]
 	}]
 	}
 ]

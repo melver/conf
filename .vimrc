@@ -44,6 +44,17 @@
         echo "overlength highlight on"
       endif
     endfunction
+
+    function ExecuteCursorFile()
+      let l:file_name = expand(expand("<cfile>"))
+      if stridx(l:file_name, "://") >= 0 || filereadable(l:file_name)
+        execute "silent !xdg-open " . l:file_name . "&> /dev/null &"
+        redraw!
+        echo "Opened '" . l:file_name . "'"
+      else
+        echo "File '" . l:file_name . "' does not exist!"
+      endif
+    endfunction
 " }
 
 " Basics {
@@ -148,6 +159,9 @@
 
     "imap ö #[#
     "imap ä #]#
+
+    " Open file under cursor with xdg-open
+    map xf <ESC>:call ExecuteCursorFile()<CR>
 " }
 
 " Autocommands {
