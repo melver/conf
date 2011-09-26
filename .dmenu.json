@@ -49,8 +49,8 @@
 		]],
 	"dev" : [10, [
 		{
-		"eclipse" : [0, "eclipse"],
-		"gvim" : [10, "gvim"]
+		"gvim" : [0, "gvim"],
+		"eclipse" : [10, "eclipse"]
 		}
 		]],
 	"multimedia" : [20, [	
@@ -73,7 +73,8 @@
 	"office" : [25, [
 		{
 		"libre-office" : [0, "libreoffice"],
-		"FBReader" : [10, "FBReader"]
+		"FBReader" : [10, "FBReader"],
+		"mendeley" : [20, "mendeleydesktop"]
 		}
 		]],
 	"security" : [28, [

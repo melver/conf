@@ -77,6 +77,10 @@ end
 -- }}}
 
 -- {{{ MENU
+devmenu = {
+	{ "gvim", "gvim" }
+}
+
 networkmenu = {
 	{ "firefox",    "firefox" },
 	{ "chromium", 	"chromium --disk-cache-size=52428800" },
@@ -99,6 +103,7 @@ awesomemenu = {
 mainmenu = awful.menu({
 	items = {
 		{ "terminal", terminal },
+		{ "dev", devmenu },
 		{ "network",   networkmenu },
 		{ "awesome",   awesomemenu }
 	}
@@ -563,6 +568,6 @@ awful.util.spawn_with_shell("[ -x '" .. awful.util.getdir("config") .. "/autosta
 
 -- }}}
 
--- {{{ vim modline
+-- {{{ vim modeline
 --  vim: set ts=4 sw=4 sts=4 noet foldmarker={{{,}}} foldlevel=0 fen fdm=marker:
 -- }}}

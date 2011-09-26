@@ -1,6 +1,3 @@
-" Marco's .vimrc Modline {
-"   vim: set ts=8 sw=2 sts=2 et ai foldmarker={,} foldlevel=0 fen fdm=marker:
-" }
 
 " Functions {
     function ToggleList()
@@ -130,17 +127,21 @@
     set foldenable
     set foldmarker={{{,}}}
     set foldmethod=marker
-    set foldlevel=100
+    set foldlevel=0
 " }
 
 " Plugins {
     " NERDTree {
       let g:NERDTreeBookmarksFile = $HOME . "/.vim/.NERDTreeBookmarks"
+      let g:NERDTreeWinSize=28
     " }
 " }
 
 " Mappings {
-    map <C-N> <ESC>:NERDTreeToggle<CR>
+    " NERDTree plugin; redraw! hack required for gvim in tiling WM
+    map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
+
+    " taglist plugin
     map <C-T> <ESC>:TlistToggle<CR>
 
     map <C-L> <ESC>:call ToggleOverLengthHi()<CR>
@@ -155,7 +156,7 @@
     " Fold close all - zR to unfold all
     "map <C-F> zM
 
-    map ä <ESC>:noh<CR>
+    map <C-H> <ESC>:noh<CR>
 
     " Open file under cursor with xdg-open
     map xf <ESC>:call ExecuteCursorFile()<CR>
@@ -277,12 +278,28 @@
 
 " GUI Settings {
     if has("gui_running")
-      set guifont=Monospace\ 12
-      set columns=100
-      set lines=35
+      set guifont=Monospace\ 11
+      set columns=120
+      set lines=45
       set mousehide
-      set guioptions=aegimrLt
-      "colorscheme soso
+      "set guioptions=aegimrLt
+      set guioptions=aegiLt
+      colorscheme desertEx
+
+      " GUI Mappings {
+        " Toggle menubar
+        nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+
+        " Toggle scrollbar
+        nnoremap <C-F2> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+
+        " Toggle toolbar
+        nnoremap <C-F3> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+      " }
     endif
+" }
+
+" Marco's .vimrc modeline {
+"   vim: set ts=8 sw=2 sts=2 et ai foldmarker={,} foldlevel=0 fen fdm=marker:
 " }
 
