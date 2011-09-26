@@ -128,22 +128,22 @@
 
 " Folding {
     set foldenable
-    set foldmarker=#[#,#]#
+    set foldmarker={{{,}}}
     set foldmethod=marker
     set foldlevel=100
 " }
 
 " Plugins {
-    " MiniBufExplorer {
-      let g:miniBufExplMapWindowNavArrows = 1
-      let g:miniBufExplMapCTabSwitchBufs = 1
-      let g:miniBufExplModSelTarget = 1
+    " NERDTree {
+      let g:NERDTreeBookmarksFile = $HOME . "/.vim/.NERDTreeBookmarks"
     " }
 " }
 
 " Mappings {
-    "map <C-T> <ESC>:Tlist<CR>
-    map <C-N> <ESC>:call ToggleOverLengthHi()<CR>
+    map <C-N> <ESC>:NERDTreeToggle<CR>
+    map <C-T> <ESC>:TlistToggle<CR>
+
+    map <C-L> <ESC>:call ToggleOverLengthHi()<CR>
 
     " Toggle list chars
     map <F10> <ESC>:call ToggleList()<CR>
@@ -156,9 +156,6 @@
     "map <C-F> zM
 
     map ä <ESC>:noh<CR>
-
-    "imap ö #[#
-    "imap ä #]#
 
     " Open file under cursor with xdg-open
     map xf <ESC>:call ExecuteCursorFile()<CR>
@@ -212,7 +209,7 @@
 
     augroup me_tex
       au!
-      au FileType tex,bib,plaintex set ts=4 | set sw=4 | set sts=4 | set et | set tw=79 | set spell | call SetList(1)
+      au FileType tex,bib,plaintex set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set spell | call SetList(1)
       au BufNewFile *.tex set fileformat=unix
     augroup END
 
