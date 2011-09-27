@@ -508,6 +508,7 @@ awful.rules.rules = {
 	{ rule = { class = "Cssh" }, properties = { floating = true }, callback = awful.titlebar.add },
 	--{ rule = { class = "XTerm", name = "CSSH.*" }, properties = { floating = true }, callback = awful.titlebar.add },
 	{ rule = { name = "Figure 1" }, properties = { floating = true }, callback = awful.titlebar.add },--Matplotlib
+	{ rule = { class = "Xephyr" }, properties = { floating = true } },
 
 	-- Mapped applications
 	{ rule = { class = "Chromium" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
@@ -550,7 +551,7 @@ client.add_signal("manage", function (c, startup)
 		-- i.e. put it at the end of others instead of setting it master.
 		-- awful.client.setslave(c)
 
-		-- Put windows in a smart way, only if they does not set an initial position.
+		-- Put windows in a smart way, only if they do not set an initial position.
 		if not c.size_hints.user_position and not c.size_hints.program_position then
 			awful.placement.no_overlap(c)
 			awful.placement.no_offscreen(c)

@@ -274,6 +274,12 @@
       au BufNewFile *.cmake,CMakeLists.txt set fileformat=unix
     augroup END
 
+    augroup me_hdl
+      au!
+      au FileType verilog set ts=3 | set sw=3 | set sts=3 | set noet | call SetList(0)
+      au BufNewFile *.v set fileformat=unix
+    augroup END
+
 " }
 
 " GUI Settings {
