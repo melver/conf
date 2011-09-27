@@ -138,6 +138,16 @@
 " }
 
 " Mappings {
+    " Fold toggle
+    map <C-F> za
+
+    " Fold close all - zR to unfold all
+    "map <C-F> zM
+
+    map <C-H> <ESC>:noh<CR>
+
+    imap <S-CR> <ESC>
+
     " NERDTree plugin; redraw! hack required for gvim in tiling WM
     map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
 
@@ -149,14 +159,6 @@
     " Toggle list chars
     map <F10> <ESC>:call ToggleList()<CR>
     map <F9> <ESC>:call ToggleList()<CR>
-
-    " Fold toggle
-    map <C-F> za
-
-    " Fold close all - zR to unfold all
-    "map <C-F> zM
-
-    map <C-H> <ESC>:noh<CR>
 
     " Open file under cursor with xdg-open
     map xf <ESC>:call ExecuteCursorFile()<CR>
@@ -301,6 +303,10 @@
 
         " Toggle toolbar
         nnoremap <C-F3> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+
+        " Copy/Paste
+        vmap <C-M-C> "+y
+        nmap <C-M-V> "+gP
       " }
     endif
 " }
