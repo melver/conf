@@ -1,5 +1,5 @@
 
-" Functions {
+" Functions {{{
     function ToggleList()
       if !exists("b:toggle_list")
         let b:toggle_list = 1 " disable by default if not existing
@@ -44,6 +44,13 @@
 
     function ExecuteCursorFile()
       let l:file_name = expand(expand("<cfile>"))
+
+      " If not existing, it might a file relative to file being edited but the
+      " working directory is not the directory of the file being edited.
+      if !filereadable(l:file_name)
+        let l:file_name = expand("%:p:h") . "/" . l:file_name
+      endif
+
       if stridx(l:file_name, "://") >= 0 || filereadable(l:file_name)
         execute "silent !xdg-open " . l:file_name . "&> /dev/null &"
         redraw!
@@ -52,17 +59,17 @@
         echo "File '" . l:file_name . "' does not exist!"
       endif
     endfunction
-" }
+" }}}
 
-" Basics {
+" Basics {{{
     set nocompatible " get out of vi-compatible mode
     set noexrc " do not execute vimrc in local dir
     set background=light
     set cpoptions=aABceFs " vim defaults
     syntax on " syntax highlighting on
-" }
+" }}}
 
-" General {
+" General {{{
     if has("autocmd")
       filetype plugin indent on
     else
@@ -88,9 +95,9 @@
     endif
 
     set spelllang=en
-" }
+" }}}
 
-" Vim UI {
+" Vim UI {{{
     set laststatus=2
 
     set nolist " show unwanted chars
@@ -111,9 +118,9 @@
     set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
     set incsearch
     set hlsearch
-" }
+" }}}
 
-" Default Text Formatting {
+" Default Text Formatting {{{
     "set formatoptions=rq " Automatically insert comment leader on return
     set wrap
     "set tabstop=8
@@ -121,23 +128,23 @@
     "set softtabstop=4
     "set textwidth=0
     "set expandtab
-" }
+" }}}
 
-" Folding {
+" Folding {{{
     set foldenable
     set foldmarker={{{,}}}
     set foldmethod=marker
     set foldlevel=0
-" }
+" }}}
 
-" Plugins {
-    " NERDTree {
+" Plugins {{{
+    " NERDTree {{{
       let g:NERDTreeBookmarksFile = $HOME . "/.vim/.NERDTreeBookmarks"
       let g:NERDTreeWinSize=28
-    " }
-" }
+    " }}}
+" }}}
 
-" Mappings {
+" Mappings {{{
     " Fold toggle
     map <C-F> za
 
@@ -162,9 +169,9 @@
 
     " Open file under cursor with xdg-open
     map xf <ESC>:call ExecuteCursorFile()<CR>
-" }
+" }}}
 
-" Autocommands {
+" Autocommands {{{
     augroup me_python
       au!
       au BufRead,BufNewFile *.py,*.pyw setf python
@@ -198,8 +205,6 @@
 
     augroup me_vim
       au!
-      " Unmap ö and ä so it can be used in vimrc, list is on by default
-      "au BufRead,BufNewFile *vimrc iunmap ö| iunmap ä| call SetList(1)
       au FileType vim set ts=8 | set sw=2 | set sts=2 | set et | set ai | call SetList(1)
       au BufNewFile *.vim,*vimrc set fileformat=unix
     augroup END
@@ -212,8 +217,14 @@
 
     augroup me_tex
       au!
-      au FileType tex,bib,plaintex set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set spell | call SetList(1)
+      au FileType tex,plaintex set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set spell | call SetList(1)
       au BufNewFile *.tex set fileformat=unix
+    augroup END
+
+    augroup me_bibtex
+      au!
+      au FileType bib set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set foldmarker=@,}. | call SetList(1)
+      au BufNewFile *.bib set fileformat=unix
     augroup END
 
     augroup me_sql
@@ -282,9 +293,9 @@
       au BufNewFile *.v set fileformat=unix
     augroup END
 
-" }
+" }}}
 
-" GUI Settings {
+" GUI Settings {{{
     if has("gui_running")
       set guifont=Monospace\ 11
       set columns=120
@@ -309,9 +320,9 @@
         nmap <C-M-V> "+gP
       " }
     endif
-" }
+" }}}
 
-" Marco's .vimrc modeline {
-"   vim: set ts=8 sw=2 sts=2 et ai foldmarker={,} foldlevel=0 fen fdm=marker:
-" }
+" Marco's .vimrc modeline {{{
+"   vim: set ts=8 sw=2 sts=2 et ai foldmarker={{{,}}} foldlevel=0 fen fdm=marker:
+" }}}
 
