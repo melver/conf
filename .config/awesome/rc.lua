@@ -374,6 +374,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+	awful.key({ modkey, "Control" }, "Left", function () mouse.coords({ -- Move mouse cursor far left
+		x=mouse.coords().x - screen[mouse.screen].workarea.width, y=0 }) end), -- set y=mouse.coords().y to keep y
+	awful.key({ modkey, "Control" }, "Right", function () mouse.coords({ -- Move mouse cursor far right
+		x=mouse.coords().x + screen[mouse.screen].workarea.width, y=0 }) end), -- set y=mouse.coords().y to keep y
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
