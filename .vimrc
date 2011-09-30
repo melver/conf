@@ -44,15 +44,16 @@
 
     function ExecuteCursorFile()
       let l:file_name = expand(expand("<cfile>"))
+      let l:is_url = stridx(l:file_name, "://") >= 0
 
       " If not existing, it might a file relative to file being edited but the
       " working directory is not the directory of the file being edited.
-      if !filereadable(l:file_name)
+      if !l:is_url && !filereadable(l:file_name)
         let l:file_name = expand("%:p:h") . "/" . l:file_name
       endif
 
-      if stridx(l:file_name, "://") >= 0 || filereadable(l:file_name)
-        execute "silent !xdg-open " . l:file_name . "&> /dev/null &"
+      if l:is_url || filereadable(l:file_name)
+        execute "silent !xdg-open '" . l:file_name . "' &> /dev/null &"
         redraw!
         echo "Opened '" . l:file_name . "'"
       else
