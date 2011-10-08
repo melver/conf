@@ -74,7 +74,8 @@
 		{
 		"libre-office" : [0, "libreoffice"],
 		"FBReader" : [10, "FBReader"],
-		"mendeley" : [20, "mendeleydesktop"]
+		"mendeley" : [20, "mendeleydesktop"],
+		"gnucash" : [30, "gnucash"]
 		}
 		]],
 	"security" : [28, [
