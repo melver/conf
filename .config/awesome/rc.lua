@@ -65,7 +65,7 @@ layouts = {
 -- {{{ TAGS
 -- Individual default layout for each tag
 tags = {
-	names = { "1:term", "2:work", "3:web", "4:doc", "5:gfx", 6, "7:chat", "8:media", 9 },
+	names = { "1:term", "2:web", "3:work", "4:doc", "5:chat", "6:gfx", "7:media", 8, 9 },
 	layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
 				layouts[1], layouts[1], layouts[1], layouts[1] }
 }
@@ -515,24 +515,24 @@ awful.rules.rules = {
 	{ rule = { class = "Xephyr" }, properties = { floating = true } },
 
 	-- Mapped applications
-	{ rule = { class = "Chromium" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
-	{ rule = { class = "Firefox" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
-	{ rule = { class = "Lanikai" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
-	{ rule = { class = "Thunderbird" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][3], c) end },
+	{ rule = { class = "Chromium" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][2], c) end },
+	{ rule = { class = "Firefox" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][2], c) end },
+	{ rule = { class = "Lanikai" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][2], c) end },
+	{ rule = { class = "Thunderbird" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][2], c) end },
 	{ rule = { class = "Epdfview" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][4], c) end },
 	{ rule = { class = "Evince" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][4], c) end },
 	{ rule = { class = "FBReader" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][4], c) end },
-	{ rule = { class = "Gimp" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
-	{ rule = { class = "Dia" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
-	{ rule = { class = "Inkscape" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
-	{ rule = { class = "Eog" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][5], c) end },
-	{ rule = { class = "Pidgin" }, properties = { floating = true, tag = tags[1][7] }, callback = awful.titlebar.add },
-	{ rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][7] }, callback = awful.titlebar.add },
-	{ rule = { class = "Xchat" }, properties = { tag = tags[1][7] } },
-	{ rule = { class = "Mumble" }, properties = { tag = tags[1][7] } },
-	{ rule = { class = "Vlc" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][8], c) end },
-	{ rule = { class = "MPlayer" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][8], c) end },
-	{ rule = { class = "Clementine" }, properties = { tag = tags[1][8] } }
+	{ rule = { class = "Gimp" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][6], c) end },
+	{ rule = { class = "Dia" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][6], c) end },
+	{ rule = { class = "Inkscape" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][6], c) end },
+	{ rule = { class = "Eog" }, callback = function(c) awful.client.movetotag(tags[mouse.screen][6], c) end },
+	{ rule = { class = "Pidgin" }, properties = { floating = true, tag = tags[1][5] }, callback = awful.titlebar.add },
+	{ rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][5] }, callback = awful.titlebar.add },
+	{ rule = { class = "Xchat" }, properties = { tag = tags[1][5] } },
+	{ rule = { class = "Mumble" }, properties = { tag = tags[1][5] } },
+	{ rule = { class = "Vlc" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][7], c) end },
+	{ rule = { class = "MPlayer" }, properties = { floating = true }, callback = function(c) awful.client.movetotag(tags[mouse.screen][7], c) end },
+	{ rule = { class = "Clementine" }, properties = { tag = tags[1][7] } }
 
 }
 -- }}}
