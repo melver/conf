@@ -60,6 +60,43 @@
         echo "File '" . l:file_name . "' does not exist!"
       endif
     endfunction
+
+    function FindTabStyle(prev_line_regex)
+      let l:found = 0
+
+      for line in getline(1, 500)
+        if l:found
+          " Check if valid line to test for indendation style
+          if line =~ "^[ \t][ \t]*[^ \t]"
+            if line =~ "^\t"
+              set noet
+              echo "[SetIndentSpaces] No expand tab!"
+            else " must be space
+              let l:spaces = 0
+              while line[l:spaces] == " "
+                let l:spaces += 1
+              endwhile
+              execute "set ts=" . l:spaces
+              execute "set sw=" .  l:spaces
+              execute "set sts=" . l:spaces
+              set et
+
+              echo "[SetIndentSpaces] Expand tabs with " . l:spaces . " spaces!"
+            endif
+
+            " done
+            break
+          else
+            " continue search
+            let l:found = 0
+          endif
+        endif
+
+        if line =~ a:prev_line_regex
+          let l:found = 1
+        endif
+      endfor
+    endfunction
 " }}}
 
 " Basics {{{
@@ -182,14 +219,15 @@
 
     augroup me_ccppobjc
       au!
-      au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
-      au FileType objc                          set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au FileType c    set ts=8 | set sw=8 | set sts=8 | set noet | call SetList(0) | call FindTabStyle("{$")
+      au FileType cpp  set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
+      au FileType objc set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
       au BufNewFile *.c,*.cpp,*.h,*.hpp set fileformat=unix
     augroup END
 
     augroup me_java
       au!
-      au BufRead,BufNewFile *.java set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au BufRead,BufNewFile *.java set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
       au BufNewFile *.java set fileformat=unix
     augroup END
 
@@ -200,7 +238,7 @@
 
     augroup me_perl
       au!
-      au FileType perl set ts=8 | set sw=4 | set sts=4 | set et | call SetList(0)
+      au FileType perl set ts=8 | set sw=4 | set sts=4 | set et | call SetList(0) | call FindTabStyle("{$")
       au BufNewFile *.pl set fileformat=unix
     augroup END
 
@@ -259,13 +297,13 @@
 
     augroup me_js
       au!
-      au FileType javascript set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au FileType javascript set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
       au BufNewFile *.js set fileformat=unix
     augroup END
 
     augroup me_php
       au!
-      au FileType php set ts=2 | set sw=2 | set sts=2 | set tw=79 | set fo=tqrowcb | set noet | call SetList(0)
+      au FileType php set ts=2 | set sw=2 | set sts=2 | set tw=79 | set fo=tqrowcb | set noet | call SetList(0) | call FindTabStyle("{$")
       au BufNewFile *.php set fileformat=unix
     augroup END
 
