@@ -74,8 +74,15 @@
 		{
 		"libre-office" : [0, "libreoffice"],
 		"FBReader" : [10, "FBReader"],
-		"mendeley" : [20, "mendeleydesktop"],
-		"gnucash" : [30, "gnucash"]
+		"evince" : [20, "evince"],
+		"okular" : [30, "okular"]
+		},
+		{
+		"mendeley" : [0, "mendeleydesktop"],
+		"zotero" : [10, "zotero"]
+		},
+		{
+		"gnucash" : [0, "gnucash"]
 		}
 		]],
 	"security" : [28, [
