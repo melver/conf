@@ -332,6 +332,11 @@
       au BufNewFile *.v set fileformat=unix
     augroup END
 
+    augroup me_lua
+      au!
+      au FileType lua set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+    augroup END
+
 " }}}
 
 " GUI Settings {{{
