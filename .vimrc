@@ -27,18 +27,24 @@
     endfunction
 
     " Source: http://weevilgenius.net/2010/07/vim-tip-highlighting-long-rows/
-    function ToggleOverLengthHi()
+    function ToggleOverLengthHi(silent)
       if exists("b:overlengthhi") && b:overlengthhi
         highlight clear OverLength
         let b:overlengthhi = 0
-        echo "overlength highlight off"
+
+        if a:silent == 0
+          echo "[ToggleOverLengthHi] OverLength highlight OFF"
+        endif
       else
         " adjust colors/styles as desired
         highlight OverLength ctermbg=darkred gui=undercurl guisp=blue
         " change '81' to be 1+(number of columns)
         match OverLength /\%81v.\+/
         let b:overlengthhi = 1
-        echo "overlength highlight on"
+
+        if a:silent == 0
+          echo "[ToggleOverLengthHi] OverLength highlight ON"
+        endif
       endif
     endfunction
 
@@ -55,9 +61,9 @@
       if l:is_url || filereadable(l:file_name)
         execute "silent !xdg-open '" . l:file_name . "' &> /dev/null &"
         redraw!
-        echo "Opened '" . l:file_name . "'"
+        echo "[ExecuteCursorFile] Opened '" . l:file_name . "'"
       else
-        echo "File '" . l:file_name . "' does not exist!"
+        echo "[ExecuteCursorFile] File '" . l:file_name . "' does not exist!"
       endif
     endfunction
 
@@ -70,7 +76,7 @@
           if line =~ "^[ \t][ \t]*[^ \t]"
             if line =~ "^\t"
               set noet
-              echo "[SetIndentSpaces] No expand tab!"
+              echo "[FindTabStyle] No expand tab!"
             else " must be space
               let l:spaces = 0
               while line[l:spaces] == " "
@@ -81,7 +87,7 @@
               execute "set sts=" . l:spaces
               set et
 
-              echo "[SetIndentSpaces] Expand tabs with " . l:spaces . " spaces!"
+              echo "[FindTabStyle] Expand tabs with " . l:spaces . " spaces!"
             endif
 
             " done
@@ -199,7 +205,7 @@
     " taglist plugin
     map <C-T> <ESC>:TlistToggle<CR>
 
-    map <C-L> <ESC>:call ToggleOverLengthHi()<CR>
+    map <C-L> <ESC>:call ToggleOverLengthHi(0)<CR>
 
     " Toggle list chars
     map <F10> <ESC>:call ToggleList()<CR>
@@ -213,15 +219,15 @@
     augroup me_python
       au!
       au BufRead,BufNewFile *.py,*.pyw setf python
-      au FileType python set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1)
+      au FileType python set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1) | call ToggleOverLengthHi(1)
       au BufNewFile *.py,*.pyw set fileformat=unix
     augroup END
 
     augroup me_ccppobjc
       au!
-      au FileType c    set ts=8 | set sw=8 | set sts=8 | set noet | call SetList(0) | call FindTabStyle("{$")
-      au FileType cpp  set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
-      au FileType objc set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
+      au FileType c    set ts=8 | set sw=8 | set sts=8 | set noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au FileType cpp  set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au FileType objc set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
       au BufNewFile *.c,*.cpp,*.h,*.hpp set fileformat=unix
     augroup END
 
@@ -233,12 +239,12 @@
 
     augroup me_sh
       au!
-      au FileType sh,bash,zsh set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au FileType sh,bash,zsh set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call ToggleOverLengthHi(1)
     augroup END
 
     augroup me_perl
       au!
-      au FileType perl set ts=8 | set sw=4 | set sts=4 | set et | call SetList(0) | call FindTabStyle("{$")
+      au FileType perl set ts=8 | set sw=4 | set sts=4 | set et | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
       au BufNewFile *.pl set fileformat=unix
     augroup END
 
@@ -256,7 +262,7 @@
 
     augroup me_tex
       au!
-      au FileType tex,plaintex set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set spell | call SetList(1)
+      au FileType tex,plaintex set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set spell | call SetList(1) | call ToggleOverLengthHi(1)
       au BufNewFile *.tex set fileformat=unix
     augroup END
 
@@ -285,7 +291,7 @@
 
     augroup me_haskell
       au!
-      au FileType haskell set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1)
+      au FileType haskell set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1) | call ToggleOverLengthHi(1)
       au BufNewFile *.hs set fileformat=unix
     augroup END
 
@@ -315,7 +321,7 @@
 
     augroup me_rst
       au!
-      au FileType rst set ts=8 | set sw=4 | set sts=4 | set tw=79 | set et | set spell | call SetList(1)
+      au FileType rst set ts=8 | set sw=4 | set sts=4 | set tw=79 | set et | set spell | call SetList(1) | call ToggleOverLengthHi(1)
       au BufNewFile *.rst set fileformat=unix
     augroup END
 
@@ -328,7 +334,7 @@
 
     augroup me_hdl
       au!
-      au FileType verilog set ts=3 | set sw=3 | set sts=3 | set noet | call SetList(0)
+      au FileType verilog set ts=3 | set sw=3 | set sts=3 | set noet | call SetList(0) | call ToggleOverLengthHi(1)
       au BufNewFile *.v set fileformat=unix
     augroup END
 
