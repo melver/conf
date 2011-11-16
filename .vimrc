@@ -340,7 +340,7 @@
 
     augroup me_lua
       au!
-      au FileType lua set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au FileType lua set ts=4 | set sw=4 | set sts=4 | set et | call SetList(1)
     augroup END
 
 " }}}

@@ -11,44 +11,46 @@ mytextclock = awful.widget.textclock({ align = "right" })
 -- Taglist
 mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
-	awful.button({ }, 1, awful.tag.viewonly),
-	awful.button({ modkey }, 1, awful.client.movetotag),
-	awful.button({ }, 3, awful.tag.viewtoggle),
-	awful.button({ modkey }, 3, awful.client.toggletag),
-	awful.button({ }, 4, awful.tag.viewnext),
-	awful.button({ }, 5, awful.tag.viewprev)
-	)
+    awful.button({ }, 1, awful.tag.viewonly),
+    awful.button({ modkey }, 1, awful.client.movetotag),
+    awful.button({ }, 3, awful.tag.viewtoggle),
+    awful.button({ modkey }, 3, awful.client.toggletag),
+    awful.button({ }, 4, awful.tag.viewnext),
+    awful.button({ }, 5, awful.tag.viewprev)
+    )
 
 -- Tasklist
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-	awful.button({ }, 1, function (c)
-		if not c:isvisible() then
-			awful.tag.viewonly(c:tags()[1])
-		end
-		client.focus = c
-		c:raise()
-	end),
-	awful.button({ }, 3, function ()
-		if instance then
-			instance:hide()
-			instance = nil
-		else
-			instance = awful.menu.clients({ width=250 })
-		end
-	end),
-	awful.button({ }, 4, function ()
-		awful.client.focus.byidx(1)
-		if client.focus then
-			client.focus:raise()
-		end
-	end),
-	awful.button({ }, 5, function ()
-		awful.client.focus.byidx(-1)
-		if client.focus then
-			client.focus:raise()
-		end
-	end)
+    awful.button({ }, 1, function (c)
+        if c == client.focus then
+            c.minimized = true
+        else
+            if not c:isvisible() then
+                awful.tag.viewonly(c:tags()[1])
+            end
+            -- This will also un-minimize
+            -- the client, if needed
+            client.focus = c
+            c:raise()
+        end
+    end),
+    awful.button({ }, 3, function ()
+        if instance then
+            instance:hide()
+            instance = nil
+        else
+            instance = awful.menu.clients({ width=250 })
+        end
+    end),
+    awful.button({ }, 4, function ()
+        awful.client.focus.byidx(1)
+        if client.focus then client.focus:raise() end
+    end),
+    awful.button({ }, 5, function ()
+        awful.client.focus.byidx(-1)
+        if client.focus then client.focus:raise() end
+    end)
 )
 
 -- }}}
@@ -57,15 +59,15 @@ mytasklist.buttons = awful.util.table.join(
 -- CPU widget
 cputwidget = widget({ type = "textbox" })
 vicious.register(cputwidget, vicious.widgets.cpu,
-	function (widget, args)
-		if  args[1] >= 50 and args[1] < 75 then
-			return " | " .. colyel .. "cpu " .. coldef .. colbyel .. args[1] .. "% " .. coldef .. ""
-		elseif args[1] >= 75 then
-			return " | " .. colred .. "cpu " .. coldef .. colbred .. args[1] .. "% " .. coldef .. ""
-		else
-			return " | " .. colwhi .. "cpu " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
-		end
-	end )
+    function (widget, args)
+        if  args[1] >= 50 and args[1] < 75 then
+            return " | " .. colyel .. "cpu " .. coldef .. colbyel .. args[1] .. "% " .. coldef .. ""
+        elseif args[1] >= 75 then
+            return " | " .. colred .. "cpu " .. coldef .. colbred .. args[1] .. "% " .. coldef .. ""
+        else
+            return " | " .. colwhi .. "cpu " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
+        end
+    end )
 
 -- Ram widget
 memwidget = widget({ type = "textbox" })
@@ -76,34 +78,34 @@ vicious.register(memwidget, vicious.widgets.mem, " | " .. colwhi .. "mem " .. co
 -- root
 fsrwidget = widget({ type = "textbox" })
 vicious.register(fsrwidget, vicious.widgets.fs,
-	function (widget, args)
-		if  args["{/ used_p}"] >= 93 and args["{/ used_p}"] < 97 then
-			return " | " .. colyel .. "/ " .. coldef .. colbyel .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-		elseif args["{/ used_p}"] >= 97 and args["{/ used_p}"] < 99 then
-			return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-		elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
-			naughty.notify({ title = "Hard drive Warning", text = "No space left on root!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-			return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. "" 
-		else
-			return " | " .. colwhi .. "/ " .. coldef .. colbwhi .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-		end
-	end, 620)
+    function (widget, args)
+        if  args["{/ used_p}"] >= 93 and args["{/ used_p}"] < 97 then
+            return " | " .. colyel .. "/ " .. coldef .. colbyel .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+        elseif args["{/ used_p}"] >= 97 and args["{/ used_p}"] < 99 then
+            return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+        elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
+            naughty.notify({ title = "Hard drive Warning", text = "No space left on root!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+            return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. "" 
+        else
+            return " | " .. colwhi .. "/ " .. coldef .. colbwhi .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+        end
+    end, 620)
 
 -- /home
 fshwidget = widget({ type = "textbox" })
 vicious.register(fshwidget, vicious.widgets.fs,
-	function (widget, args)
-		if  args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
-			return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-		elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
-			return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-		elseif args["{/home used_p}"] >= 99 and args["{/home used_p}"] <= 100 then
-			naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-			return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. "" 
-		else
-			return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-		end
-	end, 620)
+    function (widget, args)
+        if  args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
+            return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+        elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
+            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+        elseif args["{/home used_p}"] >= 99 and args["{/home used_p}"] <= 100 then
+            naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. "" 
+        else
+            return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+        end
+    end, 620)
 
 -- Net widgets
 -- eth
@@ -116,26 +118,26 @@ vicious.register(netedownwidget, vicious.widgets.net, "" .. colwhi .. "down " ..
 
 netwidget = widget({ type = "textbox" })
 vicious.register(netwidget, vicious.widgets.net,
-	function (widget, args)
-			function ip_addr4()
-				local ip = io.popen("ip addr show eth0 | grep 'inet '")
-				local addr = ip:read("*a")
-				ip:close()
-				addr = string.match(addr, "%d+.%d+.%d+.%d+")
-				return addr
-			end
+    function (widget, args)
+            function ip_addr4()
+                local ip = io.popen("ip addr show eth0 | grep 'inet '")
+                local addr = ip:read("*a")
+                ip:close()
+                addr = string.match(addr, "%d+.%d+.%d+.%d+")
+                return addr
+            end
 
-		local ip4 = ip_addr4()
-		if ip4 == nil then
-			netedownwidget.visible = false
-			neteupwidget.visible = false
-			return ""
-		else
-			netedownwidget.visible = true
-			neteupwidget.visible = true
-			return " | " .. colwhi .. "eth0 " .. coldef --.. colbwhi .. ip4 .. coldef .. " "
-		end
-	end, refresh_delay, "eth0")
+        local ip4 = ip_addr4()
+        if ip4 == nil then
+            netedownwidget.visible = false
+            neteupwidget.visible = false
+            return ""
+        else
+            netedownwidget.visible = true
+            neteupwidget.visible = true
+            return " | " .. colwhi .. "eth0 " .. coldef --.. colbwhi .. ip4 .. coldef .. " "
+        end
+    end, refresh_delay, "eth0")
 
 -- wlan
 netwupwidget = widget({ type = "textbox" })
@@ -146,64 +148,64 @@ vicious.register(netwdownwidget, vicious.widgets.net, "" .. colwhi .. "down " ..
 
 wifiwidget = widget({ type = "textbox" })
 vicious.register(wifiwidget, vicious.widgets.wifi,
-	function (widget, args)
-		if args["{link}"] == 0 then
-			netwdownwidget.visible = false
-			netwupwidget.visible = false
-			return ""
-		else
-			netwdownwidget.visible = true
-			netwupwidget.visible = true
-			return " | " .. colwhi .. "wlan0 " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
-		end
-	end, refresh_delay, "wlan0" )
+    function (widget, args)
+        if args["{link}"] == 0 then
+            netwdownwidget.visible = false
+            netwupwidget.visible = false
+            return ""
+        else
+            netwdownwidget.visible = true
+            netwupwidget.visible = true
+            return " | " .. colwhi .. "wlan0 " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
+        end
+    end, refresh_delay, "wlan0" )
 
 -- Battery widget
 batwidget = widget({ type = "textbox" })
 
 local power_supply_BAT0 = io.open("/sys/class/power_supply/BAT0", "r")
 if power_supply_BAT0 ~= nil then
-	power_supply_BAT0:close()
-	vicious.register(batwidget, vicious.widgets.bat,
-		function (widget, args)
-			if args[2] >= 20 and args[2] < 50 then
-				return " | " .. colyel .. "bat " .. coldef .. colbyel .. args[2] .. "% " .. coldef .. ""
-			elseif args[2] >= 10 and args[2] < 20 then
-				return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
-			elseif args[2] < 10 and args[1] == "-" then
-				naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-				return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
-			elseif args[2] < 10 then 
-				return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
-			else
-				return " | " .. colwhi .. "bat " .. coldef .. colbwhi .. args[2] .. "% " .. coldef .. ""
-			end
-		end, 23, "BAT0"	)
+    power_supply_BAT0:close()
+    vicious.register(batwidget, vicious.widgets.bat,
+        function (widget, args)
+            if args[2] >= 20 and args[2] < 50 then
+                return " | " .. colyel .. "bat " .. coldef .. colbyel .. args[2] .. "% " .. coldef .. ""
+            elseif args[2] >= 10 and args[2] < 20 then
+                return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
+            elseif args[2] < 10 and args[1] == "-" then
+                naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
+            elseif args[2] < 10 then 
+                return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
+            else
+                return " | " .. colwhi .. "bat " .. coldef .. colbwhi .. args[2] .. "% " .. coldef .. ""
+            end
+        end, 23, "BAT0"    )
 else
-	batwidget.text = ""
+    batwidget.text = ""
 end
 
 -- Volume widget
 volwidget = widget({ type = "textbox" })
 vicious.register(volwidget, vicious.widgets.volume,
-		function (widget, args)
-			if args[1] == 0 or args[2] == "♩" then
-				return " | " .. colwhi .. "vol " .. coldef .. colbred .. "mute" .. coldef .. "" 
-			else
-				return " | " .. colwhi .. "vol " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
-			end
-		end, 2, "Master" )
-	volwidget:buttons(
-		awful.util.table.join(
-			awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
-			awful.button({ }, 3, function () awful.util.spawn( terminal .. " -e alsamixer")   end),
-			awful.button({ }, 4, function () awful.util.spawn("amixer -q sset Master 2dB+") end),
-			awful.button({ }, 5, function () awful.util.spawn("amixer -q sset Master 2dB-") end)
-		)
-	)
+        function (widget, args)
+            if args[1] == 0 or args[2] == "♩" then
+                return " | " .. colwhi .. "vol " .. coldef .. colbred .. "mute" .. coldef .. "" 
+            else
+                return " | " .. colwhi .. "vol " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
+            end
+        end, 2, "Master" )
+    volwidget:buttons(
+        awful.util.table.join(
+            awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
+            awful.button({ }, 3, function () awful.util.spawn( terminal .. " -e alsamixer")   end),
+            awful.button({ }, 4, function () awful.util.spawn("amixer -q sset Master 2dB+") end),
+            awful.button({ }, 5, function () awful.util.spawn("amixer -q sset Master 2dB-") end)
+        )
+    )
 -- }}}
 
--- {{{ Create WIBOXES
+-- {{{ Create Wiboxes
 mywibox = {}
 infobox = {}
 mypromptbox = {}
@@ -231,31 +233,31 @@ for s = 1, screen.count() do
                                               return awful.widget.tasklist.label.currenttags(c, s)
                                           end, mytasklist.buttons)
 
-	-- Top box
-	mywibox[s] = awful.wibox({ position = "top", height = "14", screen = s })
-	mywibox[s].widgets = {
-		{
-			mytaglist[s],
-			mypromptbox[s],
-			layout = awful.widget.layout.horizontal.leftright 
-		},
-		mylayoutbox[s],
-		mytextclock,
-		s == 1 and mysystray or nil,
-		mytasklist[s],
-		layout = awful.widget.layout.horizontal.rightleft }
+    -- Top box
+    mywibox[s] = awful.wibox({ position = "top", height = "14", screen = s })
+    mywibox[s].widgets = {
+        {
+            mytaglist[s],
+            mypromptbox[s],
+            layout = awful.widget.layout.horizontal.leftright 
+        },
+        mylayoutbox[s],
+        mytextclock,
+        s == 1 and mysystray or nil,
+        mytasklist[s],
+        layout = awful.widget.layout.horizontal.rightleft }
 
-	-- Bottom box
-	infobox[s] = awful.wibox({ position = "bottom", height = "14", screen = s })
-	infobox[s].widgets = { 
-		volwidget,
-		batwidget,
-		neteupwidget, netedownwidget, netwidget,
-		netwupwidget, netwdownwidget, wifiwidget,
-		fshwidget, fsrwidget,
-		memwidget,
-		cputwidget,
-		layout = awful.widget.layout.horizontal.rightleft }
+    -- Bottom box
+    infobox[s] = awful.wibox({ position = "bottom", height = "14", screen = s })
+    infobox[s].widgets = { 
+        volwidget,
+        batwidget,
+        neteupwidget, netedownwidget, netwidget,
+        netwupwidget, netwdownwidget, wifiwidget,
+        fshwidget, fsrwidget,
+        memwidget,
+        cputwidget,
+        layout = awful.widget.layout.horizontal.rightleft }
 end
 -- }}}
 
