@@ -239,7 +239,7 @@
 
     augroup me_sh
       au!
-      au FileType sh,bash,zsh set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call ToggleOverLengthHi(1)
+      au FileType sh,bash,zsh set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
     augroup END
 
     augroup me_perl
