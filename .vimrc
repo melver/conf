@@ -207,9 +207,10 @@
 
     map <C-L> <ESC>:call ToggleOverLengthHi(0)<CR>
 
-    " Toggle list chars
-    map <F10> <ESC>:call ToggleList()<CR>
+    " Function keys
+    map <F5> <ESC>:call g:ClangUpdateQuickFix()<CR>
     map <F9> <ESC>:call ToggleList()<CR>
+    map <F10> <ESC>:call ToggleList()<CR>
 
     " Open file under cursor with xdg-open
     map xf <ESC>:call ExecuteCursorFile()<CR>
