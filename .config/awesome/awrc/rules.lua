@@ -67,13 +67,13 @@ awful.rules.rules = {
 
     { rule = { class = "Eog" }, callback = function(c) movetotag_wrap(tags[mouse.screen][6], c) end },
 
-    { rule = { class = "Pidgin" }, properties = { floating = true },
-        callback = function(c) movetotag_wrap(tags[1][5], c); awful.titlebar.add(c) end },
+    { rule = { class = "Pidgin" }, properties = { floating = true, tag = tags[1][5] },
+        callback = function(c) awful.titlebar.add(c) end },
 
-    { rule = { class = "Skype" }, properties = { floating = true },
-        callback = function(c) movetotag_wrap(tags[1][5], c); awful.titlebar.add(c) end },
+    { rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][5] },
+        callback = function(c) awful.titlebar.add(c) end },
 
-    { rule = { class = "Xchat" }, callback = function(c) movetotag_wrap(tags[1][5], c) end },
+    { rule = { class = "Xchat" }, properties = { tag = tags[1][5] } },
 
     { rule = { class = "Mumble" }, callback = function(c) movetotag_wrap(tags[1][5], c) end },
 
@@ -83,7 +83,7 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" }, properties = { floating = true },
         callback = function(c) movetotag_wrap(tags[mouse.screen][7], c) end },
 
-    { rule = { class = "Clementine" }, callback = function(c) movetotag_wrap(tags[1][7]) end }
+    { rule = { class = "Clementine" }, properties = { tag = tags[1][7] } }
 
 }
 
