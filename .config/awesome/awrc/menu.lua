@@ -14,7 +14,7 @@ networkmenu = {
 }
 
 awesomemenu = {
-    { "edit config",    editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+    { "edit config",    editor_cmd .. " " .. awesome.conffile },
     { "restart",        awesome.restart },
     { "lock",           "xlock -mode blank" },
     { "quit",           awesome.quit },
