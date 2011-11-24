@@ -95,6 +95,11 @@ vicious.register(fsrwidget, vicious.widgets.fs,
 fshwidget = widget({ type = "textbox" })
 vicious.register(fshwidget, vicious.widgets.fs,
     function (widget, args)
+        -- If there is no home partition, but this is also the case with NFS /home:
+        if  args["{/home used_p}"] == nil then
+            return ""
+        end
+
         if  args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
             return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
         elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
