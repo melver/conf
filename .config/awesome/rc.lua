@@ -31,7 +31,7 @@ if awesome.startup_errors then
 end
 
 -- Handle runtime errors after startup
-do
+function setup_runtime_error_handler()
     local in_error = false
     awesome.add_signal("debug::error", function (err)
         -- Make sure we don't go into an endless error loop
@@ -44,6 +44,8 @@ do
         in_error = false
     end)
 end
+
+--setup_runtime_error_handler()
 -- }}}
 
 require("awrc.defaults")

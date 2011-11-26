@@ -73,15 +73,20 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
+    awful.key({ modkey, "Control" }, "d", function()
+        setup_runtime_error_handler()
+        naughty.notify({ title = "Debugging", text = "Set up runtime error handler!", timeout = 3 })
+        end),
+
     -- Prompt
     awful.key({ modkey },            "r",      function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
+                      mypromptbox[mouse.screen].widget,
+                      awful.util.eval, nil,
+                      awful.util.getdir("cache") .. "/history_eval")
               end),
 
     -- Programs
