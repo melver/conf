@@ -348,7 +348,13 @@
 
 " GUI Settings {{{
     if has("gui_running")
-      set guifont=Monospace\ 11
+      " Set font, based on preference and if available:
+      if exists("use_alt_font")
+        set guifont=Inconsolata\ 13
+      else
+        set guifont=Monospace\ 11
+      endif
+
       set columns=120
       set lines=45
       set mousehide

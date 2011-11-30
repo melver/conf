@@ -23,6 +23,7 @@ alias vimprojv='vim +"Project vimprojects"'
 alias gvimproj='gvim +Project'
 alias gvimprojc='gvim +"Project .vimprojects"'
 alias gvimprojv='gvim +"Project vimprojects"'
+alias gvimaf='gvim --cmd "let use_alt_font=1"'
 
 shopt -s checkwinsize
 
