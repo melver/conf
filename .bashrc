@@ -1,21 +1,26 @@
-# Minimalistic .bashrc
+#-----------------------------------------------------
+# File:	    Minimalistic .bashrc
+# Version:  0.1.33.7
+# Author:   Marco Elver <marco.elver AT gmail.com>
+#-----------------------------------------------------
 
 # returns if not interactive shell
 [[ $- != *i* ]] && return
+
+#----------------------------
+# Aliases
+#----------------------------
 
 if [[ "$OSTYPE" =~ "linux" ]]; then
 	alias ls='ls --color=auto'
 elif [[ "$OSTYPE" =~ "freebsd" ]]; then
 	alias ls='ls -G'
-
-	alias pkg_add='sudo pkg_add'
 fi
 
 alias l='ls -F'
 alias ll='ls -lh'
 alias la='ls -al'
 
-# vim without mouse, using my vimrc. set before and after reading vimrc.
 alias vinom='vim --cmd "let no_mouse_please=1" --cmd "set mouse=" -c "set mouse="'
 alias vimproj='vim +Project'
 alias vimprojc='vim +"Project .vimprojects"'
@@ -25,10 +30,18 @@ alias gvimprojc='gvim +"Project .vimprojects"'
 alias gvimprojv='gvim +"Project vimprojects"'
 alias gvimaf='gvim --cmd "let use_alt_font=1"'
 
+#----------------------------
+# Options
+#----------------------------
+
 shopt -s checkwinsize
 
 PS1='[\u@\h]:\w\$ '
 TIMEFORMAT="[time]: %2R wallclock secs = ( %2U usr secs + %2S sys secs / %P%% CPU )"
+
+#----------------------------
+# Functions
+#----------------------------
 
 xtract () {
   if [[ -f $1 ]] ; then

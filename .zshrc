@@ -66,8 +66,14 @@ alias l="ls -F"
 alias ll="ls -lh"
 alias la="ls -al"
 
+alias vinom='vim --cmd "let no_mouse_please=1" --cmd "set mouse=" -c "set mouse="'
+alias vimproj='vim +Project'
 alias vimprojc='vim +"Project .vimprojects"'
+alias vimprojv='vim +"Project vimprojects"'
+alias gvimproj='gvim +Project'
 alias gvimprojc='gvim +"Project .vimprojects"'
+alias gvimprojv='gvim +"Project vimprojects"'
+alias gvimaf='gvim --cmd "let use_alt_font=1"'
 
 #------------------------------
 # Comp stuff
