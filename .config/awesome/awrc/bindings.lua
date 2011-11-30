@@ -95,7 +95,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "p",      function () awful.util.spawn("bash -c 'exe=`dmenu-apps echo` && eval \"exec $exe\"'") end),
     awful.key({ modkey, "Shift"   }, "p",      function () awful.util.spawn("gmrun") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal_alt) end),
     -- miscellaneous
     awful.key({ modkey, "Shift"   }, "x",      function () awful.util.spawn("xlock-screenoff") end),
     -- web

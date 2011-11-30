@@ -2,7 +2,8 @@
 
 -- Variable definitions
 
-terminal = "roxterm"
+terminal     = "roxterm"
+terminal_alt = "roxterm -e zsh"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "chromium"
