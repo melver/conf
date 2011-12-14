@@ -74,6 +74,8 @@ alias gvimproj='gvim +Project'
 alias gvimprojc='gvim +"Project .vimprojects"'
 alias gvimprojv='gvim +"Project vimprojects"'
 alias gvimaf='gvim --cmd "let use_alt_font=1"'
+alias vimnoac='vim +"let g:clang_complete_auto=0"'
+alias gvimnoac='gvim +"let g:clang_complete_auto=0"'
 
 #------------------------------
 # Comp stuff
