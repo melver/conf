@@ -310,7 +310,8 @@
 
     augroup me_php
       au!
-      au FileType php set ts=2 | set sw=2 | set sts=2 | set tw=79 | set fo=tqrowcb | set noet | call SetList(0) | call FindTabStyle("{$")
+      " [fo]rmatoptions is set to allow text-wrap like in HTML files.
+      au FileType php set ts=2 | set sw=2 | set sts=2 | set tw=79 | set fo=tqrowcb | set noet | call SetList(0)
       au BufNewFile *.php set fileformat=unix
     augroup END
 
