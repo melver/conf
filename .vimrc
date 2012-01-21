@@ -108,7 +108,6 @@
 " Basics {{{
     set nocompatible " get out of vi-compatible mode
     set noexrc " do not execute vimrc in local dir
-    set background=light
     set cpoptions=aABceFs " vim defaults
     syntax on " syntax highlighting on
 " }}}
@@ -160,6 +159,7 @@
     set scrolloff=3
     set showcmd
     set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+    set titlestring=[%{hostname()}]%(\ %)%t%(\ %M%)%(\ (%{expand(\"%:.:h\")})%)%(\ %a%)%(\ -\ VIM%)
     set incsearch
     set hlsearch
 " }}}
@@ -347,8 +347,9 @@
 
 " }}}
 
-" GUI Settings {{{
+" GUI/Term Specific Settings {{{
     if has("gui_running")
+      " GUI {{{
       " Set font, based on preference and if available:
       if exists("use_alt_font")
         set guifont=Inconsolata\ 13
@@ -359,8 +360,11 @@
       set columns=120
       set lines=45
       set mousehide
+
       "set guioptions=aegimrLt
       set guioptions=aegiLt
+
+      "set background=dark
       colorscheme desertEx
 
       " GUI Mappings {
@@ -377,6 +381,17 @@
         vmap <C-M-C> "+y
         nmap <C-M-V> "+gP
       " }
+      " }}}
+    else
+      " Terminal {{{
+      set background=dark
+
+      " Terminal color palette; shouldn't need to set this, as vim detects
+      " this properly if TERM=xterm-256color is set by terminal emulator.
+      "set t_Co=256
+
+      colorscheme wombat256 " Should override background if neccessary
+      " }}}
     endif
 " }}}
 

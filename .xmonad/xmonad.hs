@@ -65,6 +65,6 @@ main = do
              , ((modm, xK_g), goToSelected defaultGSConfig)
              , ((modm, xK_b), sendMessage ToggleStruts)
              , ((modm, xK_p), spawn "exe=`$HOME/0wnfiles/coding/python/lib/dmenu-apps.py echo` && eval \"exec $exe\"")
-             , ((modm, xK_f), spawn "chromium --disk-cache-size=52428800")
+             , ((modm, xK_f), spawn "chromium --disk-cache-size=268435456")
              , ((modm, xK_e), spawn "thunderbird")
              , ((controlMask .|. modm, xK_l), spawn "$HOME/0wnfiles/coding/shell/xlock-screenoff.sh") ]

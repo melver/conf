@@ -6,7 +6,8 @@ terminal     = "roxterm"
 terminal_alt = "roxterm -e zsh"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "chromium"
+browser = "chromium --disk-cache-size=268435456"
+browser_private = "chromium --incognito --disk-cache-size=268435456"
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.

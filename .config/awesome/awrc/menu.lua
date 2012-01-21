@@ -6,7 +6,7 @@ devmenu = {
 
 networkmenu = {
     { "firefox",        "firefox" },
-    { "chromium",       "chromium --disk-cache-size=52428800" },
+    { "chromium",       "chromium --disk-cache-size=268435456" },
     { "thunderbird",    "thunderbird" },
     { "pidgin",         "pidgin" },
     { "skype",          "skype" },

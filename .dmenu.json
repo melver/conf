@@ -20,7 +20,7 @@
 		}],
 	"browser" : [50, [
 		{
-		"chromium" : [0, "chromium --disk-cache-size=52428800"],
+		"chromium" : [0, "chromium --disk-cache-size=268435456"],
 		"firefox" : [10, "firefox"],
 		"opera" : [20, "opera"]
 		}
