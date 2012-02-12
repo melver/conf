@@ -27,26 +27,12 @@
 		]],
 	"mail" : [60, [
 		{
-		"evolution" : [0, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"],
-		"thunderbird" : [10, "thunderbird"]
-		}
-		]],
-	"dl/ul" : [70, [
-		{
-		"qbittorrent" : [0, "qbittorrent"],
-		"amule" : [10, "amule"]
-		},
-		{
-		"gftp" : [0, "gftp"]
+		"thunderbird" : [10, "thunderbird"],
+		"evolution" : [0, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"]
 		}
 		]]
 	},
 	{
-	"pim" : [0, [
-		{
-		"evolution" : [0, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"]	
-		}
-		]],
 	"dev" : [10, [
 		{
 		"gvim" : [0, "gvim"],
@@ -57,8 +43,7 @@
 		{
 		"vlc" : [0, "vlc"],
 		"k3b" : [10, "k3b"],
-		"clementine" : [20, "clementine"],
-		"exaile" : [30, "exaile"]
+		"clementine" : [20, "clementine"]
 		}
 		]],
 	"graphics" : [22, [
