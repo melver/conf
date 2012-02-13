@@ -27,8 +27,8 @@
 		]],
 	"mail" : [60, [
 		{
-		"thunderbird" : [10, "thunderbird"],
-		"evolution" : [0, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"]
+		"thunderbird" : [0, "thunderbird"],
+		"evolution" : [10, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"]
 		}
 		]]
 	},
