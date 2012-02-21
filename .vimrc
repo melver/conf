@@ -105,28 +105,15 @@
     endfunction
 " }}}
 
-" Basics {{{
+" General {{{
     set nocompatible " get out of vi-compatible mode
     set noexrc " do not execute vimrc in local dir
     set cpoptions=aABceFs " vim defaults
-    syntax on " syntax highlighting on
-" }}}
-
-" General {{{
-    if has("autocmd")
-      filetype plugin indent on
-    else
-      set autoindent
-    endif " has("autocmd")
 
     set encoding=utf-8
     set backspace=indent,eol,start
     set fileformats=unix,dos,mac
     set hidden
-
-    if has("mouse") && !exists("no_mouse_please")
-      set mouse=a
-    endif
 
     set noerrorbells
     set whichwrap=b,s,<,>
@@ -141,9 +128,14 @@
 " }}}
 
 " Vim UI {{{
-    set laststatus=2
+    if has("mouse") && !exists("no_mouse_please")
+      set mouse=a
+    endif
 
-    set nolist " show unwanted chars
+    syntax on " syntax highlighting on
+
+    " Show unwanted chars
+    set nolist 
     let b:toggle_list = 0
     if v:version >= 700
       set listchars=tab:»·,trail:·
@@ -151,20 +143,30 @@
       set listchars=tab:>-,trail:-
     endif
 
-    " set showmatch
-    " set matchtime=5
+    "set showmatch
+    "set matchtime=5
     set novisualbell
     set report=0
     set ruler
     set scrolloff=3
     set showcmd
+    set laststatus=2
     set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
     set titlestring=[%{hostname()}]%(\ %)%t%(\ %M%)%(\ (%{expand(\"%:.:h\")})%)%(\ %a%)%(\ -\ VIM%)
     set incsearch
     set hlsearch
+
+    " Autocompletion
+    set completeopt=menuone
 " }}}
 
 " Default Text Formatting {{{
+    if has("autocmd")
+      filetype plugin indent on
+    else
+      set autoindent
+    endif " has("autocmd")
+
     "set formatoptions=rq " Automatically insert comment leader on return
     set wrap
     "set tabstop=8
