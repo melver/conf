@@ -29,14 +29,14 @@ hardstatus string '%{= kg}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u
 # xterm tweaks
 #
 
-#xterm understands both im/ic and doesn't have a status line.
-#Note: Do not specify im and ic in the real termcap/info file as
-#some programs (e.g. vi) will not work anymore.
+# xterm understands both im/ic and doesn't have a status line.
+# Note: Do not specify im and ic in the real termcap/info file as
+# some programs (e.g. vi) will not work anymore.
 termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
 terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
 
-#80/132 column switching must be enabled for ^AW to work
-#change init sequence to not switch width
+# 80/132 column switching must be enabled for ^AW to work
+# change init sequence to not switch width
 termcapinfo  xterm Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
 
 # Make the output buffer large for (fast) xterms.
@@ -67,8 +67,8 @@ termcapinfo xterm* be
 # wyse terminals
 #
 
-#wyse-75-42 must have flow control (xo = "terminal uses xon/xoff")
-#essential to have it here, as this is a slow terminal.
+# wyse-75-42 must have flow control (xo = "terminal uses xon/xoff")
+# essential to have it here, as this is a slow terminal.
 termcapinfo wy75-42 xo:hs@
 
 # New termcap sequences for cursor application mode.
@@ -95,7 +95,7 @@ termcapinfo linux C8
 # keybindings
 #
 
-#remove some stupid / dangerous key bindings
+# remove some stupid / dangerous key bindings
 bind k
 bind ^k
 bind .
@@ -103,7 +103,7 @@ bind ^\
 bind \\
 bind ^h
 bind h
-#make them better
+# make them better
 bind 'K' kill
 bind 'I' login on
 bind 'O' login off

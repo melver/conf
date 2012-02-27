@@ -1,29 +1,20 @@
-#------------------------------------------------------------------#
-# File:     .zshrc   ZSH resource file                             #
-# Version:  0.1.33.7                                               #
-# Author:   Øyvind "Mr.Elendig" Heggstad <mrelendig@har-ikkje.net> #
-# Contributor: Marco Elver <marco.elver AT gmail.com>              #
-#------------------------------------------------------------------#
+#-------------------------------------------------------------------------#
+# File:     .zshrc   ZSH resource file                                    #
+# Version:  0.1.33.7                                                      #
+# Author: Marco Elver <marco.elver AT gmail.com>                          #
+# Original Author: Øyvind "Mr.Elendig" Heggstad <mrelendig@har-ikkje.net> #
+#-------------------------------------------------------------------------#
+
+source "${HOME}/.common-sh.rc"
 
 #------------------------------
-# History stuff
+# Options
 #------------------------------
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-
-#------------------------------
-# Variables
-#------------------------------
-
-#export PATH="${PATH}:${HOME}/bin" #TODO: fix this
-export TIMEFMT='%J  %U user %S system %P cpu %E total'
-
-#-----------------------------
-# Dircolors
-#-----------------------------
-LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
-export LS_COLORS
+TIMEFMT='%J  %U user %S system %P cpu %E total'
 
 #------------------------------
 # Keybindings
@@ -53,29 +44,8 @@ bindkey "\eOH" beginning-of-line
 bindkey "\eOF" end-of-line
 
 #------------------------------
-# Alias stuff
+# Aliases
 #------------------------------
-
-if [[ "$OSTYPE" =~ "linux" ]]; then
-	alias ls="ls --color=auto"
-elif [[ "$OSTYPE" =~ "freebsd" ]]; then
-	alias ls="ls -G -F"
-fi
-
-alias l="ls -F"
-alias ll="ls -lh"
-alias la="ls -al"
-
-alias vinom='vim --cmd "let no_mouse_please=1" --cmd "set mouse=" -c "set mouse="'
-alias vimproj='vim +Project'
-alias vimprojc='vim +"Project .vimprojects"'
-alias vimprojv='vim +"Project vimprojects"'
-alias gvimproj='gvim +Project'
-alias gvimprojc='gvim +"Project .vimprojects"'
-alias gvimprojv='gvim +"Project vimprojects"'
-alias gvimaf='gvim --cmd "let use_alt_font=1"'
-alias vimnoac='vim +"let g:clang_complete_auto=0"'
-alias gvimnoac='gvim +"let g:clang_complete_auto=0"'
 
 #------------------------------
 # Comp stuff
@@ -109,7 +79,7 @@ case $TERM in
 		precmd () { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" } 
 		preexec () { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ($1)\a" }
 	;;
-	screen)
+	screen*)
 		precmd () { 
 			print -Pn "\e]83;title \"$1\"\a" 
 			print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" 
@@ -122,8 +92,9 @@ case $TERM in
 esac
 
 #------------------------------
-# Prompt
+# Functions
 #------------------------------
+
 setprompt () {
 	# load some modules
 	autoload -U colors zsh/terminfo # Used in the colour alias below
@@ -155,5 +126,7 @@ setprompt () {
 	PS1=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]${PR_USER_OP} '
 	PS2=$'%_>'
 }
+
 setprompt
+color_setup
 
