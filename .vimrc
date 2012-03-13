@@ -329,11 +329,6 @@
       au BufNewFile *.rst set fileformat=unix
     augroup END
 
-    augroup me_PLAN
-      au!
-      au BufRead,BufNewFile PLAN*,*/gtd/*.rst call taskman#setup()
-    augroup END
-
     augroup me_cmake
       au!
       au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
@@ -350,6 +345,12 @@
     augroup me_lua
       au!
       au FileType lua set ts=4 | set sw=4 | set sts=4 | set et | call SetList(1)
+    augroup END
+
+    " Last, override existing settings
+    augroup me_PLAN
+      au!
+      au BufRead,BufNewFile PLAN*,*/gtd/*.rst call taskman#setup()
     augroup END
 
 " }}}
