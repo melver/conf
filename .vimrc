@@ -329,6 +329,11 @@
       au BufNewFile *.rst set fileformat=unix
     augroup END
 
+    augroup me_PLAN
+      au!
+      au BufRead,BufNewFile PLAN*,*/gtd/*.rst call taskman#setup()
+    augroup END
+
     augroup me_cmake
       au!
       au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
