@@ -350,7 +350,7 @@
     " Last, override existing settings
     augroup me_PLAN
       au!
-      au BufRead,BufNewFile PLAN*,*/gtd/*.rst call taskman#setup()
+      au BufRead,BufNewFile PLAN*,*/gtd/*.rst call taskman#setup() | set tw=109 | highlight clear OverLength
     augroup END
 
 " }}}

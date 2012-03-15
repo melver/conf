@@ -1,10 +1,13 @@
 "
 " taskman.vim: Manage tasks from within VIM
 " Author: Marco Elver <me AT marcoelver.com>
-" Date: Tue Mar 13 21:39:09 GMT 2012
+" Date Created: Tue Mar 13 21:39:09 GMT 2012
 "
 " It is intended to be used with any file type, as an additional addon
-" enabling the use of my task-entries.
+" enabling the use of my task-entries. Other existing solutions
+" (see taskpaper, todotxt, etc.) were limiting, in either that I had to use an
+" external program or could not continue using the existing format which I had
+" gotten used to (in my case, ReST).
 "
 " Example entry:
 " [+2] 2011-12-12 > Task description : @context +tag1 +tag2
@@ -13,45 +16,325 @@
 "     + Subtask
 "
 " TODO:
-"   - Command to insert new task
-"   - Timetracking with statistics
-"   - Sorting by priority and DUE date
-"   - Purge completed tasks
-"   - Keybindings
+"   - Sorting by priority and DUE date, tracking time
+"     - Implement MakeTaskStringFromDict (replace maketask), GetTaskDictFromString
+"   - Purge completed tasks (synIDattr should make this easy)
 
-" Call this from your .vimrc for the default setup
+let s:save_cpo = &cpo
+set cpo&vim
+
+" Variables {{{
+
+let s:tag_timetracking = "+ttracking"
+let s:tag_timetracked  = "+tt"
+let s:search_dueyearsback = 3
+let s:search_duedaysahead = 5
+let s:onsetup_gotoduesoon = 1
+
+" }}}
+
+" Interface functions {{{
+
+" Call this for the filetypes you want this enabled
 function! taskman#setup()
   call s:SetupSyntax()
+
+  if !exists("b:taskman_mappings")
+    call s:SetupMappings()
+  endif
+
+  call s:SetupOptions()
+
+
+  if s:onsetup_gotoduesoon
+    call taskman#search_duesoon()
+  endif
+endfunction
+
+function! taskman#foldtext()
+  let l:lines = v:foldend - v:foldstart
+  return getline(v:foldstart) . " | " . l:lines . (l:lines > 1 ? " lines " : " line ")
+endfunction
+
+function! taskman#maketask()
+  "TODO: use input auto-completion option here
+  let l:task_prio = input("Priority: ")
+  let l:task_due = input("Due: ")
+  let l:task_name = input("Description/Name: ")
+  let l:task_contexttags = input("Contexts/Tags: ")
+  let l:task_estwork = input("Estimated work-load (HH:MM): ")
+
+  let l:result = ""
+
+  if strlen(l:task_prio) != 0 || strlen(l:task_due) == 0
+    let l:result = l:result . "[" . l:task_prio . "] "
+  endif
+
+  if strlen(l:task_due) != 0
+    if l:task_due =~ "^\\d\\d\\d\\d-\\d\\d-\\d\\d"
+      let l:result = l:result . l:task_due . " > "
+    else
+      let l:result = l:result . "DUE " . l:task_due . " > "
+    endif
+  endif
+
+  let l:result = l:result . l:task_name . " :"
+
+  if strlen(l:task_contexttags) != 0
+    let l:result = l:result . " " . l:task_contexttags
+  endif
+
+  let l:result = l:result . " (" . strftime("%Y-%m-%d@%H:%M.%Z")
+  if strlen(l:task_estwork) != 0
+    let l:result = l:result . ",~" . l:task_estwork
+  endif
+  let l:result = l:result . ")"
+
+  " TODO: insert sorted
+  call setline(line("."), getline(".") . l:result)
+endfunction
+
+function! taskman#start_timetrack()
+  if !exists("b:taskman_trackstart")
+    if s:RestartTracking()
+      let b:taskman_savestatusline = &statusline
+      execute "setlocal statusline=%([Tracked\\ time:\\ %{taskman#get_track_time()}]\\ %)" . b:taskman_savestatusline
+    endif
+  else
+    call s:UpdateTracked()
+    if !s:RestartTracking()
+      execute "setlocal statusline=" . b:taskman_savestatusline
+      unlet b:taskman_trackstart
+    endif
+  endif
+endfunction
+
+function! taskman#stop_timetrack()
+  if exists("b:taskman_trackstart")
+    call s:UpdateTracked()
+    execute "setlocal statusline=" . b:taskman_savestatusline
+    unlet b:taskman_trackstart
+  else
+    echo "Tracking not in progress!"
+  endif
+endfunction
+
+function! taskman#get_track_time()
+  if exists("b:taskman_trackstart")
+    let l:track_time = localtime() - b:taskman_trackstart
+    if b:taskman_estwork == 0
+      return s:FormatTrackTime(l:track_time)
+    else
+      return s:FormatTrackTime(l:track_time) . "(" . ((l:track_time * 100) / b:taskman_estwork) . "%)"
+    endif
+  endif
+
+  return "Tracking not in progress!"
+endfunction
+
+function! taskman#goto_tracked()
+  if exists("b:taskman_trackstart")
+    let l:result = search(b:taskman_trackline)
+
+    if l:result == 0
+      " Fallback. May not be accurate if there is a similar tag.
+      return search(s:tag_timetracking)
+    endif
+
+    return l:result
+  endif
+
+  echo "Tracking not in progress!"
+  return 0
+endfunction
+
+function! taskman#mark_done()
+  let l:done_marker = "[x!" . strftime("%Y-%m-%d@%H:%M.%Z") . "]"
+
+  let l:indendation = matchstr(getline("."), "^\\s*")
+
+  if synIDattr(synID(line("."), strlen(l:indendation)+1, 1), 'name') =~ "^tmPrio"
+    call setline(line("."), substitute(getline("."), "\\[[^\\]]*\\]", l:done_marker, ''))
+  else
+    if l:indendation != ""
+      call setline(line("."), substitute(getline("."), l:indendation, l:indendation . l:done_marker . " ", ''))
+    else
+      call setline(line("."), l:done_marker . " " . getline("."))
+    endif
+  endif
+endfunction
+
+function! taskman#search_duesoon()
+  let l:cur_pos = getpos(".")
+  let l:regex_due_date = s:GetRegexDueDate(s:search_duedaysahead)
+  let l:result = searchpos(l:regex_due_date)
+
+  " Update the syntax match rule
+  execute "syn match  tmDueDateSoon '" . l:regex_due_date . "' contained"
+
+  if l:result[0] == 0
+    return l:result
+  endif
+
+  let l:nextres = l:result
+  while synIDattr(synID(l:nextres[0], l:nextres[1], 1), 'name') !~ "^tmDueDate"
+    let l:nextres = searchpos(l:regex_due_date)
+    if l:nextres == l:result
+      echo "No items due soon. :-)"
+      call setpos(".", l:cur_pos)
+      return 0
+    endif
+  endwhile
+
+  return l:nextres
+endfunction
+
+" }}}
+
+" Private functions {{{
+
+function! s:RestartTracking()
+  let l:current_line = getline(".")
+  if l:current_line =~ "^\\s*$"
+    echo "Not a trackable item!"
+    return 0
+  endif
+
+  let l:past_tracked = matchstr(getline("."), s:tag_timetracked . "{[^}]\\+}")
+
+  if l:past_tracked != ""
+    let l:current_line = substitute(l:current_line, l:past_tracked, s:tag_timetracking, '')
+    let l:past_time = matchstr(l:past_tracked, "\\d\\+:\\d\\d:\\d\\d")
+    if l:past_time != ""
+      let b:taskman_trackstart = localtime() - s:GetTrackTimeSec(l:past_time)
+    else
+      echo "WARNING: Could not find past tracking information!"
+      let b:taskman_trackstart = localtime() " fallback
+    endif
+  else
+    let l:current_line = l:current_line . " " . s:tag_timetracking
+    let b:taskman_trackstart = localtime()
+  endif
+
+  let l:est_work = matchstr(l:current_line, "\\~[0-9:]\\+)")
+  if l:est_work != ""
+    let b:taskman_estwork = s:GetTrackTimeSec(l:est_work[1:-2] . ":00")
+  else
+    let b:taskman_estwork = 0
+  endif
+
+  call setline(line("."), l:current_line)
+
+  let b:taskman_trackline = escape(l:current_line, '[]\.*~')
+
+  return 1
+endfunction
+
+function! s:UpdateTracked()
+  let l:cur_pos = getpos(".")
+  let l:new_tracking_info = s:tag_timetracked . "{" . strftime("%Y-%m-%d") . "," . taskman#get_track_time() . "}"
+
+  let l:tracked_line = taskman#goto_tracked()
+  if l:tracked_line != 0
+    call setline(l:tracked_line, substitute(getline(l:tracked_line), s:tag_timetracking, l:new_tracking_info, ''))
+  else
+    echo "WARNING: Could not update entry with: " . l:new_tracking_info
+  endif
+
+  call setpos(".", l:cur_pos)
+endfunction
+
+function! s:FormatTrackTime(timesec)
+  let l:mins  = a:timesec / 60
+  let l:hours = l:mins / 60
+  let l:mins  = l:mins % 60
+  let l:secs  = a:timesec % 60
+
+  return  l:hours . ":" . (l:mins < 10 ? ("0" . l:mins) : l:mins) . ":" . (l:secs < 10 ? ("0" . l:secs) : l:secs)
+endfunction
+
+function! s:GetTrackTimeSec(timestr)
+  let l:parts = split(a:timestr, ":")
+  return (str2nr(l:parts[0])*60 + str2nr(l:parts[1]))*60 + str2nr(l:parts[2])
+endfunction
+
+function! s:GetRegexDueDate(days_from_today)
+  let l:due = strftime("%Y-%m-%d", localtime() + (a:days_from_today * 24 * 60 * 60))
+
+  let l:day   = str2nr(l:due[8:9])
+  let l:year  = str2nr(l:due[0:3])
+
+  if l:day < 10
+    let l:regex_day_part = "0" . join(range(1, l:day), "\\|0")
+  else
+    let l:regex_day_part = "0" . join(range(1, 9), "\\|0") . "\\|" . join(range(10, l:day), "\\|")
+  endif
+
+  let l:regex_day    = l:due[0:7] . "\\(" . l:regex_day_part . "\\)"
+  let l:regex_month  = l:due[0:4] . "0*\\(" . join(range(1, str2nr(l:due[5:6])-1), "\\|") . "\\)-\\d\\d"
+  let l:regex_year = "\\(" . join(range(l:year-s:search_dueyearsback, l:year-1), "\\|") . "\\)-\\d\\d-\\d\\d"
+
+  return l:regex_day . "\\|" . l:regex_month . "\\|" . l:regex_year
+endfunction
+
+function! s:SetupMappings()
+  " Reparse file to get accuarte folding
+  map <buffer> <unique> <Leader>tf :syn sync fromstart<CR>
+  map <buffer> <unique> <Leader>tm :call taskman#maketask()<CR>
+  map <buffer> <unique> <Leader>tts :call taskman#start_timetrack()<CR>
+  map <buffer> <unique> <Leader>ttp :call taskman#stop_timetrack()<CR>
+  map <buffer> <unique> <Leader>ttg :call taskman#goto_tracked()<CR>
+  map <buffer> <unique> <Leader>td  :call taskman#mark_done()<CR>
+  map <buffer> <unique> <Leader>tu  :call taskman#search_duesoon()<CR>
+
+  let b:taskman_mappings = 1
 endfunction
 
 function! s:SetupSyntax()
-  syn match  tmPrioRegular  "^\[[^\]]*\]"    contained
-  syn match  tmPrioLow      "^\[[^\]]*-[^\]]*\]" contained
-  syn match  tmPrioHigh     "^\[[^\]]*+[^\]]*\]" contained
+  " Task priorities
+  syn match  tmPrioRegular  "\[[^\]]*\]"        contained
+  syn match  tmPrioLow      "\[[^\]]*-[^\]]*\]" contained
+  syn match  tmPrioHigh     "\[[^\]]*+[^\]]*\]" contained
+  syn cluster tmPriority    contains=tmPrioRegular,tmPrioLow,tmPrioHigh
 
-  syn region tmStartDate    start="("                     end=")" contained contains=@NoSpell
-  syn region tmTags         start=":\s*\(@\|+\)"          end="$" contained contains=tmStartDate,@NoSpell
-  syn region tmDueDate      start="\s*\(\d\d\d\d-\d\d-\d\d\|DUE\)" end=">" contained contains=@NoSpell
-  syn region tmTask         start="^\(\[[^\]]*\]\|\d\d\d\d-\d\d-\d\d.*>\|DUE.*>\)" end="$" contains=tmTags,tmDueDate,tmPrioHigh,tmPrioLow,tmPrioRegular
-  syn region tmDone         start="^\[x[^\]]*\]"          end="^\s*$\|^\S" contains=tmTags,tmDueDate
-  syn region tmSubTask      start="^\s\+\(+\|- (+)\)\s"   end="$"
-  syn region tmSubDone      start="^\s\+\(x\|- (x)\)\s"   end="$"
+  " Meta information
+  syn region tmStartTime    start="("                     end=")"           contained contains=@NoSpell
+  syn match  tmTags         "\(@\|+\)\S\+"                                  contained contains=@NoSpell
+  syn region tmMetaInfo     start=" : "                   end="$"           contained contains=tmStartDate,tmTags keepend
+  syn region tmDueDate      start="\s*\(\d\d\d\d-\d\d-\d\d\|DUE\)" end=">"  contained contains=@NoSpell,tmDueDateSoon
 
-  " Fold rule last. Keep start rule same as for tmTask!
-  syn region tmFold         start="^\(\[[^\]]*\]\|\d\d\d\d-\d\d-\d\d.*>\|DUE.*>\)" end="^\s*$\|^\S" fold keepend transparent
+  " Simple sub-tasks
+  syn region tmSubDone      start="^\s\+\(x\|- (x)\)"     end="$"
+  syn region tmSubTask      start="^\s\+\(+\|- (+)\)"     end="$"           contains=tmMetaInfo,tmDueDate keepend
 
-  hi def link tmDone        Comment
+  " Task + folding fulres and completed task
+  syn region tmTask         start="^\z(\s*\)\(\[[^\]x]*\]\|\d\d\d\d-\d\d-\d\d.*>\|DUE.*>\)" end="$" contains=tmMetaInfo,tmDueDate,@tmPriority keepend
+  syn region tmTaskFold     start="^\z(\s*\)\(\[[^\]x]*\]\|\d\d\d\d-\d\d-\d\d.*>\|DUE.*>\)" end="^\s*$\|^\z1\S"me=s-1 fold keepend transparent
+  syn region tmTaskDone     start="^\z(\s*\)\[x[^\]]*\]"       end="^\s*$\|^\z1\S"me=s-1 contains=tmMetaInfo fold keepend
+
+  hi def link tmTaskDone    Comment
   hi def link tmSubDone     Comment
   hi def link tmSubTask     Special
   hi def      tmTask        term=bold cterm=bold gui=bold,italic
   hi def link tmPrioRegular Special
   hi def link tmPrioHigh    Todo
-  hi def link tmPrioLow     PreProc
+  hi def link tmPrioLow     Comment
+  hi def link tmMetaInfo    Keyword
   hi def link tmTags        Keyword
-  hi def link tmDueDate     Keyword
+  hi def link tmDueDate     PreProc
+  hi def link tmDueDateSoon WarningMsg
   hi def link tmStartDate   String
 
-  set foldmethod=syntax
+  syn sync fromstart
 endfunction
+
+function! s:SetupOptions()
+  setlocal foldmethod=syntax
+  setlocal foldtext=taskman#foldtext()
+endfunction
+
+" }}}
+
+let &cpo = s:save_cpo
 
 " vim: set ts=2 sts=2 sw=2 et :
