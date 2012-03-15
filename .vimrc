@@ -359,10 +359,14 @@
     if has("gui_running")
       " GUI {{{
       " Set font, based on preference and if available:
-      if exists("use_alt_font")
-        set guifont=Inconsolata\ 13
+      if has("win32")
+        set guifont=Consolas:h11:cANSI
       else
-        set guifont=Monospace\ 11
+        if exists("use_alt_font")
+          set guifont=Inconsolata\ 13
+        else
+          set guifont=Monospace\ 11
+        endif
       endif
 
       set columns=120
@@ -373,7 +377,12 @@
       set guioptions=aegiLt
 
       "set background=dark
-      colorscheme desertEx
+      try
+        colorscheme desertEx
+      catch /^Vim\%((\a\+)\)\=:E185/
+        echo "WARNING: Preferred GUI colorscheme not found!"
+        colorscheme desert
+      endtry
 
       " GUI Mappings {
         " Toggle menubar
