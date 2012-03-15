@@ -3,11 +3,28 @@
 " Author: Marco Elver <me AT marcoelver.com>
 " Date Created: Tue Mar 13 21:39:09 GMT 2012
 "
-" It is intended to be used with any file type, as an additional addon
-" enabling the use of my task-entries. Other existing solutions
-" (see taskpaper, todotxt, etc.) were limiting, in either that I had to use an
-" external program or could not continue using the existing format which I had
-" gotten used to (in my case, ReST).
+" It is intended to be used with any file type, as an additional add-on
+" enabling the use of the specified task-entry format (rather personalized).
+" Other existing solutions (see taskpaper.vim, todotxt, etc.) were limiting,
+" in either that I had to use an external program or could not continue using
+" the existing format which I had gotten used to for in-task notes (in my
+" case, ReST -- VIM has nice syntax highlighting for ReST) or even the rather
+" extensive format I came up with. In addition, I was not able to find an
+" existing solution, that works well, in VIM.
+"
+" In the future, I may somehow package it nicely, but for now, it works as is,
+" as a single self contained file.
+"
+" If you find it useful, contact me.
+"
+" Usage:
+" Add something like this to your .vimrc (or ftplugin) file:
+"
+" augroup my_PLAN
+"   au!
+"   au BufRead,BufNewFile PLAN* call taskman#setup()
+" augroup END
+"
 "
 " Example entry:
 " [+2] 2011-12-12 > Task description : @context +tag1 +tag2
@@ -15,21 +32,22 @@
 "     x Completed subtask
 "     + Subtask
 "
-" TODO:
-"   - Sorting by priority and DUE date, tracking time
-"     - Implement MakeTaskStringFromDict (replace maketask), GetTaskDictFromString
-"   - Purge completed tasks (synIDattr should make this easy)
+"
+" taskman TODO:
+"   + Purge completed tasks (synIDattr should make this easy)
+"   + Sorting by priority and DUE date, tracking time
+"     + Implement MakeTaskStringFromDict (replace maketask), GetTaskDictFromString
 
 let s:save_cpo = &cpo
 set cpo&vim
 
 " Variables {{{
 
-let s:tag_timetracking = "+ttracking"
-let s:tag_timetracked  = "+tt"
-let s:search_dueyearsback = 3
-let s:search_duedaysahead = 5
-let s:onsetup_gotoduesoon = 1
+let s:tag_timetracking      = "+ttracking"
+let s:tag_timetracked       = "+tt"
+let s:search_dueyearsback   = 3
+let s:search_duedaysahead   = 5
+let s:onsetup_focusduesoon  = 1
 
 " }}}
 
@@ -46,7 +64,7 @@ function! taskman#setup()
   call s:SetupOptions()
 
 
-  if s:onsetup_gotoduesoon
+  if s:onsetup_focusduesoon
     call taskman#search_duesoon()
   endif
 endfunction
@@ -132,7 +150,7 @@ function! taskman#get_track_time()
   return "Tracking not in progress!"
 endfunction
 
-function! taskman#goto_tracked()
+function! taskman#focus_tracking()
   if exists("b:taskman_trackstart")
     let l:result = search(b:taskman_trackline)
 
@@ -180,7 +198,7 @@ function! taskman#search_duesoon()
   while synIDattr(synID(l:nextres[0], l:nextres[1], 1), 'name') !~ "^tmDueDate"
     let l:nextres = searchpos(l:regex_due_date)
     if l:nextres == l:result
-      echo "No items due soon. :-)"
+      echom "No items due soon. :-)"
       call setpos(".", l:cur_pos)
       return 0
     endif
@@ -208,7 +226,7 @@ function! s:RestartTracking()
     if l:past_time != ""
       let b:taskman_trackstart = localtime() - s:GetTrackTimeSec(l:past_time)
     else
-      echo "WARNING: Could not find past tracking information!"
+      echom "WARNING: Could not find past tracking information!"
       let b:taskman_trackstart = localtime() " fallback
     endif
   else
@@ -234,11 +252,11 @@ function! s:UpdateTracked()
   let l:cur_pos = getpos(".")
   let l:new_tracking_info = s:tag_timetracked . "{" . strftime("%Y-%m-%d") . "," . taskman#get_track_time() . "}"
 
-  let l:tracked_line = taskman#goto_tracked()
+  let l:tracked_line = taskman#focus_tracking()
   if l:tracked_line != 0
     call setline(l:tracked_line, substitute(getline(l:tracked_line), s:tag_timetracking, l:new_tracking_info, ''))
   else
-    echo "WARNING: Could not update entry with: " . l:new_tracking_info
+    echom "WARNING: Could not update entry ('" . b:taskman_trackline . "') with: " . l:new_tracking_info
   endif
 
   call setpos(".", l:cur_pos)
@@ -283,7 +301,7 @@ function! s:SetupMappings()
   map <buffer> <unique> <Leader>tm :call taskman#maketask()<CR>
   map <buffer> <unique> <Leader>tts :call taskman#start_timetrack()<CR>
   map <buffer> <unique> <Leader>ttp :call taskman#stop_timetrack()<CR>
-  map <buffer> <unique> <Leader>ttg :call taskman#goto_tracked()<CR>
+  map <buffer> <unique> <Leader>ttg :call taskman#focus_tracking()<CR>
   map <buffer> <unique> <Leader>td  :call taskman#mark_done()<CR>
   map <buffer> <unique> <Leader>tu  :call taskman#search_duesoon()<CR>
 

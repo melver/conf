@@ -347,7 +347,7 @@
       au FileType lua set ts=4 | set sw=4 | set sts=4 | set et | call SetList(1)
     augroup END
 
-    " Last, override existing settings
+    " PLAN: last, override existing settings, use my taskman script.
     augroup me_PLAN
       au!
       au BufRead,BufNewFile PLAN*,*/gtd/*.rst call taskman#setup() | set tw=109 | highlight clear OverLength
