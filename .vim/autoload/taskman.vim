@@ -140,10 +140,13 @@ endfunction
 function! taskman#get_track_time()
   if exists("b:taskman_trackstart")
     let l:track_time = localtime() - b:taskman_trackstart
+    let l:track_totaltime = l:track_time + b:taskman_trackpast
+
+    let l:result = "+" . s:FormatTrackTime(l:track_time) . "=" . s:FormatTrackTime(l:track_totaltime)
     if b:taskman_estwork == 0
-      return s:FormatTrackTime(l:track_time)
+      return l:result
     else
-      return s:FormatTrackTime(l:track_time) . "(" . ((l:track_time * 100) / b:taskman_estwork) . "%)"
+      return l:result . "(" . ((l:track_time * 100) / b:taskman_estwork) . "%)"
     endif
   endif
 
@@ -219,19 +222,20 @@ function! s:RestartTracking()
   endif
 
   let l:past_tracked = matchstr(getline("."), s:tag_timetracked . "{[^}]\\+}")
+  let b:taskman_trackstart = localtime()
 
   if l:past_tracked != ""
     let l:current_line = substitute(l:current_line, l:past_tracked, s:tag_timetracking, '')
-    let l:past_time = matchstr(l:past_tracked, "\\d\\+:\\d\\d:\\d\\d")
+    let l:past_time = matchstr(l:past_tracked, "=\\d\\+:\\d\\d:\\d\\d")
     if l:past_time != ""
-      let b:taskman_trackstart = localtime() - s:GetTrackTimeSec(l:past_time)
+      let b:taskman_trackpast = s:GetTrackTimeSec(l:past_time)
     else
       echom "WARNING: Could not find past tracking information!"
-      let b:taskman_trackstart = localtime() " fallback
+      let b:taskman_trackpast = 0 " fallback
     endif
   else
     let l:current_line = l:current_line . " " . s:tag_timetracking
-    let b:taskman_trackstart = localtime()
+    let b:taskman_trackpast = 0
   endif
 
   let l:est_work = matchstr(l:current_line, "\\~[0-9:]\\+)")
