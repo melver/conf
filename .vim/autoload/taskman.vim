@@ -228,7 +228,7 @@ function! s:RestartTracking()
     let l:current_line = substitute(l:current_line, l:past_tracked, s:tag_timetracking, '')
     let l:past_time = matchstr(l:past_tracked, "=\\d\\+:\\d\\d:\\d\\d")
     if l:past_time != ""
-      let b:taskman_trackpast = s:GetTrackTimeSec(l:past_time)
+      let b:taskman_trackpast = s:GetTrackTimeSec(l:past_time[1:])
     else
       echom "WARNING: Could not find past tracking information!"
       let b:taskman_trackpast = 0 " fallback
