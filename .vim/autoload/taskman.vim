@@ -43,8 +43,8 @@ set cpo&vim
 
 " Variables {{{
 
-let s:tag_timetracking      = "+ttracking"
-let s:tag_timetracked       = "+tt"
+let s:tag_timetracking      = "+Ttracking"
+let s:tag_timetracked       = "+T"
 let s:search_dueyearsback   = 3
 let s:search_duedaysahead   = 5
 let s:onsetup_focusduesoon  = 1
@@ -55,6 +55,10 @@ let s:onsetup_focusduesoon  = 1
 
 " Call this for the filetypes you want this enabled
 function! taskman#setup()
+  if exists("g:taskman_do_not_load")
+    return
+  endif
+
   call s:SetupSyntax()
 
   if !exists("b:taskman_mappings")
@@ -133,7 +137,7 @@ function! taskman#stop_timetrack()
     execute "setlocal statusline=" . b:taskman_savestatusline
     unlet b:taskman_trackstart
   else
-    echo "Tracking not in progress!"
+    echo "[taskman] Tracking not in progress!"
   endif
 endfunction
 
@@ -165,7 +169,7 @@ function! taskman#focus_tracking()
     return l:result
   endif
 
-  echo "Tracking not in progress!"
+  echo "[taskman] Tracking not in progress!"
   return 0
 endfunction
 
@@ -201,7 +205,7 @@ function! taskman#search_duesoon()
   while synIDattr(synID(l:nextres[0], l:nextres[1], 1), 'name') !~ "^tmDueDate"
     let l:nextres = searchpos(l:regex_due_date)
     if l:nextres == l:result
-      echom "No items due soon. :-)"
+      echo "[taskman] No items due soon."
       call setpos(".", l:cur_pos)
       return 0
     endif
@@ -217,7 +221,7 @@ endfunction
 function! s:RestartTracking()
   let l:current_line = getline(".")
   if l:current_line =~ "^\\s*$"
-    echo "Not a trackable item!"
+    echo "[taskman] Not a trackable item!"
     return 0
   endif
 
@@ -230,7 +234,7 @@ function! s:RestartTracking()
     if l:past_time != ""
       let b:taskman_trackpast = s:GetTrackTimeSec(l:past_time[1:])
     else
-      echom "WARNING: Could not find past tracking information!"
+      echo "[taskman] WARNING: Could not find past tracking information!"
       let b:taskman_trackpast = 0 " fallback
     endif
   else
@@ -260,7 +264,7 @@ function! s:UpdateTracked()
   if l:tracked_line != 0
     call setline(l:tracked_line, substitute(getline(l:tracked_line), s:tag_timetracking, l:new_tracking_info, ''))
   else
-    echom "WARNING: Could not update entry ('" . b:taskman_trackline . "') with: " . l:new_tracking_info
+    echom "[taskman] WARNING: Could not update entry ('" . b:taskman_trackline . "') with: " . l:new_tracking_info
   endif
 
   call setpos(".", l:cur_pos)
