@@ -43,11 +43,19 @@ set cpo&vim
 
 " Variables {{{
 
+" Tags
 let s:tag_timetracking      = "+Ttracking"
 let s:tag_timetracked       = "+T"
+
+" Search due date options
 let s:search_dueyearsback   = 3
 let s:search_duedaysahead   = 5
 let s:onsetup_focusduesoon  = 1
+
+" Date format; this should NOT be modified, unless the other hardcoded bits
+" that depend on this format are changed accordingly.
+let s:format_date           = "%Y-%m-%d"
+let s:format_datetime       = "%Y-%m-%d@%H:%M.%Z"
 
 " }}}
 
@@ -106,7 +114,7 @@ function! taskman#maketask()
     let l:result = l:result . " " . l:task_contexttags
   endif
 
-  let l:result = l:result . " (" . strftime("%Y-%m-%d@%H:%M.%Z")
+  let l:result = l:result . " (" . strftime(s:format_datetime)
   if strlen(l:task_estwork) != 0
     let l:result = l:result . ",~" . l:task_estwork
   endif
@@ -174,11 +182,17 @@ function! taskman#focus_tracking()
 endfunction
 
 function! taskman#mark_done()
-  let l:done_marker = "[x!" . strftime("%Y-%m-%d@%H:%M.%Z") . "]"
+  let l:done_marker = "[x!" . strftime(s:format_datetime) . "]"
 
   let l:indendation = matchstr(getline("."), "^\\s*")
+  let l:syn_name = synIDattr(synID(line("."), strlen(l:indendation)+1, 1), 'name')
 
-  if synIDattr(synID(line("."), strlen(l:indendation)+1, 1), 'name') =~ "^tmPrio"
+  if l:syn_name == "tmTaskDone"
+    echo "[taskman] Already marked done."
+    return
+  endif
+
+  if l:syn_name =~ "^tmPrio"
     call setline(line("."), substitute(getline("."), "\\[[^\\]]*\\]", l:done_marker, ''))
   else
     if l:indendation != ""
@@ -258,7 +272,7 @@ endfunction
 
 function! s:UpdateTracked()
   let l:cur_pos = getpos(".")
-  let l:new_tracking_info = s:tag_timetracked . "{" . strftime("%Y-%m-%d") . "," . taskman#get_track_time() . "}"
+  let l:new_tracking_info = s:tag_timetracked . "{" . strftime(s:format_date) . "," . taskman#get_track_time() . "}"
 
   let l:tracked_line = taskman#focus_tracking()
   if l:tracked_line != 0
@@ -285,7 +299,7 @@ function! s:GetTrackTimeSec(timestr)
 endfunction
 
 function! s:GetRegexDueDate(days_from_today)
-  let l:due = strftime("%Y-%m-%d", localtime() + (a:days_from_today * 24 * 60 * 60))
+  let l:due = strftime(s:format_date, localtime() + (a:days_from_today * 24 * 60 * 60))
 
   let l:day   = str2nr(l:due[8:9])
   let l:year  = str2nr(l:due[0:3])
