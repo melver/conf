@@ -1,16 +1,20 @@
+"
+" .vimrc
+" Maintainer: Marco Elver <me AT marcoelver.com>
+"
 
 " Functions {{{
     function ToggleList()
       if !exists("b:toggle_list")
-        let b:toggle_list = 1 " disable by default if not existing
+        let b:toggle_list = 0 " disabled by default if not existing
       endif
 
       if b:toggle_list == 0
-        set list
+        setlocal list
         let b:toggle_list = 1
         echo "List chars ON!"
       else
-        set nolist
+        setlocal nolist
         let b:toggle_list = 0
         echo "List chars OFF!"
       endif
@@ -18,10 +22,10 @@
 
     function SetList(toset)
       if a:toset == 0
-        set nolist
+        setlocal nolist
         let b:toggle_list = 0
       else
-        set list
+        setlocal list
         let b:toggle_list = 1
       endif
     endfunction
@@ -75,19 +79,20 @@
           " Check if valid line to test for indendation style
           if line =~ "^[ \t][ \t]*[^ \t]"
             if line =~ "^\t"
-              set noet
-              echo "[FindTabStyle] No expand tab!"
+              setlocal noet
+              echom "[FindTabStyle] No expand tab!"
             else " must be space
               let l:spaces = 0
               while line[l:spaces] == " "
                 let l:spaces += 1
               endwhile
-              execute "set ts=" . l:spaces
-              execute "set sw=" .  l:spaces
-              execute "set sts=" . l:spaces
-              set et
 
-              echo "[FindTabStyle] Expand tabs with " . l:spaces . " spaces!"
+              execute "setlocal ts=" . l:spaces
+              execute "setlocal sw=" .  l:spaces
+              execute "setlocal sts=" . l:spaces
+              setlocal et
+
+              echom "[FindTabStyle] Expand tabs with " . l:spaces . " spaces!"
             endif
 
             " done
@@ -135,8 +140,7 @@
     syntax on " syntax highlighting on
 
     " Show unwanted chars
-    set nolist 
-    let b:toggle_list = 0
+    set nolist
     if v:version >= 700
       set listchars=tab:»·,trail:·
     else
@@ -169,11 +173,6 @@
 
     "set formatoptions=rq " Automatically insert comment leader on return
     set wrap
-    "set tabstop=8
-    "set shiftwidth=4
-    "set softtabstop=4
-    "set textwidth=0
-    "set expandtab
 " }}}
 
 " Folding {{{
@@ -219,138 +218,144 @@
 " }}}
 
 " Autocommands {{{
-    augroup me_python
+    augroup ftgroup_python
       au!
       au BufRead,BufNewFile *.py,*.pyw setf python
-      au FileType python set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1) | call ToggleOverLengthHi(1)
-      au BufNewFile *.py,*.pyw set fileformat=unix
+      au FileType python setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call ToggleOverLengthHi(1)
+      au BufNewFile *.py,*.pyw setlocal fileformat=unix
     augroup END
 
-    augroup me_ccppobjc
+    augroup ftgroup_ccppobjc
       au!
-      au FileType c    set ts=8 | set sw=8 | set sts=8 | set noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
-      au FileType cpp  set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
-      au FileType objc set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
-      au BufNewFile *.c,*.cpp,*.h,*.hpp set fileformat=unix
+      au FileType c    setlocal ts=8 sw=8 sts=8 noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au FileType objc setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au BufNewFile *.c,*.cpp,*.h,*.hpp setlocal fileformat=unix
     augroup END
 
-    augroup me_java
+    augroup ftgroup_java
       au!
-      au BufRead,BufNewFile *.java set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
-      au BufNewFile *.java set fileformat=unix
+      au BufRead,BufNewFile *.java setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$")
+      au BufNewFile *.java setlocal fileformat=unix
     augroup END
 
-    augroup me_sh
+    augroup ftgroup_sh
       au!
-      au FileType sh,bash,zsh set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0)
+      au FileType sh,bash,zsh setlocal ts=4 sw=4 sts=4 noet | call SetList(0)
     augroup END
 
-    augroup me_perl
+    augroup ftgroup_perl
       au!
-      au FileType perl set ts=8 | set sw=4 | set sts=4 | set et | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
-      au BufNewFile *.pl set fileformat=unix
+      au FileType perl setlocal ts=8 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au BufNewFile *.pl setlocal fileformat=unix
     augroup END
 
-    augroup me_vim
+    augroup ftgroup_vim
       au!
-      au FileType vim set ts=8 | set sw=2 | set sts=2 | set et | set ai | call SetList(1)
-      au BufNewFile *.vim,*vimrc set fileformat=unix
+      au FileType vim setlocal ts=8 sw=2 sts=2 et ai | call SetList(1)
+      au BufNewFile *.vim,*vimrc setlocal fileformat=unix
     augroup END
 
-    augroup me_dot
+    augroup ftgroup_dot
       au!
-      au FileType dot set ts=4 | set sw=4 | set sts=4 | set noet | set ai | call SetList(0)
-      au BufNewFile *.dot set fileformat=unix
+      au FileType dot setlocal ts=4 sw=4 sts=4 noet ai | call SetList(0)
+      au BufNewFile *.dot setlocal fileformat=unix
     augroup END
 
-    augroup me_tex
+    augroup ftgroup_tex
       au!
-      au FileType tex,plaintex set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set spell | call SetList(1) | call ToggleOverLengthHi(1)
-      au BufNewFile *.tex set fileformat=unix
+      au FileType tex,plaintex setlocal ts=2 sw=2 sts=2 et ai tw=79 spell | call SetList(1) | call ToggleOverLengthHi(1)
+      au BufNewFile *.tex setlocal fileformat=unix
     augroup END
 
-    augroup me_bibtex
+    augroup ftgroup_bibtex
       au!
-      au FileType bib set ts=2 | set sw=2 | set sts=2 | set et | set ai | set tw=79 | set foldmarker=@,}. | call SetList(1)
-      au BufNewFile *.bib set fileformat=unix
+      au FileType bib setlocal ts=2 sw=2 sts=2 et ai tw=109 foldmarker=@,}. | call SetList(1)
+      au BufNewFile *.bib setlocal fileformat=unix
     augroup END
 
-    augroup me_sql
+    augroup ftgroup_sql
       au!
-      au FileType sql set ts=4 | set sw=2 | set sts=2 | set et | call SetList(1)
-      au BufNewFile *.sql set fileformat=unix
+      au FileType sql setlocal ts=4 sw=2 sts=2 et | call SetList(1)
+      au BufNewFile *.sql setlocal fileformat=unix
     augroup END
 
-    augroup me_text
+    augroup ftgroup_text
       au!
-      au BufRead,BufNewFile *README*,*INSTALL*,*TODO* set ts=4 | set sw=4 | set sts=4 | set tw=79 | set et | call SetList(0)
+      au BufRead,BufNewFile *README*,*INSTALL*,*TODO* setlocal ts=4 sw=4 sts=4 tw=79 et | call SetList(0)
     augroup END
 
-    augroup me_slice
+    augroup ftgroup_slice
       au!
-      au FileType slice set ts=4 | set sw=4 | set sts=4 | set et | set ai | call SetList(0)
-      au BufNewFile *.ice set fileformat=unix
+      au FileType slice setlocal ts=4 sw=4 sts=4 et ai | call SetList(0)
+      au BufNewFile *.ice setlocal fileformat=unix
     augroup END
 
-    augroup me_haskell
+    augroup ftgroup_haskell
       au!
-      au FileType haskell set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1) | call ToggleOverLengthHi(1)
-      au BufNewFile *.hs set fileformat=unix
+      au FileType haskell setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call ToggleOverLengthHi(1)
+      au BufNewFile *.hs setlocal fileformat=unix
     augroup END
 
-    augroup me_htmlcss
+    augroup ftgroup_htmlcss
       au!
-      au FileType html,xhtml,css set ts=2 | set sw=2 | set sts=2 | set tw=79 | set noet | call SetList(0)
-      au BufNewFile *.htm,*.html,*.css set fileformat=unix
+      au FileType html,xhtml,css setlocal ts=2 sw=2 sts=2 tw=79 noet | call SetList(0)
+      au BufNewFile *.htm,*.html,*.css setlocal fileformat=unix
     augroup END
 
-    augroup me_js
+    augroup ftgroup_js
       au!
-      au FileType javascript set ts=4 | set sw=4 | set sts=4 | set noet | call SetList(0) | call FindTabStyle("{$")
-      au BufNewFile *.js set fileformat=unix
+      au FileType javascript setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$")
+      au BufNewFile *.js setlocal fileformat=unix
     augroup END
 
-    augroup me_php
+    augroup ftgroup_php
       au!
-      " [fo]rmatoptions is set to allow text-wrap like in HTML files.
-      au FileType php set ts=2 | set sw=2 | set sts=2 | set tw=79 | set fo=tqrowcb | set noet | call SetList(0)
-      au BufNewFile *.php set fileformat=unix
+      " [fo]rmatoptions is setlocal to allow text-wrap like in HTML files.
+      au FileType php setlocal ts=2 sw=2 sts=2 tw=79 fo=tqrowcb noet | call SetList(0)
+      au BufNewFile *.php setlocal fileformat=unix
     augroup END
 
-    augroup me_xmlant
+    augroup ftgroup_xmlant
       au!
-      au FileType xml,ant set ts=2 | set sw=2 | set sts=2 | set noet | call SetList(0)
-      au BufNewFile *.xml set fileformat=unix
+      au FileType xml,ant setlocal ts=2 sw=2 sts=2 noet | call SetList(0)
+      au BufNewFile *.xml setlocal fileformat=unix
     augroup END
 
-    augroup me_rst
+    augroup ftgroup_rst
       au!
-      au FileType rst set ts=8 | set sw=4 | set sts=4 | set tw=79 | set et | set spell | call SetList(1) | call ToggleOverLengthHi(1)
-      au BufNewFile *.rst set fileformat=unix
+      au FileType rst setlocal ts=8 sw=4 sts=4 tw=79 et spell | call SetList(1) | call ToggleOverLengthHi(1)
+      au BufNewFile *.rst setlocal fileformat=unix
     augroup END
 
-    augroup me_cmake
+    augroup ftgroup_cmake
       au!
       au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
-      au FileType cmake set ts=8 | set sw=4 | set sts=4 | set et | call SetList(1)
-      au BufNewFile *.cmake,CMakeLists.txt set fileformat=unix
+      au FileType cmake setlocal ts=8 sw=4 sts=4 et | call SetList(1)
+      au BufNewFile *.cmake,CMakeLists.txt setlocal fileformat=unix
     augroup END
 
-    augroup me_hdl
+    augroup ftgroup_Makefile
       au!
-      au FileType verilog set ts=3 | set sw=3 | set sts=3 | set noet | call SetList(0) | call ToggleOverLengthHi(1)
-      au BufNewFile *.v set fileformat=unix
+      au FileType automake,make setlocal noet
+      au BufNewFile Makefile* setlocal fileformat=unix
     augroup END
 
-    augroup me_lua
+    augroup ftgroup_hdl
       au!
-      au FileType lua set ts=4 | set sw=4 | set sts=4 | set et | call SetList(1)
+      au FileType verilog setlocal ts=3 sw=3 sts=3 noet | call SetList(0) | call ToggleOverLengthHi(1)
+      au BufNewFile *.v setlocal fileformat=unix
+    augroup END
+
+    augroup ftgroup_lua
+      au!
+      au FileType lua setlocal ts=4 sw=4 sts=4 et | call SetList(1)
     augroup END
 
     " PLAN: last, override existing settings, use my taskman script.
-    augroup me_PLAN
+    augroup ftgroup_PLAN
       au!
-      au BufRead,BufNewFile *PLAN*,*/gtd/*.rst call taskman#setup() | set tw=109 | highlight clear OverLength
+      au BufRead,BufNewFile *PLAN*,*/gtd/*.rst call taskman#setup() | setlocal tw=109 | highlight clear OverLength
     augroup END
 
 " }}}
@@ -412,7 +417,4 @@
     endif
 " }}}
 
-" Marco's .vimrc modeline {{{
-"   vim: set ts=8 sw=2 sts=2 et ai foldmarker={{{,}}} foldlevel=0 fen fdm=marker:
-" }}}
-
+" vim: set ts=8 sw=2 sts=2 et ai foldmarker={{{,}}} foldlevel=0 fen fdm=marker:
