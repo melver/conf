@@ -158,7 +158,7 @@ function! taskman#get_track_time()
     if b:taskman_estwork == 0
       return l:result
     else
-      return l:result . "(" . ((l:track_time * 100) / b:taskman_estwork) . "%)"
+      return l:result . "(" . ((l:track_totaltime * 100) / b:taskman_estwork) . "%)"
     endif
   endif
 
