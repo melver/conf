@@ -30,25 +30,42 @@
       endif
     endfunction
 
-    " Source: http://weevilgenius.net/2010/07/vim-tip-highlighting-long-rows/
-    function ToggleOverLengthHi(silent)
+    function OverLengthHiOff()
+      highlight clear OverLength
+      let b:overlengthhi = 0
+
+      " Remove autocommands
+      execute "augroup OverLength_" . expand("%")
+      execute "au!"
+      execute "augroup END"
+      execute "augroup! OverLength_" . expand("%")
+    endfunction
+
+    function OverLengthHiOn(length)
+      " adjust colors/styles as desired
+      highlight OverLength ctermbg=darkred gui=undercurl guisp=blue
+      " change '81' to be 1+(number of columns)
+      let l:match_cmd = "match OverLength /\\%" . (str2nr(a:length)+1) . "v.\\+/"
+      execute l:match_cmd
+
+      let b:overlengthhi = 1
+
+      " This is to ensure the highlighting is buffer-local, as match defaults
+      " to window-local.
+      execute "augroup OverLength_" . expand("%")
+      execute "au!"
+      execute "au BufWinEnter " . expand("%") . " highlight OverLength ctermbg=darkred gui=undercurl guisp=blue | " . l:match_cmd
+      execute "au BufWinLeave " . expand("%") . " highlight clear OverLength"
+      execute "augroup END"
+    endfunction
+
+    function ToggleOverLengthHi(length)
       if exists("b:overlengthhi") && b:overlengthhi
-        highlight clear OverLength
-        let b:overlengthhi = 0
-
-        if a:silent == 0
-          echo "[ToggleOverLengthHi] OverLength highlight OFF"
-        endif
+        call OverLengthHiOff()
+        echo "[ToggleOverLengthHi] OverLength highlight OFF"
       else
-        " adjust colors/styles as desired
-        highlight OverLength ctermbg=darkred gui=undercurl guisp=blue
-        " change '81' to be 1+(number of columns)
-        match OverLength /\%81v.\+/
-        let b:overlengthhi = 1
-
-        if a:silent == 0
-          echo "[ToggleOverLengthHi] OverLength highlight ON"
-        endif
+        call OverLengthHiOn(a:length)
+        echo "[ToggleOverLengthHi] OverLength highlight ON"
       endif
     endfunction
 
@@ -206,7 +223,7 @@
     " taglist plugin
     map <C-T> <ESC>:TlistToggle<CR>
 
-    map <C-L> <ESC>:call ToggleOverLengthHi(0)<CR>
+    map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
 
     " Function keys
     map <F5> <ESC>:call g:ClangUpdateQuickFix()<CR>
@@ -221,15 +238,15 @@
     augroup ftgroup_python
       au!
       au BufRead,BufNewFile *.py,*.pyw setf python
-      au FileType python setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call ToggleOverLengthHi(1)
+      au FileType python setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
       au BufNewFile *.py,*.pyw setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_ccppobjc
       au!
-      au FileType c    setlocal ts=8 sw=8 sts=8 noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
-      au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
-      au FileType objc setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au FileType c    setlocal ts=8 sw=8 sts=8 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType objc setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
       au BufNewFile *.c,*.cpp,*.h,*.hpp setlocal fileformat=unix
     augroup END
 
@@ -246,7 +263,7 @@
 
     augroup ftgroup_perl
       au!
-      au FileType perl setlocal ts=8 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call ToggleOverLengthHi(1)
+      au FileType perl setlocal ts=8 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
       au BufNewFile *.pl setlocal fileformat=unix
     augroup END
 
@@ -264,7 +281,7 @@
 
     augroup ftgroup_tex
       au!
-      au FileType tex,plaintex setlocal ts=2 sw=2 sts=2 et ai tw=79 spell | call SetList(1) | call ToggleOverLengthHi(1)
+      au FileType tex,plaintex setlocal ts=2 sw=2 sts=2 et ai tw=79 spell | call SetList(1) | call OverLengthHiOn(80)
       au BufNewFile *.tex setlocal fileformat=unix
     augroup END
 
@@ -293,7 +310,7 @@
 
     augroup ftgroup_haskell
       au!
-      au FileType haskell setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call ToggleOverLengthHi(1)
+      au FileType haskell setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
       au BufNewFile *.hs setlocal fileformat=unix
     augroup END
 
@@ -324,7 +341,7 @@
 
     augroup ftgroup_rst
       au!
-      au FileType rst setlocal ts=8 sw=4 sts=4 tw=79 et spell | call SetList(1) | call ToggleOverLengthHi(1)
+      au FileType rst setlocal ts=8 sw=4 sts=4 tw=79 et spell | call SetList(1) | call OverLengthHiOn(80)
       au BufNewFile *.rst setlocal fileformat=unix
     augroup END
 
@@ -343,7 +360,7 @@
 
     augroup ftgroup_hdl
       au!
-      au FileType verilog setlocal ts=3 sw=3 sts=3 noet | call SetList(0) | call ToggleOverLengthHi(1)
+      au FileType verilog setlocal ts=3 sw=3 sts=3 noet | call SetList(0) | call OverLengthHiOn(80)
       au BufNewFile *.v setlocal fileformat=unix
     augroup END
 
@@ -355,7 +372,7 @@
     " PLAN: last, override existing settings, use my taskman script.
     augroup ftgroup_PLAN
       au!
-      au BufRead,BufNewFile *PLAN*,*/gtd/*.rst call taskman#setup() | setlocal tw=109 | highlight clear OverLength
+      au BufRead,BufNewFile *PLAN*,*/gtd/*.rst call taskman#setup() | setlocal tw=109 | call OverLengthHiOn(110)
     augroup END
 
 " }}}
