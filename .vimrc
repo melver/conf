@@ -127,6 +127,20 @@
     endfunction
 " }}}
 
+" Plugins {{{
+    " Pathogen {{{
+      runtime! autoload/pathogen.vim
+      if exists("*pathogen#infect")
+        call pathogen#infect()
+      endif
+    " }}}
+
+    " NERDTree {{{
+      let g:NERDTreeBookmarksFile = $HOME . "/.vim/.NERDTreeBookmarks"
+      let g:NERDTreeWinSize=28
+    " }}}
+" }}}
+
 " General {{{
     set nocompatible " get out of vi-compatible mode
     set noexrc " do not execute vimrc in local dir
@@ -197,13 +211,6 @@
     set foldmarker={{{,}}}
     set foldmethod=marker
     set foldlevel=0
-" }}}
-
-" Plugins {{{
-    " NERDTree {{{
-      let g:NERDTreeBookmarksFile = $HOME . "/.vim/.NERDTreeBookmarks"
-      let g:NERDTreeWinSize=28
-    " }}}
 " }}}
 
 " Mappings {{{
