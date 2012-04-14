@@ -1,0 +1,15 @@
+[ui]
+username=Marco Elver <me@marcoelver.com>
+
+# Always use git diffs since they contain permission changes and rename info
+[defaults]
+qrefresh = --git
+email = --git
+diff = --git
+
+[email]
+method = smtp
+
+[smtp]
+host = localhost
+port = 2525

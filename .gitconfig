@@ -1,3 +1,31 @@
 [user]
 	name = Marco Elver
 	email = me@marcoelver.com
+[sendemail]
+	smtpserver = localhost
+	smtpserverport = 2525
+[color]
+	grep = auto
+	branch = auto
+	diff = auto
+	status = auto
+[alias]
+	log-cgraph = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(cyan)%cD%C(reset) %C(green)(%cr)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(bold white)%s%C(reset) %C(white)— %cn%C(reset)' --abbrev-commit
+
+####################################
+# For terminals with dark background
+[color "branch"]
+	current = yellow bold
+	remote = cyan bold
+[color "diff"]
+	new = yellow bold
+	old = magenta bold
+	meta = cyan bold
+	frag = white bold
+	commit = white bold
+[color "status"]
+	added = yellow bold
+	changed = cyan bold
+	untracked = red bold
+# End of color scheme
+####################################
