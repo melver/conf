@@ -7,18 +7,26 @@
 
 source "${HOME}/.common-sh.rc"
 
-#------------------------------
-# Options
-#------------------------------
+# Options {{{
+
+TIMEFMT='%J  %U user %S system %P cpu %E total'
+
+# History {{{
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-TIMEFMT='%J  %U user %S system %P cpu %E total'
 
-#------------------------------
-# Keybindings
-#------------------------------
+setopt HIST_IGNORE_SPACE
+setopt APPEND_HISTORY
+setopt HIST_NO_STORE
+
+# }}}
+
+# }}}
+
+# Keybindings {{{
+
 bindkey -v
 typeset -g -A key
 #bindkey '\e[3~' delete-char
@@ -43,13 +51,13 @@ bindkey "\e[7~" beginning-of-line
 bindkey "\eOH" beginning-of-line
 bindkey "\eOF" end-of-line
 
-#------------------------------
-# Aliases
-#------------------------------
+# }}}
 
-#------------------------------
-# Comp stuff
-#------------------------------
+# Aliases {{{
+# }}}
+
+# Comp stuff {{{
+
 zmodload zsh/complist 
 autoload -Uz compinit
 compinit
@@ -71,9 +79,10 @@ zstyle ':completion:*:kill:*'   force-list always
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
 
-#------------------------------
-# Window title
-#------------------------------
+# }}}
+
+# Window title {{{
+
 case $TERM in
 	*xterm*|rxvt|rxvt-unicode|rxvt-256color|(dt|k|E)term)
 		precmd () { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" } 
@@ -91,9 +100,9 @@ case $TERM in
 	;; 
 esac
 
-#------------------------------
-# Functions
-#------------------------------
+#}}}
+
+# Functions {{{
 
 setprompt () {
 	# load some modules
@@ -129,4 +138,6 @@ setprompt () {
 
 setprompt
 color_setup
+
+#}}}
 

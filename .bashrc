@@ -9,24 +9,30 @@
 
 . "${HOME}/.common-sh.rc"
 
-#----------------------------
-# Options
-#----------------------------
+# Options {{{
 
-HISTSIZE=1000
-SAVEHIST=1000
 PS1='[\u@\h]:\w\$ '
 TIMEFORMAT="[time]: %2R wallclock secs = ( %2U usr secs + %2S sys secs / %P%% CPU )"
 
 shopt -s checkwinsize
 
-#------------------------------
-# Aliases
-#------------------------------
+# History {{{
 
-#------------------------------
-# Functions
-#------------------------------
+HISTCONTROL="ignorespace"
+HISTSIZE=1000
+SAVEHIST=1000
+
+shopt -s histappend
+
+# }}}
+
+# }}}
+
+# Aliases {{{
+# }}}
+
+# Functions {{{
+# }}}
 
 color_setup
 
