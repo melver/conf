@@ -187,7 +187,7 @@ function! taskman#mark_done()
   let l:indendation = matchstr(getline("."), "^\\s*")
   let l:syn_name = synIDattr(synID(line("."), strlen(l:indendation)+1, 1), 'name')
 
-  if l:syn_name == "tmTaskDone"
+  if l:syn_name == "tmTaskDone" || l:syn_name == "tmSubDone"
     echo "[taskman] Already marked done."
     return
   endif
@@ -196,8 +196,14 @@ function! taskman#mark_done()
     call setline(line("."), substitute(getline("."), "\\[[^\\]]*\\]", l:done_marker, ''))
   else
     if l:indendation != ""
-      call setline(line("."), substitute(getline("."), l:indendation, l:indendation . l:done_marker . " ", ''))
+      if l:syn_name == "tmSubTask"
+        call setline(line("."), substitute(getline("."), l:indendation . "+", l:indendation . l:done_marker, ''))
+      else
+        " Fallback
+        call setline(line("."), substitute(getline("."), l:indendation, l:indendation . l:done_marker . " ", ''))
+      endif
     else
+      " Fallback
       call setline(line("."), l:done_marker . " " . getline("."))
     endif
   endif
@@ -347,7 +353,7 @@ function! s:SetupSyntax()
   syn region tmSubDone      start="^\s\+\(x\|- (x)\)"     end="$"
   syn region tmSubTask      start="^\s\+\(+\|- (+)\)"     end="$"           contains=tmMetaInfo,tmDueDate keepend
 
-  " Task + folding fulres and completed task
+  " Task, folding and completed task rules
   syn region tmTask         start="^\z(\s*\)\(\[[^\]x]*\]\|\d\d\d\d-\d\d-\d\d.*>\|DUE.*>\)" end="$" contains=tmMetaInfo,tmDueDate,@tmPriority keepend
   syn region tmTaskFold     start="^\z(\s*\)\(\[[^\]x]*\]\|\d\d\d\d-\d\d-\d\d.*>\|DUE.*>\)" end="^\s*$\|^\z1\S"me=s-1 fold keepend transparent
   syn region tmTaskDone     start="^\z(\s*\)\[x[^\]]*\]"       end="^\s*$\|^\z1\S"me=s-1 contains=tmMetaInfo fold keepend
