@@ -1,0 +1,15 @@
+#
+# .common-profile -- executed by login shells
+#
+# Author: Marco Elver <marco.elver AT gmail.com>
+#
+
+# flexible approach to user-specific paths
+if [[ -f "$HOME/.mypaths" ]]; then
+	export PATH="${PATH}$(grep -v '^#' "$HOME/.mypaths" |
+	while read line; do
+		echo -n ":$line" 
+	done)"
+fi
+
+# vim: set ft=sh :

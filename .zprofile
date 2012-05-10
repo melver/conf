@@ -1,0 +1,3 @@
+
+source "${HOME}/.common-profile"
+
