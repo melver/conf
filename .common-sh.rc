@@ -72,30 +72,6 @@ color_setup() {
 	fi
 }
 
-tmux_sysstat_helper() {
-	local _sys_stat_file
-	_sys_stat_file="/tmp/sys-stat-$USER"
-	[[ -f "$_sys_stat_file" ]] && return
-
-	if [[ "$1" == "background" ]]; then
-		sys-stat -f "$_sys_stat_file" &
-		sys_stat_pid=$!
-
-		# Let tmux launch
-		sleep 3s
-
-		while pgrep -u "$USER" tmux; do
-			sleep 15
-		done
-
-		# Clean up
-		kill $sys_stat_pid
-		rm "$_sys_stat_file" &> /dev/null
-	else
-		tmux_sysstat_helper background &> /dev/null &
-	fi
-}
-
 # }}}
 
 # Aliases {{{
@@ -125,7 +101,7 @@ alias gvimnoac='gvim +"let g:clang_complete_auto=0"'
 
 alias screen="screen -s $(which_shell)"
 alias tmux="SHELL=$(which_shell) tmux"
-alias tmux-syst="tmux_sysstat_helper; tmux"
+alias tmux-syst="sys-stat-helper; tmux"
 
 # }}}
 
