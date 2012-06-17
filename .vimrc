@@ -392,7 +392,7 @@
         set guifont=Consolas:h11:cANSI
       else
         if exists("use_alt_font")
-          set guifont=Inconsolata\ 13
+          set guifont=Terminus\ 12
         else
           set guifont=Monospace\ 11
         endif
