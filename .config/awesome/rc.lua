@@ -14,7 +14,7 @@ require("awful.autofocus")
 require("awful.rules")
 require("beautiful") -- Theme handling library
 require("naughty")   -- Notification library
-require("vicious")   -- (Non standard) System monitoring widgets
+vicious = require("vicious")   -- (Non standard) System monitoring widgets
 
 -- Start building config
 

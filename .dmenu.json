@@ -84,7 +84,7 @@
 	},
 	{"session" : [0, {
 		"lock" : [0, "xlock -mode blank"],
-		"halt" : [10, "shutdown-logout halt"],
+		"poweroff" : [10, "shutdown-logout poweroff"],
 		"reboot" : [20, "shutdown-logout reboot"],
 		"suspend" : [30, "xlock -mode blank -startCmd 'sudo pm-suspend'"]
 	}]

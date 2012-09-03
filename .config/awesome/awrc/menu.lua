@@ -18,7 +18,7 @@ awesomemenu = {
     { "restart",        awesome.restart },
     { "lock",           "xlock -mode blank" },
     { "quit",           awesome.quit },
-    { "halt",           "shutdown-logout halt" },
+    { "poweroff",       "shutdown-logout poweroff" },
     { "reboot",         "shutdown-logout reboot" },
     { "suspend",        "xlock -mode blank -startCmd 'sudo pm-suspend'"}
 }
