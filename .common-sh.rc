@@ -107,6 +107,8 @@ alias screen="$SCREEN_CMD"
 alias tmux="$TMUX_CMD"
 alias tmux-syst="sys-stat-helper; tmux"
 
+alias wget-wwwoffline='wget --adjust-extension --convert-links --page-requisites --no-clobber --restrict-file-names=windows'
+
 # }}}
 
 # vim: set ft=sh :
