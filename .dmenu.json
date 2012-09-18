@@ -1,6 +1,6 @@
 [	
 	{
-	"terminal" : [0, "roxterm"],
+	"terminal" : [0, "urxvt"],
 	"calculator" : [10, "gcalctool"],
 	"unison" : [30, "unison-x11"]
 	},
