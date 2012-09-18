@@ -97,7 +97,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal_alt) end),
     -- miscellaneous
-    awful.key({ modkey, "Shift"   }, "x",      function () awful.util.spawn("xlock-screenoff") end),
+    awful.key({ modkey, "Control" }, "x",      function () awful.util.spawn("xlock-screenoff") end),
+    awful.key({ modkey, "Shift"   }, "x",      function () awful.util.spawn("xlock -mode blank") end),
     -- web
     awful.key({ modkey,           }, "f",      function () awful.util.spawn(browser) end),
     awful.key({ modkey, "Shift"   }, "f",      function () awful.util.spawn(browser_private) end),
