@@ -392,9 +392,10 @@
         set guifont=Consolas:h11:cANSI
       else
         if exists("use_alt_font")
-          set guifont=Terminus\ 12
-        else
           set guifont=Monospace\ 11
+        else
+          set guifont=Terminus\ 12
+          set linespace=1
         endif
       endif
 
@@ -408,6 +409,9 @@
       "set background=dark
       try
         colorscheme desertEx
+        " Disable use of italic in desertEx
+        hi Comment      guifg=PaleGreen3     gui=none
+
       catch /^Vim\%((\a\+)\)\=:E185/
         echo "WARNING: Preferred GUI colorscheme not found!"
         colorscheme desert

@@ -361,7 +361,7 @@ function! s:SetupSyntax()
   hi def link tmTaskDone    Comment
   hi def link tmSubDone     Comment
   hi def link tmSubTask     Special
-  hi def      tmTask        term=bold cterm=bold gui=bold,italic
+  hi def      tmTask        term=bold cterm=bold gui=bold
   hi def link tmPrioRegular Special
   hi def link tmPrioHigh    Todo
   hi def link tmPrioLow     Comment
