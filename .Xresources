@@ -4,10 +4,14 @@ vncviewer*grabKeyboard: True
 !! URxvt settings
 
 URxvt.scrollBar: false
-URxvt.font: xft:monospace:size=11:antialias=false
-URxvt.letterSpace: -1
 URxvt*loginShell: false
 URxvt*termName: xterm-256color
+URxvt.pointerBlank: true
+
+!URxvt.font: xft:Monospace:size=11
+URxvt.font: xft:Terminus:size=12:antialias=false
+!URxvt.letterSpace: -1
+URxvt.lineSpace: 1
 
 !! Colorscheme: https://raw.github.com/baskerville/xresources-color-schemes/master/raven_m6-dark
 !! Modified by Marco
@@ -15,11 +19,11 @@ URxvt*termName: xterm-256color
 #define t_bg_floor     #010000
 #define t_bg_dip       #1F1E1B
 #define t_background   #232221
-#define t_bg_bump      #31312E
+#define t_bg_bump      #2E3436
 #define t_fg_comment   #6F7074
-#define t_foreground   #E8E9EA
+#define t_foreground   #EEEEEC
 #define t_fg_highlight #F8F9FA
-#define t_fg_ceiling   #FEFFFF
+#define t_fg_ceiling   #FCFAFA
 
 URxvt.background: t_background
 URxvt.foreground: t_foreground
@@ -47,16 +51,16 @@ URxvt.color3: #AD9F37
 URxvt.color11: #EAD84D
 
 ! GRN
-URxvt.color2: #409C32
+URxvt.color2: #4EA012
 URxvt.color10: #76D456
 
 ! CYN
-URxvt.color6: #008E9A
-URxvt.color14: #2BD8D5
+URxvt.color6: #06989A
+URxvt.color14: #34E2E2
 
 ! BLU
-URxvt.color4: #3969B3
-URxvt.color12: #72A2E5
+URxvt.color4: #456BC0
+URxvt.color12: #72A2E2
 
 ! MAG
 URxvt.color5: #945E8D
