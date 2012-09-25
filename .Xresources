@@ -5,8 +5,10 @@ vncviewer*grabKeyboard: True
 
 URxvt.scrollBar: false
 URxvt*loginShell: false
-URxvt*termName: xterm-256color
 URxvt.pointerBlank: true
+
+!! Overriding the following option may cause unwanted side-effects!
+!URxvt*termName: xterm-256color
 
 !URxvt.font: xft:Monospace:size=11
 URxvt.font: xft:Terminus:size=12:antialias=false
