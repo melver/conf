@@ -62,7 +62,16 @@ color_setup() {
 	case "$TERM" in
 		*256color)
 			export SCREEN_CMD="screen -T screen-256color -s $(which_shell)"
-			export TMUX_CMD="SHELL=$(which_shell) _COLOR_TERM=1 tmux"
+
+			case "$TERM" in
+				rxvt-unicode-256color)
+					export TMUX_CMD="SHELL=$(which_shell) _COLOR_TERM=screen-256color-it tmux"
+					;;
+				*)
+					export TMUX_CMD="SHELL=$(which_shell) _COLOR_TERM=screen-256color tmux"
+					;;
+			esac
+
 			alias screen="$SCREEN_CMD"
 			alias tmux="$TMUX_CMD"
 			;;
@@ -70,7 +79,7 @@ color_setup() {
 
 	if [[ -n "$TMUX" && -n "$_COLOR_TERM" ]]; then
 		# Original term supports color, and we are in tmux
-		export TERM=screen-256color
+		export TERM=$_COLOR_TERM
 	fi
 }
 
