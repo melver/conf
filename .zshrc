@@ -84,7 +84,7 @@ zstyle ':completion:*:killall:*'   force-list always
 # Window title {{{
 
 case $TERM in
-	*xterm*|rxvt|rxvt-unicode|rxvt-256color|(dt|k|E)term)
+	*xterm*|rxvt*|(dt|k|E)term)
 		precmd () { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" } 
 		preexec () { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ($1)\a" }
 	;;
