@@ -87,11 +87,14 @@ color_setup() {
 
 # Aliases {{{
 
-if [[ "$OSTYPE" =~ linux ]]; then
-	alias ls='ls --color=auto'
-elif [[ "$OSTYPE" =~ freebsd|FreeBSD ]]; then
-	alias ls='ls -G'
-fi
+case "$OSTYPE" in
+	*linux*)
+		alias ls='ls --color=auto'
+		;;
+	*freebsd*|*FreeBSD*)
+		alias ls='ls -G'
+		;;
+esac
 
 alias l='ls -F'
 alias ll='ls -lh'
