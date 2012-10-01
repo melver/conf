@@ -346,10 +346,10 @@
       au BufNewFile *.xml setlocal fileformat=unix
     augroup END
 
-    augroup ftgroup_rst
+    augroup ftgroup_rstmd
       au!
-      au FileType rst setlocal ts=8 sw=4 sts=4 tw=79 et spell | call SetList(1) | call OverLengthHiOn(80)
-      au BufNewFile *.rst setlocal fileformat=unix
+      au FileType rst,markdown setlocal ts=8 sw=4 sts=4 tw=79 et spell | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.rst,*.md setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_cmake
