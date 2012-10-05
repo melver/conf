@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # setup-local-plugins.sh: TODO: Add description here.
 #

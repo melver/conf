@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # compile-all.sh: Compiles all custom terminfo files
 #
