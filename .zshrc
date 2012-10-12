@@ -1,9 +1,9 @@
-#-------------------------------------------------------------------------#
-# File:     .zshrc   ZSH resource file                                    #
-# Version:  0.1.33.7                                                      #
-# Author: Marco Elver <marco.elver AT gmail.com>                          #
-# Original Author: Øyvind "Mr.Elendig" Heggstad <mrelendig@har-ikkje.net> #
-#-------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
+# File:     .zshrc   ZSH resource file                                       #
+# Version:  0.1.33.7                                                         #
+# Author: Marco Elver <me AT marcoelver.com>                                 #
+# Based on .zshrc by: Øyvind "Mr.Elendig" Heggstad <mrelendig@har-ikkje.net> #
+#----------------------------------------------------------------------------#
 
 source "${HOME}/.common-sh.rc"
 

@@ -1,7 +1,7 @@
 ====
 Conf
 ====
-:Author: Marco Elver <marco.elver AT gmail.com>
+:Author: Marco Elver <me AT marcoelver.com>
 
 Configuration files (/home folder only).
 

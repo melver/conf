@@ -1,7 +1,7 @@
 #-----------------------------------------------------
 # File:	    Minimalistic .bashrc
 # Version:  0.1.33.7
-# Author:   Marco Elver <marco.elver AT gmail.com>
+# Author:   Marco Elver <me AT marcoelver.com>
 #-----------------------------------------------------
 
 # returns if not interactive shell
