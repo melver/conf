@@ -24,7 +24,8 @@ fetch_plugins() {
 	git clone "https://github.com/Rip-Rip/clang_complete.git" "clang_complete"
 	echo "let g:clang_complete_copen = 1" >> "$INIT_BUNDLES_VIM"
 
-	#
+	# NuSMV syntax
+	git clone "https://github.com/melver/wmnusmv.vim.git" "wmnusmv"
 }
 
 update_plugins() {

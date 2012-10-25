@@ -311,7 +311,7 @@
 
     augroup ftgroup_slice
       au!
-      au FileType slice setlocal ts=4 sw=4 sts=4 et ai | call SetList(0)
+      au FileType slice setlocal ts=4 sw=4 sts=4 et si | call SetList(0)
       au BufNewFile *.ice setlocal fileformat=unix
     augroup END
 
@@ -374,6 +374,12 @@
     augroup ftgroup_lua
       au!
       au FileType lua setlocal ts=4 sw=4 sts=4 et | call SetList(1)
+    augroup END
+
+    augroup ftgroup_smv
+      au!
+      au FileType nusmv setlocal ts=4 sw=2 sts=2 et ai | call SetList(1)
+      au BufNewFile *.smv setlocal fileformat=unix
     augroup END
 
     " PLAN: last, override existing settings, use my taskman script.
