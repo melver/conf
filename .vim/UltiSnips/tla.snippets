@@ -1,0 +1,18 @@
+##
+# TLA+ Snippets
+# Author: Marco Elver <me AT marcoelver.com>
+##
+
+snippet (* "Block comment"
+${1:Text}`!p
+indent_cnt = int(vim.eval("indent('.')"))
+indent_str = indent_cnt*" "
+border = "\n" + snip.mkline("(*"+(77-4-indent_cnt)*"*"+"*)", indent_str)
+snip.rv += border
+for n,x in enumerate(t[1].splitlines()):
+    if n != 0 and x.startswith(indent_str): x = x.replace(indent_str, "", 1)
+    snip.rv += "\n" + snip.mkline("(* " + x + (77-5-indent_cnt-len(x))*" "+"*)", indent_str)
+snip.rv += border
+`
+endsnippet
+

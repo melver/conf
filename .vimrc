@@ -382,6 +382,13 @@
       au BufNewFile *.smv setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_tla
+      au!
+      au BufRead,BufNewFile *.tla setf tla
+      au FileType tla setlocal ts=4 sw=2 sts=2 et ai | call SetList(1)
+      au BufNewFile *.tla setlocal fileformat=unix
+    augroup END
+
     " PLAN: last, override existing settings, use my taskman script.
     augroup ftgroup_PLAN
       au!
