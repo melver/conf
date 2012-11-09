@@ -60,6 +60,8 @@ shopt -s histappend
 
 # }}}
 
+set -o vi
+
 # }}}
 
 # Aliases {{{
