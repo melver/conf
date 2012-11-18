@@ -423,8 +423,8 @@
       try
         colorscheme desertEx
         " Modify colorscheme (disable use of italic!)
-        hi Normal     guifg=#f6f3e8
         hi Comment    gui=none
+        hi Normal     guifg=#f6f3e8 guibg=#242424 gui=none
 
       catch /^Vim\%((\a\+)\)\=:E185/
         echo "WARNING: Preferred GUI colorscheme not found!"
