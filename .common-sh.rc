@@ -112,6 +112,8 @@ alias gvimprojv='gvim +"Project vimprojects"'
 alias gvimaf='gvim --cmd "let use_alt_font=1"'
 alias vimnoac='vim +"let g:clang_complete_auto=0"'
 alias gvimnoac='gvim +"let g:clang_complete_auto=0"'
+alias vimtex='vim +"let NERDTreeIgnore=['"'"'\.\(out\|log\|ps\|dvi\|aux\|bbl\|blg\|toc\|lof\|lol\|lot\|nav\|snm\|bcf\|run\.xml\|pdf\)$'"'"', '"'"'\~$'"'"']"'
+alias gvimtex='gvim +"let NERDTreeIgnore=['"'"'\.\(out\|log\|ps\|dvi\|aux\|bbl\|blg\|toc\|lof\|lol\|lot\|nav\|snm\|bcf\|run\.xml\|pdf\)$'"'"', '"'"'\~$'"'"']"'
 
 export SCREEN_CMD="screen -s $(which_shell)"
 export TMUX_CMD="SHELL=$(which_shell) tmux"
