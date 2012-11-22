@@ -294,7 +294,7 @@
 
     augroup ftgroup_bibtex
       au!
-      au FileType bib setlocal ts=2 sw=2 sts=2 et ai tw=109 foldmarker=@,}. | call SetList(1)
+      au FileType bib setlocal ts=2 sw=2 sts=2 et ai tw=109 foldmarker=@,}\ \ \  | call SetList(1)
       au BufNewFile *.bib setlocal fileformat=unix
     augroup END
 
