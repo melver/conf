@@ -301,7 +301,14 @@ endfunction
 
 function! s:GetTrackTimeSec(timestr)
   let l:parts = split(a:timestr, ":")
-  return (str2nr(l:parts[0])*60 + str2nr(l:parts[1]))*60 + str2nr(l:parts[2])
+
+  if len(l:parts) == 3
+    return (str2nr(l:parts[0])*60 + str2nr(l:parts[1]))*60 + str2nr(l:parts[2])
+  elseif len(l:parts) == 2
+    return str2nr(l:parts[0])*60 + str2nr(l:parts[1])
+  else
+    return str2nr(l:parts[0])
+  endif
 endfunction
 
 function! s:GetRegexDueDate(days_from_today)
