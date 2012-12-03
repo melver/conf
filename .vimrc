@@ -235,10 +235,84 @@
     " Function keys
     map <F5> <ESC>:call g:ClangUpdateQuickFix()<CR>
     map <F9> <ESC>:call ToggleList()<CR>
-    map <F10> <ESC>:call ToggleList()<CR>
+    map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+          \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+          \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
     " Open file under cursor with xdg-open
     map xf <ESC>:call ExecuteCursorFile()<CR>
+" }}}
+
+" GUI/Term Specific Settings {{{
+    if !exists("disable_italic")
+      let disable_italic = 0
+    endif
+
+    if has("gui_running")
+      " GUI {{{
+      " Set font, based on preference and if available:
+      if has("win32")
+        set guifont=Consolas:h11:cANSI
+      else
+        if exists("use_alt_font")
+          set guifont=Monospace\ 11
+        else
+          set guifont=Terminus\ 12
+          set linespace=1
+
+          let disable_italic = 1
+        endif
+      endif
+
+      set columns=120
+      set lines=45
+      set mousehide
+
+      "set guioptions=aegimrLt
+      set guioptions=aegiLt
+
+      "set background=dark
+      try
+        colorscheme desertEx
+
+        " Modify colorscheme
+        hi Normal guifg=#f6f3e8 guibg=#242424 gui=none
+
+        if disable_italic
+          hi Comment gui=none
+        endif
+
+      catch /^Vim\%((\a\+)\)\=:E185/
+        echo "WARNING: Preferred GUI colorscheme not found!"
+        colorscheme desert
+      endtry
+
+      " GUI Mappings {
+        " Toggle menubar
+        nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+
+        " Toggle scrollbar
+        nnoremap <C-F2> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+
+        " Toggle toolbar
+        nnoremap <C-F3> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+
+        " Copy/Paste
+        vmap <C-M-C> "+y
+        nmap <C-M-V> "+gP
+      " }
+      " }}}
+    else
+      " Terminal {{{
+      set background=dark
+
+      " Terminal color palette; shouldn't need to set this, as vim detects
+      " this properly if TERM=xterm-256color is set by terminal emulator.
+      "set t_Co=256
+
+      colorscheme wombat256 " Should override background if neccessary
+      " }}}
+    endif
 " }}}
 
 " Autocommands {{{
@@ -290,6 +364,10 @@
       au!
       au FileType tex,plaintex setlocal ts=2 sw=2 sts=2 et ai tw=79 spell | call SetList(1) | call OverLengthHiOn(80)
       au BufNewFile *.tex setlocal fileformat=unix
+
+      if disable_italic
+        au FileType tex,plaintex hi texItalStyle gui=none cterm=none | hi texBoldItalStyle gui=bold cterm=bold | hi texItalBoldStyle gui=bold cterm=bold
+      endif
     augroup END
 
     augroup ftgroup_bibtex
@@ -350,6 +428,10 @@
       au!
       au FileType rst,markdown setlocal ts=8 sw=4 sts=4 tw=79 et spell | call SetList(1) | call OverLengthHiOn(80)
       au BufNewFile *.rst,*.md setlocal fileformat=unix
+
+      if disable_italic
+        au FileType rst hi rstEmphasis term=none cterm=none gui=none
+      endif
     augroup END
 
     augroup ftgroup_cmake
@@ -395,68 +477,6 @@
       au BufRead,BufNewFile *PLAN*,*/gtd/*.rst call taskman#setup() | setlocal tw=109 | call OverLengthHiOn(110)
     augroup END
 
-" }}}
-
-" GUI/Term Specific Settings {{{
-    if has("gui_running")
-      " GUI {{{
-      " Set font, based on preference and if available:
-      if has("win32")
-        set guifont=Consolas:h11:cANSI
-      else
-        if exists("use_alt_font")
-          set guifont=Monospace\ 11
-        else
-          set guifont=Terminus\ 12
-          set linespace=1
-        endif
-      endif
-
-      set columns=120
-      set lines=45
-      set mousehide
-
-      "set guioptions=aegimrLt
-      set guioptions=aegiLt
-
-      "set background=dark
-      try
-        colorscheme desertEx
-        " Modify colorscheme (disable use of italic!)
-        hi Comment    gui=none
-        hi Normal     guifg=#f6f3e8 guibg=#242424 gui=none
-
-      catch /^Vim\%((\a\+)\)\=:E185/
-        echo "WARNING: Preferred GUI colorscheme not found!"
-        colorscheme desert
-      endtry
-
-      " GUI Mappings {
-        " Toggle menubar
-        nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-
-        " Toggle scrollbar
-        nnoremap <C-F2> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
-
-        " Toggle toolbar
-        nnoremap <C-F3> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-
-        " Copy/Paste
-        vmap <C-M-C> "+y
-        nmap <C-M-V> "+gP
-      " }
-      " }}}
-    else
-      " Terminal {{{
-      set background=dark
-
-      " Terminal color palette; shouldn't need to set this, as vim detects
-      " this properly if TERM=xterm-256color is set by terminal emulator.
-      "set t_Co=256
-
-      colorscheme wombat256 " Should override background if neccessary
-      " }}}
-    endif
 " }}}
 
 " vim: set ts=8 sw=2 sts=2 et ai foldmarker={{{,}}} foldlevel=0 fen fdm=marker:
