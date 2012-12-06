@@ -86,7 +86,8 @@
 		"lock" : [0, "xlock -mode blank"],
 		"poweroff" : [10, "shutdown-logout poweroff"],
 		"reboot" : [20, "shutdown-logout reboot"],
-		"suspend" : [30, "xlock -mode blank -startCmd 'sudo pm-suspend'"]
+		"suspend" : [30, "xlock -mode blank -startCmd 'system-state suspend'"],
+		"hibernate" : [40, "xlock -mode blank -startCmd 'system-state hibernate'"]
 	}]
 	}
 ]
