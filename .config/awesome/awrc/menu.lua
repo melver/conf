@@ -18,8 +18,8 @@ awesomemenu = {
     { "restart",        awesome.restart },
     { "lock",           "xlock -mode blank" },
     { "quit",           awesome.quit },
-    { "poweroff",       "shutdown-logout poweroff" },
-    { "reboot",         "shutdown-logout reboot" },
+    { "poweroff",       "system-state poweroff" },
+    { "reboot",         "system-state reboot" },
     { "suspend",        "xlock -mode blank -startCmd 'system-state suspend'"},
     { "hibernate",      "xlock -mode blank -startCmd 'system-state hibernate'"}
 }

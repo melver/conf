@@ -84,8 +84,8 @@
 	},
 	{"session" : [0, {
 		"lock" : [0, "xlock -mode blank"],
-		"poweroff" : [10, "shutdown-logout poweroff"],
-		"reboot" : [20, "shutdown-logout reboot"],
+		"poweroff" : [10, "system-state poweroff"],
+		"reboot" : [20, "system-state reboot"],
 		"suspend" : [30, "xlock -mode blank -startCmd 'system-state suspend'"],
 		"hibernate" : [40, "xlock -mode blank -startCmd 'system-state hibernate'"]
 	}]
