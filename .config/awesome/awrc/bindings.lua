@@ -38,18 +38,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    awful.key({ modkey, "Control" }, "Left",
-        function ()
-            mouse.coords({ -- Move mouse cursor far left
-            x=mouse.coords().x - screen[mouse.screen].workarea.width,
-            y=0 }) -- set y=mouse.coords().y to keep y
-        end),
-    awful.key({ modkey, "Control" }, "Right",
-        function ()
-            mouse.coords({ -- Move mouse cursor far right
-            x=mouse.coords().x + screen[mouse.screen].workarea.width,
-            y=0 }) -- set y=mouse.coords().y to keep y
-        end),
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
@@ -73,7 +61,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
-    awful.key({ modkey, "Control" }, "d", function()
+    awful.key({ modkey, "Shift" }, "d", function()
         setup_runtime_error_handler()
         naughty.notify({ title = "Debugging", text = "Set up runtime error handler!", timeout = 3 })
         end),
@@ -88,6 +76,40 @@ globalkeys = awful.util.table.join(
                       awful.util.eval, nil,
                       awful.util.getdir("cache") .. "/history_eval")
               end),
+
+    -- Mouse control
+    awful.key({ modkey, "Control" }, "Left",
+        function ()
+            mouse.coords({ -- Move mouse cursor far left
+            x=mouse.coords().x - screen[mouse.screen].workarea.width,
+            y=0 }) -- set y=mouse.coords().y to keep y
+        end),
+    awful.key({ modkey, "Control" }, "Right",
+        function ()
+            mouse.coords({ -- Move mouse cursor far right
+            x=mouse.coords().x + screen[mouse.screen].workarea.width,
+            y=0 }) -- set y=mouse.coords().y to keep y
+        end),
+
+    -- rough keyboard mouse control
+    awful.key({ modkey, "Control" }, "w",
+        function () mouse.coords({ x = mouse.coords().x, y = mouse.coords().y - 8 }) end),
+    awful.key({ modkey, "Control" }, "s",
+        function () mouse.coords({ x = mouse.coords().x, y = mouse.coords().y + 8 }) end),
+    awful.key({ modkey, "Control" }, "a",
+        function () mouse.coords({ x = mouse.coords().x - 8, y = mouse.coords().y }) end),
+    awful.key({ modkey, "Control" }, "d",
+        function () mouse.coords({ x = mouse.coords().x + 8, y = mouse.coords().y }) end),
+    -- Need to specify each possibly combination, as it is otherwise impossible to issue e.g., Shift+MB1
+    awful.key({ modkey,           }, "F6", function () awful.util.spawn("xdotool click --clearmodifiers 1") end),
+    awful.key({ modkey,           }, "F7", function () awful.util.spawn("xdotool click --clearmodifiers 2") end),
+    awful.key({ modkey,           }, "F8", function () awful.util.spawn("xdotool click --clearmodifiers 3") end),
+    awful.key({ modkey, "Shift"   }, "F6", function () awful.util.spawn("xdotool click --clearmodifiers 1") end),
+    awful.key({ modkey, "Shift"   }, "F7", function () awful.util.spawn("xdotool click --clearmodifiers 2") end),
+    awful.key({ modkey, "Shift"   }, "F8", function () awful.util.spawn("xdotool click --clearmodifiers 3") end),
+    awful.key({ modkey, "Control" }, "F6", function () awful.util.spawn("xdotool click --clearmodifiers 1") end),
+    awful.key({ modkey, "Control" }, "F7", function () awful.util.spawn("xdotool click --clearmodifiers 2") end),
+    awful.key({ modkey, "Control" }, "F8", function () awful.util.spawn("xdotool click --clearmodifiers 3") end),
 
     -- Programs
     -- launchers
