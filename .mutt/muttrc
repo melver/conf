@@ -1,0 +1,20 @@
+#===========================================================================
+# .mutt/muttrc
+#
+# For mutt 1.5.21 or later
+#
+# Based on: http://www.spinnaker.de/mutt/muttrc
+#===========================================================================
+
+source ~/.mutt/defaults
+source ~/.mutt/gpg.rc
+source ~/.mutt/smime.rc
+source ~/.mutt/colorscheme
+source ~/.mutt/keybindings
+
+source "gpg -dq ~/.mutt/local/secrets.gpg |"
+set alias_file=~/.mutt/local/aliases	# add the Aliases here
+source ~/.mutt/local/aliases		# and include all existing aliases
+source ~/.mutt/local/muttrc
+
+# vim: set ft=muttrc :
