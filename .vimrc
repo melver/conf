@@ -471,6 +471,11 @@
       au BufNewFile *.tla setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_mail
+      au!
+      au FileType mail setlocal tw=72 spell | call OverLengthHiOn(72)
+    augroup END
+
     " PLAN: last, override existing settings, use my taskman script.
     augroup ftgroup_PLAN
       au!
