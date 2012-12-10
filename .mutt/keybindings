@@ -11,8 +11,9 @@
 #}}}
 
 # Macro Index {{{
-macro index .N '<tag-pattern>~N<enter><tag-prefix><clear-flag>N<clear-flag>*' 'Mark all N messages as read'
-macro index .O '<tag-pattern>~O<enter><tag-prefix><clear-flag>O<clear-flag>*' 'Mark all O messages as read'
+macro index .N '<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>' 'Mark all new messages as read'
+macro index .o '<tag-pattern>~N<enter><tag-prefix><set-flag>O<untag-pattern>.<enter>'   'Mark all new messages as old'
+macro index .O '<tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter>' 'Mark all old messages as read'
 #}}}
 
 # Macro Index/Pager {{{
