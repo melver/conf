@@ -296,17 +296,17 @@ set date_format="!%a %b %d, %Y at %I:%M:%S%p %Z"
 set forward_format="Fwd: %s"
 			# subject of forwarded mails
 
-set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4l?) %s"
+set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4c?) %s"
 			# message line in the index
 			# don't use locales here, because it's not needed and 
 			# it runs in a memory leak in Linux libc5 
 			# use %[!...] or %{!...} instead
 # In local folders display lines:
 #folder-hook . \
-#	'set index_format="%4C %Z %[!%d.%m.%y] %-15.15F (%?M?C%3M&%4l?) %s"'
+#	'set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4l?) %s"'
 # In IMAP folders display KByte (because lines are not available):
 #folder-hook ^{ \
-#	'set index_format="%4C %Z %[!%d.%m.%y] %-15.15F (%?M?C%3M&%4c?) %s"'
+#	'set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4c?) %s"'
 
 set message_format="%-.16n: %s"
 			# string for message/rfc822 in attachment list
@@ -347,7 +347,7 @@ set folder_format="%3C %t%N %F %-8.8u %-8.8g %8s %d %f"
 
 #set status_format="-%r-%v--[%?M?%M/?%m msgs%?n?, %n new?%?d?, %d del?%?F?, %F flag?%?t?, %t tag?%?p?, %p postp?%?b?, %b inc?%?l?, %l?]--(%f)--%s/%S-%>-%P-"
 #set status_format="-%r-%v--[%?M?%M/?%m msgs%?n?, %n new?%?d?, %d del?%?F?, %F flag?%?t?, %t tag?%?p?, %p postp?%?b?, %b inc?%?l?, ?%?L?%L/?%?l?%l?]--(%f)--%s/%S-%>-%P-"
-set status_format="-%r-%v--[%?M?%M/?%m msgs%?n?, %n new?%?d?, %d del?%?F?, %F flag?%?t?, %t tag?%?p?, %p postp?%?b?, %b inc?%?l?, %l?]--(%f)--%s-%>-%P-"
+set status_format="-%r-%v--[%?M?%M/?%m msgs, %n new%?d?, %d del?%?F?, %F flag?%?t?, %t tag?%?p?, %p postp?, %b inc%?l?, %l?]--(%f)--%s/%S-%>-%P-"
 
 
 #
