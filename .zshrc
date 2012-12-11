@@ -21,6 +21,10 @@ setopt HIST_IGNORE_SPACE
 setopt APPEND_HISTORY
 setopt HIST_NO_STORE
 
+# Custom directory-local history, only used if file already exists
+DIR_HISTFILE=.dir-histfile
+DIR_HIST_FORMAT="<%s>[%s@%s]$ %s"
+
 # }}}
 
 # }}}
@@ -86,15 +90,15 @@ zstyle ':completion:*:killall:*'   force-list always
 
 case $TERM in
 	*xterm*|rxvt*|(dt|k|E)term)
-		precmd () { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" } 
-		preexec () { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ($1)\a" }
+		precmd() { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" }
+		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ($1)\a" }
 	;;
 	screen*)
-		precmd () { 
+		precmd() {
 			print -Pn "\e]83;title \"$1\"\a" 
 			print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" 
 		}
-		preexec () { 
+		preexec_settitle() {
 			print -Pn "\e]83;title \"$1\"\a" 
 			print -Pn "\e]0;(%L) [%n@%M]%# [%~] ($1)\a" 
 		}
@@ -105,7 +109,7 @@ esac
 
 # Functions {{{
 
-setprompt () {
+setprompt() {
 	# load some modules
 	autoload -U colors zsh/terminfo # Used in the colour alias below
 	colors
@@ -135,6 +139,16 @@ setprompt () {
 	# set the prompt
 	PS1=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]${PR_USER_OP} '
 	PS2=$'%_>'
+}
+
+preexec() {
+	if whence preexec_settitle > /dev/null; then
+		preexec_settitle "$@"
+	fi
+
+	if [[ -w "$DIR_HISTFILE" ]]; then
+		printf "$DIR_HIST_FORMAT\n" "$(date +"%Y-%m-%d %H:%M:%S %Z")" "$USER" "$HOST" "$1" >> "$DIR_HISTFILE"
+	fi
 }
 
 setprompt
