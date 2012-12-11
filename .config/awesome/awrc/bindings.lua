@@ -124,7 +124,7 @@ globalkeys = awful.util.table.join(
     -- web
     awful.key({ modkey,           }, "f",      function () awful.util.spawn(browser) end),
     awful.key({ modkey, "Shift"   }, "f",      function () awful.util.spawn(browser_private) end),
-    awful.key({ modkey,           }, "e",      function () awful.util.spawn("thunderbird") end),
+    awful.key({ modkey,           }, "e",      function () awful.util.spawn(mail_client) end),
     -- file managers
     awful.key({ modkey, "Shift"   }, "t",      function () awful.util.spawn("thunar") end)
 )

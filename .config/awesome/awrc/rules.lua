@@ -49,6 +49,8 @@ awful.rules.rules = {
 
     { rule = { class = "Thunderbird" }, callback = function(c) movetotag_wrap(tags[mouse.screen][2], c) end },
 
+    { rule = { name = "term-mail" }, callback = function(c) movetotag_wrap(tags[mouse.screen][2], c) end },
+
     { rule = { class = "Epdfview" }, callback = function(c) movetotag_wrap(tags[mouse.screen][4], c) end },
 
     { rule = { class = "Evince" }, callback = function(c) movetotag_wrap(tags[mouse.screen][4], c) end },
