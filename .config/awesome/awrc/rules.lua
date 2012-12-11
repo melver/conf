@@ -55,6 +55,8 @@ awful.rules.rules = {
 
     { rule = { class = "Okular" }, callback = function(c) movetotag_wrap(tags[mouse.screen][4], c) end },
 
+    { rule = { class = "Zathura" }, callback = function(c) movetotag_wrap(tags[mouse.screen][4], c) end },
+
     { rule = { class = "FBReader" }, callback = function(c) movetotag_wrap(tags[mouse.screen][4], c) end },
 
     { rule = { class = "Gimp" }, properties = { floating = true },

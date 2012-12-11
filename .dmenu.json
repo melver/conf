@@ -57,10 +57,11 @@
 		]],
 	"office" : [25, [
 		{
-		"libre-office" : [0, "libreoffice"],
-		"FBReader" : [10, "FBReader"],
-		"evince" : [20, "evince"],
-		"okular" : [30, "okular"]
+		"zathura" : [0, "zathura"],
+		"okular" : [10, "okular"],
+		"FBReader" : [20, "FBReader"],
+		"evince" : [30, "evince"],
+		"libre-office" : [40, "libreoffice"]
 		},
 		{
 		"mendeley" : [0, "mendeleydesktop"],
