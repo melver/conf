@@ -1,4 +1,6 @@
 # vim: filetype=muttrc
+# Source: https://github.com/altercation/mutt-colors-solarized/blob/master/mutt-colors-solarized-dark-16.muttrc
+# modified
 
 #
 #
@@ -50,27 +52,27 @@ mono  error         bold
 #color index         brightgreen     default         "~A!~N!~T!~p!~Q!~F!~D!~P"  # the rest
 #color index         J_base          default         "~A~N!~T!~p!~Q!~F!~D"      # the rest, new
 color index         red             default         "~A"                        # all messages
-color index         brightred       default         "~E"                        # expired messages
-color index         blue            default         "~N"                        # new messages
-color index         blue            default         "~O"                        # old messages
-color index         brightmagenta   default         "~Q"                        # messages that have been replied to
-color index         brightgreen     default         "~R"                        # read messages
 color index         blue            default         "~U"                        # unread messages
 color index         blue            default         "~U~$"                      # unread, unreferenced messages
+color index         brightred       default         "~E"                        # expired messages
+color index         green     default         "~R"                        # read messages
+color index         magenta   default         "~Q"                        # messages that have been replied to
 color index         brightyellow    default         "~v"                        # messages part of a collapsed thread
 color index         brightyellow    default         "~P"                        # messages from me
 color index         cyan            default         "~p!~F"                     # messages to me
-color index         cyan            default         "~N~p!~F"                   # new messages to me
-color index         cyan            default         "~U~p!~F"                   # unread messages to me
-color index         brightgreen     default         "~R~p!~F"                   # messages to me
+color index         blue            default         "~U~p!~F"                   # unread messages to me
+color index         cyan     default         "~R~p!~F"                   # messages to me
+color index         brightblue            default         "~N"                        # new messages
+color index         brightgreen            default         "~O"                        # old messages
+color index         brightcyan            default         "~N~p!~F"                   # new messages to me
 color index         red             default         "~F"                        # flagged messages
 color index         red             default         "~F~p"                      # flagged messages to me
 color index         red             default         "~N~F"                      # new flagged messages
 color index         red             default         "~N~F~p"                    # new flagged messages to me
 color index         red             default         "~U~F~p"                    # new flagged messages to me
 color index         black           red             "~D"                        # deleted messages
-color index         brightcyan      default         "~v~(!~N)"                  # collapsed thread with no unread
-color index         yellow          default         "~v~(~N)"                   # collapsed thread with some unread
+color index         yellow      default         "~v~(!~N)"                  # collapsed thread with no unread
+color index         brightyellow          default         "~v~(~N)"                   # collapsed thread with some unread
 color index         green           default         "~N~v~(~N)"                 # collapsed thread with unread parent
 # statusbg used to indicated flagged when foreground color shows other status
 # for collapsed thread

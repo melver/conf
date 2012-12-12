@@ -392,7 +392,7 @@ set compose_format="-- %v-- Compose  [Approximate Message Size: %l   Attachments
 
 set imap_authenticators=""	# :-separated list of authentication methods
 unset imap_check_subscribed	# fetch set of subscribed folders from server
-set imap_delim_chars="/."	# list of chars to use as folder separators
+set imap_delim_chars="/"	# list of chars to use as folder separators
 set imap_keepalive=300	# connect server at least all 30 mins to keep connect
 unset imap_list_subscribed	# do no display only subscribed folders.
 unset imap_login	# Login name on imap server
