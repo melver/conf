@@ -23,7 +23,7 @@ def get_mutt_secrets_var(var_name):
         if token == var_name:
             return secrets[i+2]
 
-    return ""
+    return b''
 
 if __name__ == "__main__":
     import sys
