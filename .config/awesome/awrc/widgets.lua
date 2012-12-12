@@ -168,9 +168,9 @@ vicious.register(wifiwidget, vicious.widgets.wifi,
 -- Battery widget
 batwidget = widget({ type = "textbox" })
 
-local power_supply_BAT0 = io.open("/sys/class/power_supply/BAT0", "r")
-if power_supply_BAT0 ~= nil then
-    power_supply_BAT0:close()
+local power_supply_battery = io.open("/sys/class/power_supply/" .. sys_battery, "r")
+if power_supply_battery ~= nil then
+    power_supply_battery:close()
     vicious.register(batwidget, vicious.widgets.bat,
         function (widget, args)
             if args[2] >= 20 and args[2] < 50 then
@@ -185,7 +185,7 @@ if power_supply_BAT0 ~= nil then
             else
                 return " | " .. colwhi .. "bat " .. coldef .. colbwhi .. args[2] .. "% " .. coldef .. ""
             end
-        end, 23, "BAT0"    )
+        end, 23, sys_battery )
 else
     batwidget.text = ""
 end

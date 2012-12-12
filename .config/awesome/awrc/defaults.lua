@@ -10,6 +10,7 @@ browser = "chromium --disk-cache-size=268435456"
 browser_private = "chromium --incognito --disk-cache-size=268435456"
 mail_client = "term-mail " .. terminal
 modkey = "Mod4"
+sys_battery = "BAT0"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {
