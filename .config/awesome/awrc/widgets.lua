@@ -173,17 +173,17 @@ if power_supply_battery ~= nil then
     power_supply_battery:close()
     vicious.register(batwidget, vicious.widgets.bat,
         function (widget, args)
-            if args[2] >= 20 and args[2] < 50 then
-                return " | " .. colyel .. "bat " .. coldef .. colbyel .. args[2] .. "% " .. coldef .. ""
-            elseif args[2] >= 10 and args[2] < 20 then
-                return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
-            elseif args[2] < 10 and args[1] == "-" then
+            if args[2] >= bat_critical*2 and args[2] < bat_critical*5 then
+                return " | " .. colyel .. "bat(" .. args[1] .. ") " .. coldef .. colbyel .. args[2] .. "% " .. coldef .. ""
+            elseif args[2] >= bat_critical and args[2] < bat_critical*2 then
+                return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
+            elseif args[2] < bat_critical and args[1] == "-" then
                 naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-                return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
-            elseif args[2] < 10 then 
-                return " | " .. colred .. "bat " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
+                return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
+            elseif args[2] < bat_critical then
+                return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
             else
-                return " | " .. colwhi .. "bat " .. coldef .. colbwhi .. args[2] .. "% " .. coldef .. ""
+                return " | " .. colwhi .. "bat(" .. args[1] .. ") " .. coldef .. colbwhi .. args[2] .. "% " .. coldef .. ""
             end
         end, 23, sys_battery )
 else

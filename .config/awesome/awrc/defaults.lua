@@ -12,6 +12,7 @@ mail_client = "term-mail " .. terminal
 modkey = "Mod4"
 opt_netdev = "wlan0"
 sys_battery = "BAT0"
+bat_critical = 10
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {
