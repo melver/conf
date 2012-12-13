@@ -144,12 +144,12 @@ vicious.register(netwidget, vicious.widgets.net,
         end
     end, refresh_delay, "eth0")
 
--- wlan
+-- opt_netdev
 netwupwidget = widget({ type = "textbox" })
-vicious.register(netwupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${wlan0 up_kb} " .. coldef .. "")
+vicious.register(netwupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${" .. opt_netdev .. " up_kb} " .. coldef .. "")
 
 netwdownwidget = widget({ type = "textbox" })
-vicious.register(netwdownwidget, vicious.widgets.net, "" .. colwhi .. "down " .. coldef .. colbwhi .. "${wlan0 down_kb} " .. coldef .. "")
+vicious.register(netwdownwidget, vicious.widgets.net, "" .. colwhi .. "down " .. coldef .. colbwhi .. "${" .. opt_netdev .. " down_kb} " .. coldef .. "")
 
 wifiwidget = widget({ type = "textbox" })
 vicious.register(wifiwidget, vicious.widgets.wifi,
@@ -161,9 +161,9 @@ vicious.register(wifiwidget, vicious.widgets.wifi,
         else
             netwdownwidget.visible = true
             netwupwidget.visible = true
-            return " | " .. colwhi .. "wlan0 " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
+            return " | " .. colwhi .. opt_netdev .. " " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
         end
-    end, refresh_delay, "wlan0" )
+    end, refresh_delay, opt_netdev )
 
 -- Battery widget
 batwidget = widget({ type = "textbox" })
