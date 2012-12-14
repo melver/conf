@@ -13,6 +13,7 @@ modkey = "Mod4"
 opt_netdev = "wlan0"
 sys_battery = "BAT0"
 bat_critical = 10
+bars_height = "14"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {

@@ -239,7 +239,7 @@ for s = 1, screen.count() do
                                           end, mytasklist.buttons)
 
     -- Top box
-    mywibox[s] = awful.wibox({ position = "top", height = "14", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", height = bars_height, screen = s })
     mywibox[s].widgets = {
         {
             mytaglist[s],
@@ -253,7 +253,7 @@ for s = 1, screen.count() do
         layout = awful.widget.layout.horizontal.rightleft }
 
     -- Bottom box
-    infobox[s] = awful.wibox({ position = "bottom", height = "14", screen = s })
+    infobox[s] = awful.wibox({ position = "bottom", height = bars_height, screen = s })
     infobox[s].widgets = { 
         volwidget,
         batwidget,
