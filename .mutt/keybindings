@@ -8,13 +8,13 @@
 #macro generic <f2> '<pipe-message>spamassassin -r<enter><save-message>=spam<enter>'
 #macro generic <f3> '<pipe-message>bogofilter -s<enter><save-message>=spam<enter>'
 #macro generic <f5> ':push <copy-message>=Todo<enter><enter><enter><toggle-new>'
-#}}}
+# }}}
 
 # Macro Index {{{
 macro index .N '<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>' 'Mark all new messages as read'
 macro index .o '<tag-pattern>~N<enter><tag-prefix><set-flag>O<untag-pattern>.<enter>'   'Mark all new messages as old'
 macro index .O '<tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter>' 'Mark all old messages as read'
-#}}}
+# }}}
 
 # Macro Index/Pager {{{
 #macro index,pager A '!fetchmail -v -a -F -K<enter>'
@@ -25,21 +25,21 @@ macro index,pager <f1> '!less /usr/share/doc/mutt/manual.txt<enter>' 'Show Mutt 
 #macro index,pager <f3> '<pipe-message>bogofilter -s<enter><save-message>=spam<enter>'
 #macro index,pager \cb '<pipe-message>urlview<enter>'
 #macro index,pager \ef '<pipe-message>view-x-face<enter>'
-macro index,pager \et ':unset weed<enter>|~/.mutt/bin/mailhops|less -c<enter>:set weed<enter>' 'Show trace of mail routing'
-#}}}
+macro index,pager .t ':unset weed<enter>|~/.mutt/bin/mailhops|less -c<enter>:set weed<enter>' 'Show trace of mail routing'
+# }}}
 
 # Bind * {{{
 bind attach,compose,index,pager,browser Q exit
-#}}}
+# }}}
 
-# Bind Browser {{{1
+# Bind Browser {{{
 bind browser g top-page
 bind browser G bottom-page
 bind browser \cb previous-page
 bind browser \cf next-page
 bind browser <Enter> view-file
 bind browser A check-new
-#}}}
+# }}}
 
 # Bind Index {{{
 bind index ~ set-flag
@@ -48,10 +48,7 @@ bind index \cv what-key
 bind index i mail
 bind index g first-entry
 bind index G last-entry
-# vim uses (norm): 'z<CR>' top, 'z.' mid, 'z-' bot
-bind index H current-top
-bind index M current-middle
-bind index L current-bottom
+bind index H current-bottom
 bind index pagedown next-page
 bind index pageup   previous-page
 # }}}
@@ -68,8 +65,7 @@ bind pager /   search
 bind pager :   enter-command
 bind pager <down> next-line
 bind pager <up> previous-line
-bind pager G   bottom
-bind pager P   print-message
+bind pager .p   print-message
 bind pager \cd half-down
 bind pager \cu half-up
 bind pager .n mark-as-new
@@ -80,10 +76,10 @@ bind index,pager \cn next-thread
 bind index,pager \cn read-thread
 bind index,pager \cd delete-thread
 bind index,pager f forward-message
-bind index,pager n next-undeleted
-bind index,pager p previous-undeleted
+bind index,pager p group-reply
 bind index,pager N next-unread
 bind index,pager P previous-unread
+bind index,pager <f6> buffy-list
 # }}}
 
 # vim: ft=muttrc
