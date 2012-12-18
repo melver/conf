@@ -125,7 +125,7 @@ netwidget = widget({ type = "textbox" })
 vicious.register(netwidget, vicious.widgets.net,
     function (widget, args)
             function ip_addr4()
-                local ip = io.popen("ip addr show eth0 | grep 'inet '")
+                local ip = io.popen("ip addr show eth0 2> /dev/null | grep 'inet '")
                 local addr = ip:read("*a")
                 ip:close()
                 addr = string.match(addr, "%d+.%d+.%d+.%d+")
@@ -144,12 +144,12 @@ vicious.register(netwidget, vicious.widgets.net,
         end
     end, refresh_delay, "eth0")
 
--- opt_netdev
+-- wifi_netdev
 netwupwidget = widget({ type = "textbox" })
-vicious.register(netwupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${" .. opt_netdev .. " up_kb} " .. coldef .. "")
+vicious.register(netwupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${" .. wifi_netdev .. " up_kb} " .. coldef .. "")
 
 netwdownwidget = widget({ type = "textbox" })
-vicious.register(netwdownwidget, vicious.widgets.net, "" .. colwhi .. "down " .. coldef .. colbwhi .. "${" .. opt_netdev .. " down_kb} " .. coldef .. "")
+vicious.register(netwdownwidget, vicious.widgets.net, "" .. colwhi .. "down " .. coldef .. colbwhi .. "${" .. wifi_netdev .. " down_kb} " .. coldef .. "")
 
 wifiwidget = widget({ type = "textbox" })
 vicious.register(wifiwidget, vicious.widgets.wifi,
@@ -161,9 +161,9 @@ vicious.register(wifiwidget, vicious.widgets.wifi,
         else
             netwdownwidget.visible = true
             netwupwidget.visible = true
-            return " | " .. colwhi .. opt_netdev .. " " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
+            return " | " .. colwhi .. wifi_netdev .. " " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
         end
-    end, refresh_delay, opt_netdev )
+    end, refresh_delay, wifi_netdev )
 
 -- Battery widget
 batwidget = widget({ type = "textbox" })
@@ -192,22 +192,26 @@ end
 
 -- Volume widget
 volwidget = widget({ type = "textbox" })
-vicious.register(volwidget, vicious.widgets.volume,
-        function (widget, args)
-            if args[1] == 0 or args[2] == "♩" then
-                return " | " .. colwhi .. "vol " .. coldef .. colbred .. "mute" .. coldef .. "" 
-            else
-                return " | " .. colwhi .. "vol " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
-            end
-        end, 2, "Master" )
-    volwidget:buttons(
-        awful.util.table.join(
-            awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
-            awful.button({ }, 3, function () awful.util.spawn( terminal .. " -e alsamixer")   end),
-            awful.button({ }, 4, function () awful.util.spawn("amixer -q sset Master 2dB+") end),
-            awful.button({ }, 5, function () awful.util.spawn("amixer -q sset Master 2dB-") end)
+if show_volume then
+    vicious.register(volwidget, vicious.widgets.volume,
+            function (widget, args)
+                if args[1] == 0 or args[2] == "♩" then
+                    return " | " .. colwhi .. "vol " .. coldef .. colbred .. "mute" .. coldef .. "" 
+                else
+                    return " | " .. colwhi .. "vol " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
+                end
+            end, 2, "Master" )
+        volwidget:buttons(
+            awful.util.table.join(
+                awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
+                awful.button({ }, 3, function () awful.util.spawn( terminal .. " -e alsamixer")   end),
+                awful.button({ }, 4, function () awful.util.spawn("amixer -q sset Master 2dB+") end),
+                awful.button({ }, 5, function () awful.util.spawn("amixer -q sset Master 2dB-") end)
+            )
         )
-    )
+else
+    volwidget.text = ""
+end
 -- }}}
 
 -- {{{ Create Wiboxes
