@@ -146,7 +146,7 @@ preexec() {
 		preexec_settitle "$@"
 	fi
 
-	if [[ -w "$DIR_HISTFILE" ]]; then
+	if [[ -w "$DIR_HISTFILE" && ! "$1" =~ "^ " ]]; then
 		printf "$DIR_HIST_FORMAT\n" "$(date +"%Y-%m-%d %H:%M:%S %Z")" "$USER" "$HOST" "$1" >> "$DIR_HISTFILE"
 	fi
 }
