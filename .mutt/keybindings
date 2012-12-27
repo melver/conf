@@ -14,6 +14,7 @@
 macro index .N '<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>' 'Mark all new messages as read'
 macro index .o '<tag-pattern>~N<enter><tag-prefix><set-flag>O<untag-pattern>.<enter>'   'Mark all new messages as old'
 macro index .O '<tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter>' 'Mark all old messages as read'
+macro index i ':unmy_hdr From<enter><mail>' 'Reset From header and compose a new mail message'
 # }}}
 
 # Macro Index/Pager {{{
@@ -45,7 +46,6 @@ bind browser A check-new
 bind index ~ set-flag
 bind index .~ clear-flag
 bind index \cv what-key
-bind index i mail
 bind index g first-entry
 bind index G last-entry
 bind index H current-bottom
