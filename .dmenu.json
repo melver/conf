@@ -21,14 +21,13 @@
 	"browser" : [50, [
 		{
 		"chromium" : [0, "chromium --disk-cache-size=268435456"],
-		"firefox" : [10, "firefox"],
-		"opera" : [20, "opera"]
+		"firefox" : [10, "firefox"]
 		}
 		]],
 	"mail" : [60, [
 		{
-		"thunderbird" : [0, "thunderbird"],
-		"evolution" : [10, "/home/marco/0wnfiles/temp/scripts/launch-evolution.sh"]
+		"term-mail" : [0, "term-mail urxvt"],
+		"thunderbird" : [10, "thunderbird"]
 		}
 		]]
 	},
@@ -41,9 +40,10 @@
 		]],
 	"multimedia" : [20, [	
 		{
-		"vlc" : [0, "vlc"],
-		"k3b" : [10, "k3b"],
-		"clementine" : [20, "clementine"]
+		"mpd+sonata" : [0, "sh -c 'pidof mpd &> /dev/null || mpd ~/.mpd/mpd.conf ; exec sonata'"],
+		"vlc" : [10, "vlc"],
+		"k3b" : [20, "k3b"],
+		"clementine" : [30, "clementine"]
 		}
 		]],
 	"graphics" : [22, [
@@ -62,10 +62,6 @@
 		"FBReader" : [20, "FBReader"],
 		"evince" : [30, "evince"],
 		"libre-office" : [40, "libreoffice"]
-		},
-		{
-		"mendeley" : [0, "mendeleydesktop"],
-		"zotero" : [10, "zotero"]
 		},
 		{
 		"gnucash" : [0, "gnucash"]

@@ -87,7 +87,9 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" }, properties = { floating = true },
         callback = function(c) movetotag_wrap(tags[mouse.screen][7], c) end },
 
-    { rule = { class = "Clementine" }, properties = { tag = tags[1][7] } }
+    { rule = { class = "Clementine" }, properties = { tag = tags[mouse.screen][7] } },
+
+    { rule = { class = "Sonata" }, properties = { tag = tags[mouse.screen][7] } }
 
 }
 
