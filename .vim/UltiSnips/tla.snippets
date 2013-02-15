@@ -16,3 +16,21 @@ snip.rv += border
 `
 endsnippet
 
+snippet -- "Separator"
+${1:-}`!p
+indent_cnt = int(vim.eval("indent('.')"))
+indent_str = indent_cnt*" "
+for n,x in enumerate(t[1].splitlines()):
+    if n != 0 and x.startswith(indent_str): x = x.replace(indent_str, "", 1)
+    len_sep = (77-indent_cnt-len(x)-2)/2
+    if len(x) == 1 and x in ["-","="]:
+        sep_char = x
+        padding_l = x
+    else:
+        sep_char = "-"
+        padding_l = " "
+    padding_r = padding_l + sep_char*(77 - len_sep*2 - indent_cnt - len(x) - 2)
+    snip.rv += "\n" + snip.mkline(len_sep * sep_char + padding_l + x + padding_r + len_sep * sep_char, indent_str)
+`
+endsnippet
+
