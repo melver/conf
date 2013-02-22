@@ -91,7 +91,7 @@ unset sig_on_top	# place signature above text (if set).
 set smart_wrap		# wrap long lines at word boundary.
 set sort_re		# set: only put a child in a thread, if starts with Re:
 unset status_on_top	# status line at the top or button?
-unset strict_threads	# thread only by In-Reply-To/References or by Subject.
+set strict_threads	# thread only by In-Reply-To/References or by Subject.
 set suspend		# Ctrl-Z is able to suspend mutt.
 unset text_flowed	# generate "text/plain; format=flowed"
 set thorough_search	# MIME decode before searching.
