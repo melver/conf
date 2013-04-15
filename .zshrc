@@ -91,16 +91,16 @@ zstyle ':completion:*:killall:*'   force-list always
 case $TERM in
 	*xterm*|rxvt*|(dt|k|E)term)
 		precmd() { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" }
-		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ($1)\a" }
+		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; print -n "$1)\a" }
 	;;
 	screen*)
 		precmd() {
-			print -Pn "\e]83;title \"$1\"\a" 
-			print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" 
+			print -n "\e]83;title \"$1\"\a"
+			print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a"
 		}
 		preexec_settitle() {
-			print -Pn "\e]83;title \"$1\"\a" 
-			print -Pn "\e]0;(%L) [%n@%M]%# [%~] ($1)\a" 
+			print -n "\e]83;title \"$1\"\a"
+			print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; print -n "$1)\a"
 		}
 	;; 
 esac
