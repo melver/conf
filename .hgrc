@@ -7,6 +7,9 @@ qrefresh = --git
 email = --git
 diff = --git
 
+[extensions]
+hgext.mq =
+
 [email]
 method = smtp
 
