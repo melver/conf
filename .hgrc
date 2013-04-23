@@ -9,6 +9,10 @@ diff = --git
 
 [extensions]
 hgext.mq =
+hgext.pager =
+
+[pager]
+pager = less -FRX
 
 [email]
 method = smtp
