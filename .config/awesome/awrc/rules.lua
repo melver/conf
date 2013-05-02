@@ -77,6 +77,9 @@ awful.rules.rules = {
     { rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][5] },
         callback = function(c) awful.titlebar.add(c) end },
 
+    { rule = { class = "Ekiga" }, properties = { floating = true, tag = tags[1][5] },
+        callback = function(c) awful.titlebar.add(c) end },
+
     { rule = { class = "Xchat" }, properties = { tag = tags[1][5] } },
 
     { rule = { class = "Mumble" }, callback = function(c) movetotag_wrap(tags[1][5], c) end },
