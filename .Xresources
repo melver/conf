@@ -1,7 +1,5 @@
 
-vncviewer*grabKeyboard: True
-
-!! URxvt settings
+!! URxvt settings {{{
 
 URxvt.scrollBar: false
 URxvt*loginShell: false
@@ -309,5 +307,23 @@ URxvt.color252: #CA809E
 URxvt.color253: #CB7F9C
 URxvt.color254: #CB7F9B
 URxvt.color255: #CC7F99
+
+! }}}
+
+!! XLock settings {{{
+
+XLock.mode: blank
+XLock.font:        -misc-fixed-medium-r-normal-*-15-*-*-*-*-*-iso8859-1 
+XLock.planfont:    -misc-fixed-medium-r-normal-*-15-*-*-*-*-*-iso8859-1 
+XLock.fontset:     -misc-fixed-medium-r-normal-*-15-*-*-*-*-*-iso8859-1 
+XLock.planfontset: -misc-fixed-medium-r-normal-*-15-*-*-*-*-*-iso8859-1 
+
+! }}}
+
+!! Misc settings {{{
+
+vncviewer*grabKeyboard: True
+
+! }}}
 
 ! vim: set ft=xdefaults:
