@@ -21,6 +21,8 @@ acc = IMAP {
 }
 pw_proc:close()
 
+get_INBOX = function() return acc.INBOX end
+
 ----------------
 --  Filters   --
 ----------------

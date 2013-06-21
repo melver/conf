@@ -7,11 +7,11 @@ match_tocc   = function(m, arg) return m:match_to(arg)   + m:match_cc(arg)   end
 
 function main_loop()
     while true do
-        acc.INBOX:check_status()
+        get_INBOX():check_status()
         if os.getenv("IMAPFILTER_ALL") == nil then
-            msgs = acc.INBOX:is_unseen()
+            msgs = get_INBOX():is_unseen()
         else
-            msgs = acc.INBOX
+            msgs = get_INBOX()
         end
 
         do_filter()
@@ -19,7 +19,7 @@ function main_loop()
         if os.getenv("IMAPFILTER_IDLE") == nil then
             break
         else
-            if acc.INBOX:enter_idle() == false then
+            if get_INBOX():enter_idle() == false then
                 error("Server does not support IDLE")
             end
         end
