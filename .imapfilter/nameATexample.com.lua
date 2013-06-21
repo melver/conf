@@ -8,6 +8,12 @@ dofile(os.getenv("HOME") .. "/.imapfilter/common.lua")
 options.timeout = 120
 -- options.subscribe = true
 
+-- Uncomment the following option if imapfilter does not appear to receive
+-- updates via IDLE after a longer period of inactivity. This value is 29 by
+-- default (recommended by IMAP RFC), meaning after 29 minutes imapfilter
+-- reissues the IDLE command, but for some servers this appears to be too long.
+--options.keepalive = 20
+
 ----------------
 --  Accounts  --
 ----------------
