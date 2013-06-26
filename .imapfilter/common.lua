@@ -8,10 +8,16 @@ match_tocc   = function(m, arg) return m:match_to(arg)   + m:match_cc(arg)   end
 function main_loop()
     while true do
         get_INBOX():check_status()
-        if os.getenv("IMAPFILTER_ALL") == nil then
+        if os.getenv("IMAPFILTER_MSGS") == nil then
             msgs = get_INBOX():is_unseen()
         else
-            msgs = get_INBOX()
+            -- filter by age (days)
+            newer_than = tonumber(os.getenv("IMAPFILTER_MSGS"))
+            if newer_than == 0 then
+                msgs = get_INBOX()
+            else
+                msgs = get_INBOX():is_newer(newer_than)
+            end
         end
 
         do_filter()
