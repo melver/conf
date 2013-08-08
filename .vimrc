@@ -473,7 +473,7 @@
 
     augroup ftgroup_promela
       au!
-      au FileType promela setlocal ts=4 sw=2 sts=2 et ai | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType promela setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call FindTabStyle("{$") | call OverLengthHiOn(80)
       au BufNewFile *.pml setlocal fileformat=unix
     augroup END
 
