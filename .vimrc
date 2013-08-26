@@ -399,6 +399,14 @@
       au BufNewFile *.hs setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_ml
+      au!
+      au FileType ocaml setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
+      au FileType sml   setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.ml,*.mli,*.mly,*.sml setlocal fileformat=unix
+      au BufRead,BufNewFile *.lem setf ocaml
+    augroup END
+
     augroup ftgroup_htmlcss
       au!
       au FileType html,xhtml,css setlocal ts=2 sw=2 sts=2 tw=79 noet | call SetList(0)
