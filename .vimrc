@@ -485,6 +485,13 @@
       au BufNewFile *.pml setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_agda
+      au!
+      au BufRead,BufNewFile *.agda,*.lagda setf agda
+      au FileType agda call unicodekeys#setup() | setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.agda,*.lagda setlocal fileformat=unix
+    augroup END
+
     augroup ftgroup_mail
       au!
       au FileType mail setlocal tw=72 spell | call OverLengthHiOn(72)
