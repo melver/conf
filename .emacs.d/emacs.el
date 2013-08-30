@@ -1,5 +1,5 @@
 ;;--------------------------------------
-;; .emacs .............................
+;; emacs.el: main configuration .......
 ;;                __,.__
 ;;               /  ||  \
 ;;        ::::::| .-'`-. |::::::
@@ -7,6 +7,13 @@
 ;;        ::::/ |`--'`--'| \::::
 ;;        :::/   \`/++\'/   \:::
 ;;--------------------------------------
+
+;; EVIL --------------------------------
+;;
+(add-to-list 'load-path "~/.emacs.d/bundle/evil")
+(require 'evil)
+(evil-mode 1)
+(setq evil-default-cursor (quote (t "Grey")))
 
 ;; UI ----------------------------------
 ;;
@@ -20,13 +27,6 @@
 ;; disable backup and auto-save
 (setq backup-inhibited t)
 (setq auto-save-default nil)
-
-;; EVIL --------------------------------
-;;
-(add-to-list 'load-path "~/.emacs.d/bundle/evil")
-(require 'evil)
-(evil-mode 1)
-(setq evil-default-cursor (quote (t "Grey")))
 
 ;; Themes ------------------------------
 ;;
@@ -108,4 +108,3 @@
   '(unicode-tokens-symbol-font-face ((t (:slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
   )
 
-;; end

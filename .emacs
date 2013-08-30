@@ -1,8 +1,9 @@
 ;;
-;; .emacs: make this file read-only to prevent emacs overwriting the settings
-;; and have the actual custom settings in a different file.
+;; .emacs
 ;;
 
-(setq custom-emacs "~/.emacs.d/emacs.el")
-(load custom-emacs)
+(load "~/.emacs.d/emacs.el")
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
