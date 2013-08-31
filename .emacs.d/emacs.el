@@ -12,8 +12,10 @@
 ;;
 (add-to-list 'load-path "~/.emacs.d/bundle/evil")
 (require 'evil)
-(evil-mode 1)
 (setq evil-default-cursor (quote (t "Grey")))
+(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+
+(evil-mode 1)
 
 ;; UI ----------------------------------
 ;;
