@@ -10,6 +10,7 @@
 
 ;; EVIL --------------------------------
 ;;
+(add-to-list 'load-path "~/.emacs.d/bundle/undo-tree")
 (add-to-list 'load-path "~/.emacs.d/bundle/evil")
 (require 'evil)
 (setq evil-default-cursor (quote (t "Grey")))
@@ -28,7 +29,13 @@
 
 ;; disable backup and auto-save
 (setq backup-inhibited t)
-(setq auto-save-default nil)
+;(setq auto-save-default nil)
+
+(defvar user-temporary-file-directory
+  (concat temporary-file-directory ".emacs-" user-login-name "/"))
+(make-directory user-temporary-file-directory t)
+(shell-command (concat "chmod 700 " user-temporary-file-directory))
+(setq auto-save-file-name-transforms `((".*" , user-temporary-file-directory t)))
 
 ;; Themes ------------------------------
 ;;
