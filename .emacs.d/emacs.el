@@ -26,6 +26,8 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (show-paren-mode t)
+(line-number-mode t)
+(column-number-mode t)
 
 ;; disable backup and auto-save
 (setq backup-inhibited t)
@@ -42,6 +44,10 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'desert t)
 (set-default-font "Terminus-12")
+
+;; Editing -----------------------------
+;;
+(setq-default fill-column 79)
 
 ;; Isabelle/PG -------------------------
 ;;
