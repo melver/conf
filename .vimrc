@@ -69,6 +69,24 @@
       endif
     endfunction
 
+    function ToggleNumber()
+      if !exists("b:toggle_number")
+        let b:toggle_number = 0 " disabled by default if not existing
+      endif
+
+      if b:toggle_number == 0
+        setlocal number
+        setlocal relativenumber
+        let b:toggle_number = 1
+        echo "Line numbers ON!"
+      else
+        setlocal nonumber
+        setlocal norelativenumber
+        let b:toggle_number = 0
+        echo "Line numbers OFF!"
+      endif
+    endfunction
+
     function ExecuteCursorFile()
       let l:file_name = expand(expand("<cfile>"))
       let l:is_url = stridx(l:file_name, "://") >= 0
@@ -234,6 +252,7 @@
 
     " Function keys
     map <F5> <ESC>:call g:ClangUpdateQuickFix()<CR>
+    map <F8> <ESC>:call ToggleNumber()<CR>
     map <F9> <ESC>:call ToggleList()<CR>
     map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
           \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
