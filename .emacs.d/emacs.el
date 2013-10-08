@@ -18,6 +18,12 @@
 
 (evil-mode 1)
 
+;; RELATIVE LINUM
+;;
+(add-to-list 'load-path "~/.emacs.d/bundle/linum-relative")
+(require 'linum-relative)
+;(global-linum-mode 1)
+
 ;; UI ----------------------------------
 ;;
 (setq inhibit-startup-message t)
@@ -38,6 +44,10 @@
 (make-directory user-temporary-file-directory t)
 (shell-command (concat "chmod 700 " user-temporary-file-directory))
 (setq auto-save-file-name-transforms `((".*" , user-temporary-file-directory t)))
+
+;; KEY-BINDINGS
+;;
+(global-set-key (kbd "<f8>") 'linum-mode)
 
 ;; Themes ------------------------------
 ;;
