@@ -35,8 +35,7 @@ awful.rules.rules = {
 
     { rule = { class = "Cssh" }, properties = { floating = true }, callback = awful.titlebar.add },
 
-    { rule = { name = "Figure 1" }, properties = { floating = true },
-        callback = awful.titlebar.add }, --Matplotlib
+    { rule = { name = "Figure " }, properties = { floating = true }, callback = awful.titlebar.add }, --Matplotlib
 
     { rule = { class = "Xephyr" }, properties = { floating = true } },
 
@@ -71,14 +70,11 @@ awful.rules.rules = {
 
     { rule = { class = "Eog" }, callback = function(c) movetotag_wrap(tags[mouse.screen][6], c) end },
 
-    { rule = { class = "Pidgin" }, properties = { floating = true, tag = tags[1][5] },
-        callback = function(c) awful.titlebar.add(c) end },
+    { rule = { class = "Pidgin" }, properties = { floating = true, tag = tags[1][5] }, callback = awful.titlebar.add },
 
-    { rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][5] },
-        callback = function(c) awful.titlebar.add(c) end },
+    { rule = { class = "Skype" }, properties = { floating = true, tag = tags[1][5] }, callback = awful.titlebar.add },
 
-    { rule = { class = "Ekiga" }, properties = { floating = true, tag = tags[1][5] },
-        callback = function(c) awful.titlebar.add(c) end },
+    { rule = { class = "Ekiga" }, properties = { floating = true, tag = tags[1][5] }, callback = awful.titlebar.add },
 
     { rule = { class = "Xchat" }, properties = { tag = tags[1][5] } },
 

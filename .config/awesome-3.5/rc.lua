@@ -1,22 +1,21 @@
 -------------------------------
 --
--- Marco's Awesome WM config
---
---
--- Based on:
--- https://github.com/JackH79/.dotfiles/blob/master/.config/awesome/rc.lua
+-- Marco's Awesome 3.5 WM config
 --
 -------------------------------
 
 -- Standard awesome library
-require("awful")
+gears = require("gears")
+awful = require("awful")
+awful.rules = require("awful.rules")
 require("awful.autofocus")
-require("awful.rules")
-require("beautiful") -- Theme handling library
-require("naughty")   -- Notification library
-vicious = require("vicious")   -- (Non standard) System monitoring widgets
-
--- Start building config
+-- Widget and layout library
+wibox = require("wibox")
+-- Theme handling library
+beautiful = require("beautiful")
+-- Notification library
+naughty = require("naughty")
+menubar = require("menubar")
 
 -- {{{ Error handling
 -- Don't put this in another file, as awesome would not indicate an error
@@ -33,7 +32,7 @@ end
 -- Handle runtime errors after startup
 function setup_runtime_error_handler()
     local in_error = false
-    awesome.add_signal("debug::error", function (err)
+    awesome.connect_signal("debug::error", function (err)
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
@@ -45,7 +44,7 @@ function setup_runtime_error_handler()
     end)
 end
 
---setup_runtime_error_handler()
+setup_runtime_error_handler()
 -- }}}
 
 require("awrc.defaults")
@@ -54,9 +53,7 @@ require("awrc.tags")
 require("awrc.menu")
 require("awrc.widgets")
 require("awrc.bindings")
-require("awrc.rules")
 require("awrc.signals")
+require("awrc.rules")
 require("awrc.autostart")
-
--- End of config
 
