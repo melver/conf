@@ -288,7 +288,7 @@
       set mousehide
 
       "set guioptions=aegimrLt
-      set guioptions=aegiLt
+      set guioptions=aegit
 
       "set background=dark
       try
