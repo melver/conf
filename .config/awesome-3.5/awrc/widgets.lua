@@ -125,67 +125,62 @@ vicious.register(fshwidget, vicious.widgets.fs,
         end
 
         if  args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
-            return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+            return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] ..
+                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
         elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
-            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
+                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
         elseif args["{/home used_p}"] >= 99 and args["{/home used_p}"] <= 100 then
-            naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+            naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.",
+                             timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
+                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
         else
-            return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+            return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] ..
+                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
         end
     end, 620)
 
 -- Net widgets
--- eth
-local neteupwidget = wibox.widget.textbox()
-vicious.cache(vicious.widgets.net)
-vicious.register(neteupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${eth0 up_kb} " .. coldef .. "")
 
-local netedownwidget = wibox.widget.textbox()
-vicious.register(netedownwidget, vicious.widgets.net, "" .. colwhi .. "down " ..coldef .. colbwhi .. "${eth0 down_kb} " .. coldef .. "")
+-- Only create one netwidget, which will read all network interfaces anyway;
+-- then in the wifi-widget, use the latest results from the netwidget to
+-- display current rates.
+local netwidget_cur_args = nil
 
 local netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net,
     function (widget, args)
-            function ip_addr4()
-                local ip = io.popen("ip addr show eth0 2> /dev/null | grep 'inet '")
-                local addr = ip:read("*a")
-                ip:close()
-                addr = string.match(addr, "%d+.%d+.%d+.%d+")
-                return addr
-            end
+        netwidget_cur_args = args
+
+        function ip_addr4()
+            local ip = io.popen("ip addr show eth0 2> /dev/null | grep 'inet '")
+            local addr = ip:read("*a")
+            ip:close()
+            addr = string.match(addr, "%d+.%d+.%d+.%d+")
+            return addr
+        end
 
         local ip4 = ip_addr4()
         if ip4 == nil then
-            netedownwidget.visible = false
-            neteupwidget.visible = false
             return ""
         else
-            netedownwidget.visible = true
-            neteupwidget.visible = true
-            return " | " .. colwhi .. "eth0 " .. coldef --.. colbwhi .. ip4 .. coldef .. " "
+            return " | " .. colwhi .. "eth0 down " .. coldef .. colbwhi .. args["{eth0 down_kb}"] .. coldef .. " " ..
+            colwhi .. "up " .. coldef .. colbwhi .. args["{eth0 up_kb}"] .. coldef .. " "
         end
     end, refresh_delay, "eth0")
 
--- wifi_netdev
-local netwupwidget = wibox.widget.textbox()
-vicious.register(netwupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${" .. wifi_netdev .. " up_kb} " .. coldef .. "")
-
-local netwdownwidget = wibox.widget.textbox()
-vicious.register(netwdownwidget, vicious.widgets.net, "" .. colwhi .. "down " .. coldef .. colbwhi .. "${" .. wifi_netdev .. " down_kb} " .. coldef .. "")
-
+-- wifi
 local wifiwidget = wibox.widget.textbox()
 vicious.register(wifiwidget, vicious.widgets.wifi,
     function (widget, args)
-        if args["{link}"] == 0 then
-            netwdownwidget.visible = false
-            netwupwidget.visible = false
+        if netwidget_cur_args == nil or args["{link}"] == 0 then
             return ""
         else
-            netwdownwidget.visible = true
-            netwupwidget.visible = true
-            return " | " .. colwhi .. wifi_netdev .. " " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
+            return " | " .. colwhi .. wifi_netdev .. " " .. coldef .. colbwhi ..
+                string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef ..
+                colwhi .. " down " .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " down_kb}"] .. coldef ..
+                colwhi .. " up "   .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " up_kb}"]   .. coldef .. " "
         end
     end, refresh_delay, wifi_netdev )
 
@@ -202,7 +197,8 @@ if power_supply_battery ~= nil then
             elseif args[2] >= bat_critical and args[2] < bat_critical*2 then
                 return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
             elseif args[2] < bat_critical and args[1] == "-" then
-                naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.",
+                                 timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
                 return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
             elseif args[2] < bat_critical then
                 return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
@@ -295,11 +291,7 @@ for s = 1, screen.count() do
     info_layout:add(fsrwidget)
     info_layout:add(fshwidget)
     info_layout:add(wifiwidget)
-    info_layout:add(netwdownwidget)
-    info_layout:add(netwupwidget)
     info_layout:add(netwidget)
-    info_layout:add(netedownwidget)
-    info_layout:add(neteupwidget)
     info_layout:add(batwidget)
     info_layout:add(volwidget)
 
