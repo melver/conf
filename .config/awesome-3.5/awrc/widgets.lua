@@ -91,55 +91,56 @@ vicious.register(cputwidget, vicious.widgets.cpu,
         else
             return " | " .. colwhi .. "cpu " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
         end
-    end )
+    end, 3)
 
 -- Ram widget
 local memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
-vicious.register(memwidget, vicious.widgets.mem, " | " .. colwhi .. "mem " .. coldef .. colbwhi .. "$1% ($2 MiB) " .. coldef .. "", 13)
+vicious.register(memwidget, vicious.widgets.mem, " | " .. colwhi .. "mem " .. coldef .. colbwhi .. "$1% ($2 MiB) " .. coldef .. "", 12)
 
 -- Filesystem widgets
--- root
-local fsrwidget = wibox.widget.textbox()
-vicious.register(fsrwidget, vicious.widgets.fs,
+local fswidget = wibox.widget.textbox()
+vicious.register(fswidget, vicious.widgets.fs,
     function (widget, args)
-        if  args["{/ used_p}"] >= 93 and args["{/ used_p}"] < 97 then
-            return " | " .. colyel .. "/ " .. coldef .. colbyel .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/ used_p}"] >= 97 and args["{/ used_p}"] < 99 then
-            return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
-            naughty.notify({ title = "Hard drive Warning", text = "No space left on root!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-            return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-        else
-            return " | " .. colwhi .. "/ " .. coldef .. colbwhi .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-        end
-    end, 620)
-
--- /home
-local fshwidget = wibox.widget.textbox()
-vicious.register(fshwidget, vicious.widgets.fs,
-    function (widget, args)
-        -- If there is no home partition, but this is also the case with NFS /home:
-        if  args["{/home used_p}"] == nil then
-            return ""
+        local function get_root()
+            if  args["{/ used_p}"] >= 93 and args["{/ used_p}"] < 97 then
+                return " | " .. colyel .. "/ " .. coldef .. colbyel .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            elseif args["{/ used_p}"] >= 97 and args["{/ used_p}"] < 99 then
+                return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
+                naughty.notify({ title = "Hard drive Warning", text = "No space left on root!\nMake some room.",
+                                 timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            else
+                return " | " .. colwhi .. "/ " .. coldef .. colbwhi .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            end
         end
 
-        if  args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
-            return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] ..
-                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
-            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
-                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/home used_p}"] >= 99 and args["{/home used_p}"] <= 100 then
-            naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.",
-                             timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
-                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-        else
-            return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] ..
-                "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+        local function get_home()
+            -- If there is no home partition, but this is also the case with NFS /home:
+            if  args["{/home used_p}"] == nil then
+                return ""
+            else
+                if args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
+                    return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
+                    return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                elseif args["{/home used_p}"] >= 99 and args["{/home used_p}"] <= 100 then
+                    naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.",
+                                     timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                    return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                else
+                    return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                end
+            end
         end
-    end, 620)
+
+        return get_root() .. get_home()
+    end, 220)
 
 -- Net widgets
 
@@ -153,7 +154,7 @@ vicious.register(netwidget, vicious.widgets.net,
     function (widget, args)
         netwidget_cur_args = args
 
-        function ip_addr4()
+        local function ip_addr4()
             local ip = io.popen("ip addr show eth0 2> /dev/null | grep 'inet '")
             local addr = ip:read("*a")
             ip:close()
@@ -168,7 +169,7 @@ vicious.register(netwidget, vicious.widgets.net,
             return " | " .. colwhi .. "eth0 down " .. coldef .. colbwhi .. args["{eth0 down_kb}"] .. coldef .. " " ..
             colwhi .. "up " .. coldef .. colbwhi .. args["{eth0 up_kb}"] .. coldef .. " "
         end
-    end, refresh_delay, "eth0")
+    end, refresh_delay)
 
 -- wifi
 local wifiwidget = wibox.widget.textbox()
@@ -205,7 +206,7 @@ if power_supply_battery ~= nil then
             else
                 return " | " .. colwhi .. "bat(" .. args[1] .. ") " .. coldef .. colbwhi .. args[2] .. "% " .. coldef .. ""
             end
-        end, 23, sys_battery )
+        end, 25, sys_battery )
 else
     batwidget.text = ""
 end
@@ -220,7 +221,7 @@ if show_volume then
                 else
                     return " | " .. colwhi .. "vol " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
                 end
-            end, 2, "Master" )
+            end, refresh_delay, "Master" )
         volwidget:buttons(
             awful.util.table.join(
                 awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
@@ -288,8 +289,7 @@ for s = 1, screen.count() do
     local info_layout = wibox.layout.fixed.horizontal()
     info_layout:add(cputwidget)
     info_layout:add(memwidget)
-    info_layout:add(fsrwidget)
-    info_layout:add(fshwidget)
+    info_layout:add(fswidget)
     info_layout:add(wifiwidget)
     info_layout:add(netwidget)
     info_layout:add(batwidget)
