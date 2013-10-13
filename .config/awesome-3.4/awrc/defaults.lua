@@ -13,8 +13,10 @@ modkey = "Mod4"
 wifi_netdev = "wlan0"
 sys_battery = "BAT0"
 bat_critical = 10
-bars_height = "14"
+bars_height_t = 14
+bars_height_b = bars_height_t
 show_volume = true
+refresh_delay = 5
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {

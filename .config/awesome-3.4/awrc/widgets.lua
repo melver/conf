@@ -1,5 +1,27 @@
 -- WIDGETS
 
+-- {{{ Colors for textboxes
+
+local coldef  = "</span>"
+local colblk  = "<span color='#1a1a1a'>"
+local colred  = "<span color='#b23535'>"
+local colgre  = "<span color='#60801f'>"
+local colyel  = "<span color='#be6e00'>"
+local colblu  = "<span color='#1f6080'>"
+local colmag  = "<span color='#8f46b2'>"
+local colcya  = "<span color='#73afb4'>"
+local colwhi  = "<span color='#b2b2b2'>"
+local colbblk = "<span color='#333333'>"
+local colbred = "<span color='#ff4b4b'>"
+local colbgre = "<span color='#9bcd32'>"
+local colbyel = "<span color='#d79b1e'>"
+local colbblu = "<span color='#329bcd'>"
+local colbmag = "<span color='#cd64ff'>"
+local colbcya = "<span color='#9bcdff'>"
+local colbwhi = "<span color='#ffffff'>"
+
+-- }}}
+
 -- {{{ Top bar
 
 -- Systray
@@ -67,101 +89,97 @@ vicious.register(cputwidget, vicious.widgets.cpu,
         else
             return " | " .. colwhi .. "cpu " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
         end
-    end )
+    end, 3)
 
 -- Ram widget
 memwidget = widget({ type = "textbox" })
 vicious.cache(vicious.widgets.mem)
-vicious.register(memwidget, vicious.widgets.mem, " | " .. colwhi .. "mem " .. coldef .. colbwhi .. "$1% ($2 MiB) " .. coldef .. "", 13)
+vicious.register(memwidget, vicious.widgets.mem, " | " .. colwhi .. "mem " .. coldef .. colbwhi .. "$1% ($2 MiB) " .. coldef .. "", 12)
 
 -- Filesystem widgets
 -- root
-fsrwidget = widget({ type = "textbox" })
-vicious.register(fsrwidget, vicious.widgets.fs,
+fswidget = widget({ type = "textbox" })
+vicious.register(fswidget, vicious.widgets.fs,
     function (widget, args)
-        if  args["{/ used_p}"] >= 93 and args["{/ used_p}"] < 97 then
-            return " | " .. colyel .. "/ " .. coldef .. colbyel .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/ used_p}"] >= 97 and args["{/ used_p}"] < 99 then
-            return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
-            naughty.notify({ title = "Hard drive Warning", text = "No space left on root!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-            return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. "" 
-        else
-            return " | " .. colwhi .. "/ " .. coldef .. colbwhi .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
-        end
-    end, 620)
-
--- /home
-fshwidget = widget({ type = "textbox" })
-vicious.register(fshwidget, vicious.widgets.fs,
-    function (widget, args)
-        -- If there is no home partition, but this is also the case with NFS /home:
-        if  args["{/home used_p}"] == nil then
-            return ""
+        local function get_root()
+            if  args["{/ used_p}"] >= 93 and args["{/ used_p}"] < 97 then
+                return " | " .. colyel .. "/ " .. coldef .. colbyel .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            elseif args["{/ used_p}"] >= 97 and args["{/ used_p}"] < 99 then
+                return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
+                naughty.notify({ title = "Hard drive Warning", text = "No space left on root!\nMake some room.",
+                                 timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                return " | " .. colred .. "/ " .. coldef .. colbred .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            else
+                return " | " .. colwhi .. "/ " .. coldef .. colbwhi .. args["{/ used_p}"] .. "% (" .. args["{/ avail_gb}"] .. " GiB free) " .. coldef .. ""
+            end
         end
 
-        if  args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
-            return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
-            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
-        elseif args["{/home used_p}"] >= 99 and args["{/home used_p}"] <= 100 then
-            naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
-            return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. "" 
-        else
-            return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] .. "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+        local function get_home()
+            -- If there is no home partition, but this is also the case with NFS /home:
+            if  args["{/home used_p}"] == nil then
+                return ""
+            else
+                if args["{/home used_p}"] >= 97 and args["{/home used_p}"] < 98 then
+                    return " | " .. colyel .. "/home " .. coldef .. colbyel .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                elseif args["{/home used_p}"] >= 98 and args["{/home used_p}"] < 99 then
+                    return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                elseif args["{/home used_p}"] >= 99 and args["{/home used_p}"] <= 100 then
+                    naughty.notify({ title = "Hard drive Warning", text = "No space left on /home!\nMake some room.",
+                                     timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                    return " | " .. colred .. "/home " .. coldef .. colbred .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                else
+                    return " | " .. colwhi .. "/home " .. coldef .. colbwhi .. args["{/home used_p}"] ..
+                        "% (" .. args["{/home avail_gb}"] .. " GiB free) " .. coldef .. ""
+                end
+            end
         end
-    end, 620)
+
+        return get_root() .. get_home()
+    end, 220)
 
 -- Net widgets
--- eth
-neteupwidget = widget({ type = "textbox" })
-vicious.cache(vicious.widgets.net)
-vicious.register(neteupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${eth0 up_kb} " .. coldef .. "")
-
-netedownwidget = widget({ type = "textbox" })
-vicious.register(netedownwidget, vicious.widgets.net, "" .. colwhi .. "down " ..coldef .. colbwhi .. "${eth0 down_kb} " .. coldef .. "")
+-- Only create one netwidget, which will read all network interfaces anyway;
+-- then in the wifi-widget, use the latest results from the netwidget to
+-- display current rates.
+local netwidget_cur_args = nil
 
 netwidget = widget({ type = "textbox" })
 vicious.register(netwidget, vicious.widgets.net,
     function (widget, args)
-            function ip_addr4()
-                local ip = io.popen("ip addr show eth0 2> /dev/null | grep 'inet '")
-                local addr = ip:read("*a")
-                ip:close()
-                addr = string.match(addr, "%d+.%d+.%d+.%d+")
-                return addr
-            end
+        netwidget_cur_args = args
+
+        local function ip_addr4()
+            local ip = io.popen("ip addr show eth0 2> /dev/null | grep 'inet '")
+            local addr = ip:read("*a")
+            ip:close()
+            addr = string.match(addr, "%d+.%d+.%d+.%d+")
+            return addr
+        end
 
         local ip4 = ip_addr4()
         if ip4 == nil then
-            netedownwidget.visible = false
-            neteupwidget.visible = false
             return ""
         else
-            netedownwidget.visible = true
-            neteupwidget.visible = true
-            return " | " .. colwhi .. "eth0 " .. coldef --.. colbwhi .. ip4 .. coldef .. " "
+            return " | " .. colwhi .. "eth0 down " .. coldef .. colbwhi .. args["{eth0 down_kb}"] .. coldef .. " " ..
+            colwhi .. "up " .. coldef .. colbwhi .. args["{eth0 up_kb}"] .. coldef .. " "
         end
-    end, refresh_delay, "eth0")
+    end, refresh_delay)
 
--- wifi_netdev
-netwupwidget = widget({ type = "textbox" })
-vicious.register(netwupwidget, vicious.widgets.net, "" .. colwhi .. "up " .. coldef .. colbwhi .. "${" .. wifi_netdev .. " up_kb} " .. coldef .. "")
-
-netwdownwidget = widget({ type = "textbox" })
-vicious.register(netwdownwidget, vicious.widgets.net, "" .. colwhi .. "down " .. coldef .. colbwhi .. "${" .. wifi_netdev .. " down_kb} " .. coldef .. "")
-
+-- wifi
 wifiwidget = widget({ type = "textbox" })
 vicious.register(wifiwidget, vicious.widgets.wifi,
     function (widget, args)
-        if args["{link}"] == 0 then
-            netwdownwidget.visible = false
-            netwupwidget.visible = false
+        if netwidget_cur_args == nil or args["{link}"] == 0 then
             return ""
         else
-            netwdownwidget.visible = true
-            netwupwidget.visible = true
-            return " | " .. colwhi .. wifi_netdev .. " " .. coldef .. colbwhi .. string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef .. " "
+            return " | " .. colwhi .. wifi_netdev .. " " .. coldef .. colbwhi ..
+                string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef ..
+                colwhi .. " down " .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " down_kb}"] .. coldef ..
+                colwhi .. " up "   .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " up_kb}"]   .. coldef .. " "
         end
     end, refresh_delay, wifi_netdev )
 
@@ -178,14 +196,15 @@ if power_supply_battery ~= nil then
             elseif args[2] >= bat_critical and args[2] < bat_critical*2 then
                 return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
             elseif args[2] < bat_critical and args[1] == "-" then
-                naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.",
+                                 timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
                 return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
             elseif args[2] < bat_critical then
                 return " | " .. colred .. "bat(" .. args[1] .. ") " .. coldef .. colbred .. args[2] .. "% " .. coldef .. ""
             else
                 return " | " .. colwhi .. "bat(" .. args[1] .. ") " .. coldef .. colbwhi .. args[2] .. "% " .. coldef .. ""
             end
-        end, 23, sys_battery )
+        end, 25, sys_battery )
 else
     batwidget.text = ""
 end
@@ -200,7 +219,7 @@ if show_volume then
                 else
                     return " | " .. colwhi .. "vol " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
                 end
-            end, 2, "Master" )
+            end, refresh_delay, "Master" )
         volwidget:buttons(
             awful.util.table.join(
                 awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
@@ -243,7 +262,7 @@ for s = 1, screen.count() do
                                           end, mytasklist.buttons)
 
     -- Top box
-    mywibox[s] = awful.wibox({ position = "top", height = bars_height, screen = s })
+    mywibox[s] = awful.wibox({ position = "top", height = bars_height_t, screen = s })
     mywibox[s].widgets = {
         {
             mytaglist[s],
@@ -257,13 +276,13 @@ for s = 1, screen.count() do
         layout = awful.widget.layout.horizontal.rightleft }
 
     -- Bottom box
-    infobox[s] = awful.wibox({ position = "bottom", height = bars_height, screen = s })
+    infobox[s] = awful.wibox({ position = "bottom", height = bars_height_b, screen = s })
     infobox[s].widgets = { 
         volwidget,
         batwidget,
-        neteupwidget, netedownwidget, netwidget,
-        netwupwidget, netwdownwidget, wifiwidget,
-        fshwidget, fsrwidget,
+        netwidget,
+        wifiwidget,
+        fswidget,
         memwidget,
         cputwidget,
         layout = awful.widget.layout.horizontal.rightleft }
