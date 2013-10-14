@@ -91,7 +91,7 @@ vicious.register(cputwidget, vicious.widgets.cpu,
         else
             return " | " .. colwhi .. "cpu " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
         end
-    end, 3)
+    end)
 
 -- Ram widget
 local memwidget = wibox.widget.textbox()
