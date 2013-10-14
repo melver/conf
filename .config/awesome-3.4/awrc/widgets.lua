@@ -144,16 +144,17 @@ vicious.register(fswidget, vicious.widgets.fs,
 -- Net widgets
 -- Only create one netwidget, which will read all network interfaces anyway;
 -- then in the wifi-widget, use the latest results from the netwidget to
--- display current rates.
+-- display current rates (the cache should take care of this, but this allows
+-- us to have one less widget which needs to be executed periodically).
 local netwidget_cur_args = nil
-
 netwidget = widget({ type = "textbox" })
+vicious.cache(vicious.widgets.net)
 vicious.register(netwidget, vicious.widgets.net,
     function (widget, args)
         netwidget_cur_args = args
 
         local function ip_addr4()
-            local ip = io.popen("ip addr show eth0 2> /dev/null | grep 'inet '")
+            local ip = io.popen("ip addr show eth0 2> /dev/null | grep -m 1 'inet '")
             local addr = ip:read("*a")
             ip:close()
             addr = string.match(addr, "%d+.%d+.%d+.%d+")
@@ -215,7 +216,7 @@ if show_volume then
     vicious.register(volwidget, vicious.widgets.volume,
             function (widget, args)
                 if args[1] == 0 or args[2] == "♩" then
-                    return " | " .. colwhi .. "vol " .. coldef .. colbred .. "mute" .. coldef .. "" 
+                    return " | " .. colwhi .. "vol " .. coldef .. colbred .. "mute" .. coldef .. ""
                 else
                     return " | " .. colwhi .. "vol " .. coldef .. colbwhi .. args[1] .. "% " .. coldef .. ""
                 end
@@ -267,7 +268,7 @@ for s = 1, screen.count() do
         {
             mytaglist[s],
             mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright 
+            layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
         mytextclock,
@@ -277,7 +278,7 @@ for s = 1, screen.count() do
 
     -- Bottom box
     infobox[s] = awful.wibox({ position = "bottom", height = bars_height_b, screen = s })
-    infobox[s].widgets = { 
+    infobox[s].widgets = {
         volwidget,
         batwidget,
         netwidget,

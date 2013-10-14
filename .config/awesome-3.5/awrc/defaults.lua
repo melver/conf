@@ -16,7 +16,7 @@ bat_critical = 10
 bars_height_t = 14
 bars_height_b = 13
 show_volume = true
-refresh_delay = 5
+refresh_delay = 3
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {
