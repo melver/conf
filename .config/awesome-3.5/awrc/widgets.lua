@@ -239,7 +239,7 @@ end
 -- {{{ Create Wiboxes
 local mywibox = {}
 local infobox = {}
-local mypromptbox = {}
+mypromptbox = {}
 local mylayoutbox = {}
 
 -- Create for each screen
