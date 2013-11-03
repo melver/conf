@@ -246,7 +246,7 @@
     map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
 
     " taglist plugin
-    map <C-T> <ESC>:TlistToggle<CR>
+    map <C-P> <ESC>:TlistToggle<CR>
 
     map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
 
