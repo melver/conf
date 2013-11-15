@@ -137,8 +137,23 @@ setprompt() {
 		eval PR_HOST='${PR_GREEN}%M${PR_NO_COLOR}' # no SSH
 	fi
 	# set the prompt
-	PS1=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]${PR_USER_OP} '
+	PS1_NO_USER_OP=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]'
+	PS1="${PS1_NO_USER_OP}"$'${PR_USER_OP} '
 	PS2=$'%_>'
+}
+
+vcs_info() {
+	local git_info="$(git status --porcelain -b 2>/dev/null | head -n 1 | cut -d " " -f 2)"
+
+	if [[ -n "$git_info" ]]; then
+		print -n "$git_info"
+	else
+		print -n "<none>"
+	fi
+}
+
+setprompt_vcs_info() {
+	PS1="${PS1_NO_USER_OP}"$'[${PR_YELLOW}$(vcs_info)${PR_CYAN}]${PR_USER_OP} '
 }
 
 preexec() {
