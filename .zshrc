@@ -91,16 +91,16 @@ zstyle ':completion:*:killall:*'   force-list always
 case $TERM in
 	*xterm*|rxvt*|(dt|k|E)term)
 		precmd() { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" }
-		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; print -n "$1)\a" }
+		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; printf "%s)\a" "$1" }
 	;;
 	screen*)
 		precmd() {
-			print -n "\e]83;title \"$1\"\a"
+			print -n "\e]83;title \""; printf "%s\"\a" "$1"
 			print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a"
 		}
 		preexec_settitle() {
-			print -n "\e]83;title \"$1\"\a"
-			print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; print -n "$1)\a"
+			print -n "\e]83;title \""; printf "%s\"\a" "$1"
+			print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; printf "%s)\a" "$1"
 		}
 	;; 
 esac
@@ -115,7 +115,7 @@ setprompt() {
 	colors
 	setopt prompt_subst
 
-	# make some aliases for the colours: (coud use normal escap.seq's too)
+	# make some aliases for the colours: (could use normal escap.seq's too)
 	for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
 		eval PR_$color='%{$fg[${(L)color}]%}'
 	done
@@ -142,18 +142,34 @@ setprompt() {
 	PS2=$'%_>'
 }
 
-vcs_info() {
+my_vcs_info() {
 	local git_info="$(git status --porcelain -b 2>/dev/null | head -n 1 | cut -d " " -f 2)"
 
 	if [[ -n "$git_info" ]]; then
-		print -n "$git_info"
-	else
-		print -n "<none>"
+		print -n "[${PR_YELLOW}${git_info}${PR_CYAN}]"
 	fi
 }
 
 setprompt_vcs_info() {
-	PS1="${PS1_NO_USER_OP}"$'[${PR_YELLOW}$(vcs_info)${PR_CYAN}]${PR_USER_OP} '
+	autoload -Uz vcs_info
+
+	if vcs_info &>/dev/null; then
+		zstyle ':vcs_info:*' enable git hg svn darcs bzr
+		zstyle ':vcs_info:*' actionformats \
+			'%F{5}(%f%s%F{5})%F{3}%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f'
+		zstyle ':vcs_info:*' formats       \
+			'%F{5}(%f%s%F{5})%F{3}%F{5}[%F{2}%b%F{5}]%f'
+		zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+
+		_vcs_info() {
+			vcs_info
+			print -n "${vcs_info_msg_0_}"
+		}
+	else
+		alias _vcs_info=my_vcs_info
+	fi
+
+	PS1="${PS1_NO_USER_OP}"$'$(_vcs_info)${PR_USER_OP} '
 }
 
 preexec() {
