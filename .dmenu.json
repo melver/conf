@@ -22,7 +22,9 @@
 	"browser" : [50, [
 		{
 		"chromium" : [0, "chromium --disk-cache-size=268435456"],
-		"firefox" : [10, "firefox"]
+		"chromium-priv" : [1, "chromium --incognito --disk-cache-size=268435456"],
+		"firefox" : [10, "firefox"],
+		"firefox-priv" : [11, "firefox -private"]
 		}
 		]],
 	"mail" : [60, [
