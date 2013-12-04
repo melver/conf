@@ -24,6 +24,10 @@
 (require 'linum-relative)
 ;(global-linum-mode 1)
 
+;; SCALA-MODE
+(add-to-list 'load-path "~/.emacs.d/bundle/scala-mode2")
+(require 'scala-mode2)
+
 ;; UI ----------------------------------
 ;;
 (setq inhibit-startup-message t)

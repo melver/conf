@@ -24,6 +24,7 @@ else
 		"git://gitorious.org/evil/evil.git"
 		"https://github.com/coldnew/linum-relative.git"
 		"http://www.dr-qubit.org/git/undo-tree.git"
+		"git://github.com/hvesalai/scala-mode2.git"
 	)
 
 	for repo in "${repos[@]}"; do
