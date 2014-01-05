@@ -1,0 +1,23 @@
+#
+# .ratpoisonrc
+#
+
+exec xsetroot -cursor_name left_ptr
+escape C-e
+
+# Workspaces
+exec rpws init 5 -k
+definekey top s-1 exec rpws 1
+definekey top s-2 exec rpws 2
+definekey top s-3 exec rpws 3
+definekey top s-4 exec rpws 4
+definekey top s-5 exec rpws 5
+
+# Switch between windows
+definekey top s-j next
+definekey top s-k prev
+
+# Programs
+bind C-c exec urxvt
+bind C-Return exec urxvt
+bind C-p exec dmenu-apps
