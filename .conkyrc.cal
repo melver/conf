@@ -88,7 +88,8 @@ if_up_strictness address
 TEXT
 
 ${color0}${execi 61 date +"%B %Y" | tr "[:lower:]" "[:upper:]" } ${hr 1 }$color
-${color2}${font Monospace:style=Normal:size=12}${execpi 60 DJS=`date +%_d`; cal -m | sed '1d' | sed '/./!d' | sed 's/$/                      /' | fold -w 22 | sed -n '/^.\{22\}/p' | sed 's/^/ /' | sed /" $DJS "/s/" $DJS "/" "'${color1}'"$DJS"'${color3}'" "/}
+
+${color2}${font Monospace:style=Normal:size=11}${execpi 60 DJS=`date +%_d`; cal -m | sed '1d' | sed '/./!d' | sed 's/$/                      /' | fold -w 22 | sed -n '/^.\{22\}/p' | sed 's/^/ /' | sed /" $DJS "/s/" $DJS "/" "'${color1}'"$DJS"'${color3}'" "/}
 ${color0}${font}PLANNER ${hr 1}$color
 ${execi 65 [ -f $HOME/org/.reminders ] && remind -q -g -m $HOME/org/.reminders}
 ${color0}${font}INBOX ${hr 1}$color
