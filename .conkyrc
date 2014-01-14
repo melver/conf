@@ -87,7 +87,9 @@ Uptime: $uptime
  
 ${color0}CPU ${hr 2}$color
 Core 1:  ${freq 1}MHz  $alignr${hwmon 0 temp 2}°C  ${cpubar cpu1 6,70}${if_existing /sys/devices/system/cpu/cpu1}
-Core 2:  ${freq 2}MHz  $alignr${hwmon 0 temp 3}°C  ${cpubar cpu2 6,70}${endif}
+Core 2:  ${freq 2}MHz  $alignr${hwmon 0 temp 3}°C  ${cpubar cpu2 6,70}${endif}${if_existing /sys/devices/system/cpu/cpu2}
+Core 3:  ${freq 3}MHz  $alignr${hwmon 0 temp 4}°C  ${cpubar cpu3 6,70}${endif}${if_existing /sys/devices/system/cpu/cpu3}
+Core 4:  ${freq 4}MHz  $alignr${hwmon 0 temp 5}°C  ${cpubar cpu4 6,70}${endif}
 ${cpugraph normal cpu0 000000 ffffff}
  
 ${color0}MEMORY / DISK Usage ${hr 2}$color
