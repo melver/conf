@@ -14,6 +14,25 @@ clientbuttons = awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
+
+local delayed_window_focus = {}
+delayed_window_focus.timer = timer { timeout = 1 }
+delayed_window_focus.focus = nil
+delayed_window_focus.count = 0
+delayed_window_focus.timer:add_signal("timeout",
+    function()
+        if delayed_window_focus.focus then
+            client.focus = delayed_window_focus.focus
+            client.focus:raise()
+        end
+
+        delayed_window_focus.count = delayed_window_focus.count + 1
+        if delayed_window_focus.count > 2 then
+            delayed_window_focus.count = 0
+            delayed_window_focus.timer:stop()
+        end
+    end)
+
 -- Global
 globalkeys = awful.util.table.join(
     -- Tags
@@ -110,6 +129,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "F6", function () awful.util.spawn("xdotool click --clearmodifiers 1") end),
     awful.key({ modkey, "Control" }, "F7", function () awful.util.spawn("xdotool click --clearmodifiers 2") end),
     awful.key({ modkey, "Control" }, "F8", function () awful.util.spawn("xdotool click --clearmodifiers 3") end),
+    awful.key({ modkey, "Control" },  ";", function () delayed_window_focus.focus = client.focus end),
+    awful.key({ modkey,           },  ";",
+        function ()
+            awful.util.spawn_with_shell("sleep 0.5 && xdotool click --clearmodifiers 1")
+            delayed_window_focus.timer:start()
+        end),
 
     -- Programs
     -- launchers
