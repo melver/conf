@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+SIG_PATH="${0%/*}/../local/sigs"
+
+[[ -d "$SIG_PATH" ]] || exit 1
+
+sig="$1"
+
+if [[ -z "$sig" ]]; then
+	# Try to get fist one
+	sig="$(ls -1 "$SIG_PATH" | head -n 1)"
+	[[ -z "$sig" ]] && exit 2
+fi
+
+_sig_file="${SIG_PATH}/${sig}"
+
+[[ -r "${_sig_file}" ]] || exit 3
+
+printf -- "%s" "$(< "${_sig_file}")"
+
+exit 0
