@@ -16,7 +16,7 @@ use_spacer right
 
 # Use Xft?
 use_xft yes
-xftfont DejaVu Sans:size=10
+xftfont Terminus:size=10
 xftalpha 1.0
 text_buffer_size 2048
  
@@ -89,9 +89,10 @@ TEXT
 
 ${color0}${execi 61 date +"%B %Y" | tr "[:lower:]" "[:upper:]" } ${hr 1 }$color
 
-${color2}${font Monospace:style=Normal:size=11}${execpi 60 DJS=`date +%_d`; cal -m | sed '1d' | sed '/./!d' | sed 's/$/                      /' | fold -w 22 | sed -n '/^.\{22\}/p' | sed 's/^/ /' | sed /" $DJS "/s/" $DJS "/" "'${color1}'"$DJS"'${color3}'" "/}
-${color0}${font}PLANNER ${hr 1}$color
-${execi 65 [ -f $HOME/org/.reminders ] && remind -q -g -m $HOME/org/.reminders}
-${color0}${font}INBOX ${hr 1}$color
-${execi 101 [ -f $HOME/gtd-inbox ] && fold -s -w 50 $HOME/gtd-inbox | sed 's/^\([^\[]\)/        \1/'}
+${color2}${execpi 60 DJS=`date +%_d`; cal -m | sed '1d' | sed '/./!d' | sed 's/$/                      /' | fold -w 22 | sed -n '/^.\{22\}/p' | sed 's/^/ /' | sed /" $DJS "/s/" $DJS "/" "'${color1}'"$DJS"'${color3}'" "/}
+
+${color0}PLANNER ${hr 1}$color
+${font DejaVu Sans:size=10}${execi 65 [ -f $HOME/org/.reminders ] && remind -q -g -m $HOME/org/.reminders}${font}
+${color0}INBOX ${hr 1}$color
+${font DejaVu Sans:size=10}${execi 101 [ -f $HOME/gtd-inbox ] && fold -s -w 50 $HOME/gtd-inbox | sed 's/^\([^\[]\)/        \1/'}${font}
 
