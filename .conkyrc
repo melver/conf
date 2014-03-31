@@ -24,7 +24,7 @@ text_buffer_size 2048
 update_interval 3.0
  
 # Minimum size of text area
-minimum_size 300 5
+minimum_size 310 5
  
 # Draw shades?
 draw_shades yes
