@@ -1,6 +1,6 @@
 -------------------------------
 --
--- Marco's Awesome 3.4 WM config
+-- Marco's Awesome 3.4.15 config
 --
 --
 -- Based on:
