@@ -26,6 +26,12 @@ fetch_plugins() {
 
 	# NuSMV syntax
 	git clone "https://github.com/melver/wmnusmv.vim.git" "wmnusmv"
+
+	# Puppet syntax
+	git clone "https://github.com/puppetlabs/puppet-syntax-vim.git" "puppet-syntax-vim"
+
+	# Murphi syntax
+	git clone "https://github.com/melver/murphi.vim.git" "murphi"
 }
 
 update_plugins() {

@@ -485,6 +485,11 @@
       au FileType lua setlocal ts=4 sw=4 sts=4 et | call SetList(1)
     augroup END
 
+    augroup ftgroup_murphi
+      au!
+      au FileType murphi setlocal ts=8 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
+    augroup END
+
     augroup ftgroup_smv
       au!
       au FileType nusmv setlocal ts=4 sw=2 sts=2 et ai | call SetList(1)
