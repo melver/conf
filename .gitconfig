@@ -1,6 +1,8 @@
 [user]
 	name = Marco Elver
 	email = me@marcoelver.com
+[push]
+	default = matching
 [sendemail]
 	smtpserver = localhost
 	smtpserverport = 2525
