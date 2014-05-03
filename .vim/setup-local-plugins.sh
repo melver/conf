@@ -32,6 +32,12 @@ fetch_plugins() {
 
 	# Murphi syntax
 	git clone "https://github.com/melver/murphi.vim.git" "murphi"
+
+	# Haskell
+	git clone "https://github.com/dag/vim2hs.git" "vim2hs"
+
+	# Erlang
+	git clone "https://github.com/jimenezrick/vimerl.git" "vimerl"
 }
 
 update_plugins() {
