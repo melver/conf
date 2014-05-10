@@ -44,11 +44,9 @@ update_plugins() {
 	echo "===== Updating Plugins ====="
 	cd "$BUNDLE_DIR"
 
-	for bundle in "clang_complete"; do
+	for bundle in "clang_complete" "puppet-syntax-vim" "vim2hs" "vimerl"; do
 		if [[ -d "$bundle" ]]; then
-			pushd "$bundle"
-			 git pull
-			popd
+			( cd "$bundle" && git pull )
 		fi
 	done
 }
