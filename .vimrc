@@ -414,7 +414,7 @@
 
     augroup ftgroup_erlang
       au!
-      au FileType erlang setlocal ts=4 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("->") | call OverLengthHiOn(92)
+      au FileType erlang setlocal ts=4 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("->$") | call OverLengthHiOn(92)
       au BufNewFile *.erl setlocal fileformat=unix
     augroup END
 
@@ -451,6 +451,11 @@
       au BufNewFile *.php setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_puppet
+      au!
+      au FileType puppet setlocal ts=4 sw=4 sts=4 et | call SetList(1)
+    augroup END
+
     augroup ftgroup_xmlant
       au!
       au FileType xml,ant setlocal ts=2 sw=2 sts=2 noet | call SetList(0)
@@ -465,6 +470,12 @@
       if disable_italic
         au FileType rst hi rstEmphasis term=none cterm=none gui=none
       endif
+    augroup END
+
+    augroup ftgroup_ruby
+      au!
+      au FileType ruby setlocal ts=4 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.rb setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_cmake
