@@ -8,6 +8,8 @@
 ;;        :::/   \`/++\'/   \:::
 ;;--------------------------------------
 
+(add-to-list 'load-path "~/.emacs.d/lisp")
+
 ;; EVIL --------------------------------
 ;;
 (add-to-list 'load-path "~/.emacs.d/bundle/undo-tree")
@@ -27,6 +29,10 @@
 ;; SCALA-MODE
 (add-to-list 'load-path "~/.emacs.d/bundle/scala-mode2")
 (require 'scala-mode2)
+
+;; COQ-MODE
+(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
+(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
 
 ;; UI ----------------------------------
 ;;
