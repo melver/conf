@@ -69,7 +69,7 @@
 ;;
 (setq-default fill-column 79)
 
-;; Isabelle/PG -------------------------
+;; PG ----------------------------------
 ;;
 ;; Source: http://git.necoro.eu/dotfiles.git/tree/.emacs
 
@@ -86,7 +86,7 @@
      (repair `(lambda ()
                 ; intern-soft also handles the case, that `var` is not existing
                 ; (it returns nil then -- making `when` skip)
-                (when (intern-soft ,var)
+                (when (and (intern-soft, "isar-web-page") (intern-soft ,var))
                   (message ,msg)
                   (funcall (intern ,vart) 0) ; toggle off
                   (funcall (intern ,vart) 1) ; toggle on
@@ -104,12 +104,12 @@
   (proof-multiple-frames-toggle)
   (proof-three-window-toggle))
 
-(defun isar-mode-keys ()
-  (message "Loading isar keys")
-  (local-set-key (kbd "C-c 3") 'toggle-three-panes)
-  )
+(defun proof-mode-keys ()
+  (message "Loading PG keys")
+  (local-set-key (kbd "C-c 3") 'toggle-three-panes))
 
-(add-hook 'isar-mode-hook 'isar-mode-keys)
+(add-hook 'isar-mode-hook 'proof-mode-keys)
+(add-hook 'coq-mode-hook  'proof-mode-keys)
 
 ;; Misc custom settings ----------------
 ;;
