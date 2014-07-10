@@ -1,5 +1,4 @@
 
-[[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
-
 . "$HOME/.common-profile"
+[[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
 
