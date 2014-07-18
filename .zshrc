@@ -90,17 +90,17 @@ zstyle ':completion:*:killall:*'   force-list always
 
 case $TERM in
 	*xterm*|rxvt*|(dt|k|E)term)
-		precmd() { print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a" }
-		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; printf "%s)\a" "$1" }
+		precmd() { print -Pn "\e]0;(%L) [%n@%m]%# [%~]\a" }
+		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%m]%# [%~] ("; printf "%s)\a" "$1" }
 	;;
 	screen*)
 		precmd() {
 			print -n "\e]83;title \""; printf "%s\"\a" "$1"
-			print -Pn "\e]0;(%L) [%n@%M]%# [%~]\a"
+			print -Pn "\e]0;(%L) [%n@%m]%# [%~]\a"
 		}
 		preexec_settitle() {
 			print -n "\e]83;title \""; printf "%s\"\a" "$1"
-			print -Pn "\e]0;(%L) [%n@%M]%# [%~] ("; printf "%s)\a" "$1"
+			print -Pn "\e]0;(%L) [%n@%m]%# [%~] ("; printf "%s)\a" "$1"
 		}
 	;; 
 esac
@@ -132,9 +132,9 @@ setprompt() {
 
 	# Check if we are on SSH or not
 	if [[ -n "$SSH_CLIENT"  ||  -n "$SSH2_CLIENT" ]]; then 
-		eval PR_HOST='${PR_YELLOW}%M${PR_NO_COLOR}' #SSH
+		eval PR_HOST='${PR_YELLOW}%m${PR_NO_COLOR}' #SSH
 	else 
-		eval PR_HOST='${PR_GREEN}%M${PR_NO_COLOR}' # no SSH
+		eval PR_HOST='${PR_GREEN}%m${PR_NO_COLOR}' # no SSH
 	fi
 	# set the prompt
 	PS1_NO_USER_OP=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]'
