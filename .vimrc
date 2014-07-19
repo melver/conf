@@ -478,6 +478,12 @@
       au BufNewFile *.rb setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_rust
+      au!
+      au FileType rust setlocal ts=4 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.rs setlocal fileformat=unix
+    augroup END
+
     augroup ftgroup_cmake
       au!
       au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
