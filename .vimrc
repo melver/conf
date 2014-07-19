@@ -418,6 +418,12 @@
       au BufNewFile *.erl setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_go
+      au!
+      au FileType go setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au BufNewFile *.go setlocal fileformat=unix
+    augroup END
+
     augroup ftgroup_haskell
       au!
       au FileType haskell setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
