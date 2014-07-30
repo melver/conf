@@ -58,6 +58,10 @@ gin () {
 EOF
 }
 
+xsess() {
+	exec startx /etc/X11/xinit/xinitrc "$@"
+}
+
 color_setup() {
 	case "$TERM" in
 		*256color)
