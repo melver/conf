@@ -1,2 +1,2 @@
 clear Lock
-keysym Caps_Lock = Super_L
+keycode 66 = Super_L
