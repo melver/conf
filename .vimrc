@@ -107,8 +107,10 @@
     endfunction
 
     function FindTabStyle(prev_line_regex)
-      let l:found = 0
+      " Do not do anything if there is a modeline
+      if getline("$") =~ "[vV][iI][mM] *:.*:" | return | endif
 
+      let l:found = 0
       for line in getline(1, 500)
         if l:found
           " Check if valid line to test for indendation style
