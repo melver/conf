@@ -9,7 +9,7 @@ source "${HOME}/.common-sh.rc"
 
 # Options {{{
 
-TIMEFMT='%J  %U user %S system %P cpu %E total'
+TIMEFMT='[time]: %E wallclock secs = ( %U usr secs + %S sys secs / %P CPU ) @ %M MB max {%J}'
 
 # History {{{
 
