@@ -107,8 +107,8 @@
     endfunction
 
     function FindTabStyle(prev_line_regex)
-      " Do not do anything if there is a modeline
-      if getline("$") =~ "[vV][iI][mM] *:.*:" | return | endif
+      " Do not do anything if there is a modeline which includes tabstop
+      if getline("$") =~ '[vV][iI][mM] *:.*\(ts\|tabstop\).*:' | return | endif
 
       let l:found = 0
       for line in getline(1, 500)
