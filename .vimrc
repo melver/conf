@@ -114,7 +114,7 @@
       for line in getline(1, 500)
         if l:found
           " Check if valid line to test for indendation style
-          if line =~ "^[ \t][ \t]*[^ \t]"
+          if line !~ a:prev_line_regex && line =~ "^[ \t][ \t]*[^ \t]"
             if line =~ "^\t"
               setlocal noet
               echom "[FindTabStyle] No expand tab!"
@@ -135,8 +135,11 @@
             " done
             break
           else
-            " continue search
-            let l:found = 0
+            " If this is an empty line, try next one.
+            if line !~ "^[ \t]*$"
+              " continue search
+              let l:found = 0
+            endif
           endif
         endif
 
@@ -347,7 +350,7 @@
     augroup ftgroup_ccppobjc
       au!
       au FileType c    setlocal ts=8 sw=8 sts=8 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
-      au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle('\(private:\|protected:\|public:\|{\)$') | call OverLengthHiOn(80)
       au FileType objc setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
       au BufNewFile *.c,*.cpp,*.h,*.hpp setlocal fileformat=unix
     augroup END
@@ -507,7 +510,7 @@
 
     augroup ftgroup_hdl
       au!
-      au FileType verilog setlocal ts=3 sw=3 sts=3 noet | call SetList(0) | call OverLengthHiOn(80)
+      au FileType verilog setlocal ts=2 sw=2 sts=2 et | call SetList(0) | call OverLengthHiOn(80)
       au BufNewFile *.v setlocal fileformat=unix
     augroup END
 
