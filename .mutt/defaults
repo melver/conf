@@ -193,7 +193,8 @@ set sort_alias=alias
 # {{{
 
 set display_filter=""	# pipe message through this filter before displaying
-reset editor
+#reset editor
+set editor="~/.mutt/bin/editor.sh"
 reset ispell		# ispell binary (compile time default)
 set pager=builtin	# internal pager: "builtin" or e.g. "less -e" 
 #set print_command=lpr			# simple print command
