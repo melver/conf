@@ -98,6 +98,9 @@
 (isabelle-repair "auto quickcheck" "tracing")
 (isabelle-repair "quick and dirty" "proof")
 
+;; Fix show-paren-mode bug with PG
+(add-hook 'proof-ready-for-assistant-hook (lambda () (show-paren-mode 0)))
+
 ;; toggle three window mode
 (defun toggle-three-panes ()
   (interactive)
