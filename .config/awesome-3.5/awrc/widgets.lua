@@ -182,9 +182,9 @@ vicious.register(wifiwidget, vicious.widgets.wifi,
             return ""
         else
             return " | " .. colwhi .. wifi_netdev .. " " .. coldef .. colbwhi ..
-                string.format("%s [%i%%]", args["{ssid}"], args["{link}"]/70*100) .. coldef ..
-                colwhi .. " down " .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " down_kb}"] .. coldef ..
-                colwhi .. " up "   .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " up_kb}"]   .. coldef .. " "
+                 string.format("%s [%i%%]", args["{ssid}"], math.floor(args["{link}"]/70*100)) .. coldef ..
+                 colwhi .. " down " .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " down_kb}"] .. coldef ..
+                 colwhi .. " up "   .. coldef .. colbwhi .. netwidget_cur_args["{" .. wifi_netdev .. " up_kb}"]   .. coldef .. " "
         end
     end, refresh_delay, wifi_netdev )
 
