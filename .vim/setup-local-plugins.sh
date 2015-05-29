@@ -32,7 +32,7 @@ fetch_plugins() {
 	git clone "https://github.com/puppetlabs/puppet-syntax-vim.git" "puppet-syntax-vim"
 
 	# Murphi syntax
-	git clone "https://github.com/melver/murphi.vim.git" "murphi"
+	git clone "https://github.com/melver/murphi.vim.git" "murphi.vim"
 
 	# Haskell
 	git clone "https://github.com/dag/vim2hs.git" "vim2hs"

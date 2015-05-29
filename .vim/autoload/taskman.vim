@@ -38,7 +38,7 @@
 "   + Sorting by priority and DUE date, tracking time
 "     + Implement MakeTaskStringFromDict (replace maketask), GetTaskDictFromString
 
-let s:save_cpo = &cpo
+let s:cpo_save = &cpo
 set cpo&vim
 
 " Variables {{{
@@ -351,7 +351,7 @@ function! s:SetupSyntax()
   syn cluster tmPriority    contains=tmPrioRegular,tmPrioLow,tmPrioHigh
 
   " Meta information
-  syn region tmStartTime    start="("                     end=")"           contained contains=@NoSpell
+  syn region tmStartDate    start="("                     end=")"           contained contains=@NoSpell
   syn match  tmTags         "\(@\|+\)\S\+"                                  contained contains=@NoSpell
   syn region tmMetaInfo     start=" : "                   end="$"           contained contains=tmStartDate,tmTags keepend
   syn region tmDueDate      start="\s*\(\d\d\d\d-\d\d-\d\d\|DUE\)" end=">"  contained contains=@NoSpell,tmDueDateSoon
@@ -388,6 +388,7 @@ endfunction
 
 " }}}
 
-let &cpo = s:save_cpo
+let &cpo = s:cpo_save
+unlet s:cpo_save
 
 " vim: set ts=2 sts=2 sw=2 et :
