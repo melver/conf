@@ -510,8 +510,8 @@
 
     augroup ftgroup_hdl
       au!
-      au FileType verilog setlocal ts=2 sw=2 sts=2 et | call SetList(0) | call OverLengthHiOn(80)
-      au BufNewFile *.v setlocal fileformat=unix
+      au FileType verilog,systemverilog setlocal ts=2 sw=2 sts=2 et | call SetList(0) | call OverLengthHiOn(80) | call FindTabStyle("^module ")
+      au BufNewFile *.v,*.sv setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_lua
