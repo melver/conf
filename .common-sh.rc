@@ -123,6 +123,9 @@ alias tmux-syst="sys-stat-helper; tmux"
 
 alias wget-wwwoffline='wget --adjust-extension --convert-links --page-requisites --no-clobber --restrict-file-names=windows'
 
+alias cabalenv='export PATH="$HOME/.cabal/bin:$PATH"'
+alias opamenv='eval `opam config env`'
+
 # }}}
 
 # vim: set ft=sh :
