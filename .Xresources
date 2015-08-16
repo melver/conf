@@ -1,4 +1,11 @@
 
+!! XTerm settings {{{
+
+XTerm*faceName: Terminus
+xterm*faceSize: 12
+
+! }}}
+
 !! URxvt settings {{{
 
 URxvt.scrollBar: false
