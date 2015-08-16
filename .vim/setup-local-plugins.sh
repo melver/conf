@@ -49,7 +49,16 @@ update_plugins() {
 	cd "$BUNDLE_DIR"
 
 	for bundle in *; do
-		( cd "$bundle" && git pull )
+		[[ -L "$bundle" ]] && continue
+		echo "----- $bundle -----"
+
+		if [[ -d "${bundle}/.git" ]]; then
+			( cd "$bundle" && git pull )
+		elif [[ -d "${bundle}/.hg" ]]; then
+			( cd "$bundle" && hg pull -u )
+		fi
+
+		echo
 	done
 }
 
@@ -59,6 +68,4 @@ if [[ ! -f "autoload/pathogen.vim" ]]; then
 else
 	update_plugins
 fi
-
-echo "===== Done ====="
 

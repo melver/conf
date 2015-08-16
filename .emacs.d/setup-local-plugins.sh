@@ -3,33 +3,40 @@
 cd "${0%/*}"
 
 if [[ -d "bundle" ]]; then
-	echo "Updating all"
-	echo
+	echo "===== Updating Plugins ====="
 
 	cd "bundle"
 
-	for repo in *; do
-		( cd "$repo" && git pull )
+	for bundle in *; do
+		[[ -L "$bundle" ]] && continue
+		echo "----- $bundle -----"
+
+		if [[ -d "${bundle}/.git" ]]; then
+			( cd "$bundle" && git pull )
+		elif [[ -d "${bundle}/.hg" ]]; then
+			( cd "$bundle" && hg pull -u )
+		fi
+
+		echo
 	done
 
 else
-	echo "Initial fetch"
-	echo
+	echo "===== Fetching Plugins ====="
 
 	mkdir -p "bundle" || exit 1
 
 	cd "bundle"
 
-	repos=(
-		"git://gitorious.org/evil/evil.git"
-		"https://github.com/coldnew/linum-relative.git"
-		"http://www.dr-qubit.org/git/undo-tree.git"
-		"git://github.com/hvesalai/scala-mode2.git"
-	)
+	# Evil Mode
+	hg clone https://bitbucket.org/lyro/evil
 
-	for repo in "${repos[@]}"; do
-		git clone "$repo"
-		echo
-	done
+	# Relative line-numbering
+	git clone https://github.com/coldnew/linum-relative.git
+
+	# Undo-tree (Evil suggested)
+	git clone http://www.dr-qubit.org/git/undo-tree.git
+
+	# Scala Mode
+	git clone git://github.com/hvesalai/scala-mode2.git
 fi
 
