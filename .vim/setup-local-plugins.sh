@@ -20,11 +20,6 @@ fetch_plugins() {
 	echo "===== Fetching Plugins ====="
 	cd "$BUNDLE_DIR"
 
-	# Clang complete
-	git clone "https://github.com/Rip-Rip/clang_complete.git" "clang_complete"
-	echo "let g:clang_complete_copen = 1" >> "$INIT_BUNDLES_VIM"
-	echo "let g:clang_complete_auto = 0" >> "$INIT_BUNDLES_VIM"
-
 	# NuSMV syntax
 	git clone "https://github.com/melver/wmnusmv.vim.git" "wmnusmv"
 
@@ -37,11 +32,20 @@ fetch_plugins() {
 	# Haskell
 	git clone "https://github.com/dag/vim2hs.git" "vim2hs"
 	git clone "https://github.com/eagletmt/neco-ghc.git" "neco-ghc"
-	echo "let g:necoghc_enable_detailed_browse = 1" >> "$INIT_BUNDLES_VIM"
 	echo "au FileType haskell setlocal omnifunc=necoghc#omnifunc" >> "$INIT_BUNDLES_VIM"
 
 	# Erlang
 	git clone "https://github.com/jimenezrick/vimerl.git" "vimerl"
+
+	## External via symlinks
+
+	# OCaml
+	ln -sv "${HOME}/.opam/system/share/merlin/vim" "merlin"
+	[[ -d "${HOME}/.opam/system/share/merlin/vim" ]] || echo "Merlin not installed!"
+
+	# YouCompleteMe
+	ln -sv "${HOME}/local/YouCompleteMe" "YouCompleteMe"
+	[[ -d "${HOME}/local/YouCompleteMe" ]] || echo "YouCompleteMe not installed!"
 }
 
 update_plugins() {
@@ -49,7 +53,11 @@ update_plugins() {
 	cd "$BUNDLE_DIR"
 
 	for bundle in *; do
-		[[ -L "$bundle" ]] && continue
+		if [[ -L "$bundle" ]]; then
+			echo "Requires manual update: ${bundle}"
+			continue
+		fi
+
 		echo "----- $bundle -----"
 
 		if [[ -d "${bundle}/.git" ]]; then

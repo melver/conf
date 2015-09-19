@@ -162,6 +162,13 @@
       let g:NERDTreeBookmarksFile = $HOME . "/.vim/.NERDTreeBookmarks"
       let g:NERDTreeWinSize=28
     " }}}
+
+    " UltiSnips {{{
+      " Remap UltiSnips expand trigger, to free up TAB for autocompleters.
+      let g:UltiSnipsExpandTrigger="<c-j>"
+      let g:UltiSnipsJumpForwardTrigger="<c-j>"
+      let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    " }}}
 " }}}
 
 " General {{{
@@ -256,7 +263,6 @@
     map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
 
     " Function keys
-    map <F5> <ESC>:call g:ClangUpdateQuickFix()<CR>
     map <F8> <ESC>:call ToggleNumber()<CR>
     map <F9> <ESC>:call ToggleList()<CR>
     map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'

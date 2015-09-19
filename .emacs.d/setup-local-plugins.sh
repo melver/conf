@@ -8,7 +8,11 @@ if [[ -d "bundle" ]]; then
 	cd "bundle"
 
 	for bundle in *; do
-		[[ -L "$bundle" ]] && continue
+		if [[ -L "$bundle" ]]; then
+			echo "Requires manual update: ${bundle}"
+			continue
+		fi
+
 		echo "----- $bundle -----"
 
 		if [[ -d "${bundle}/.git" ]]; then
