@@ -106,7 +106,7 @@
       endif
     endfunction
 
-    function FindTabStyle(prev_line_regex)
+    function FindTabStyle2(prev_line_regex, ignore_line_regex)
       " Do not do anything if there is a modeline which includes tabstop
       if getline("$") =~ '[vV][iI][mM] *:.*\(ts\|tabstop\).*:' | return | endif
 
@@ -114,7 +114,8 @@
       for line in getline(1, 500)
         if l:found
           " Check if valid line to test for indendation style
-          if line !~ a:prev_line_regex && line =~ "^[ \t][ \t]*[^ \t]"
+          if (a:ignore_line_regex == "" || line !~ a:ignore_line_regex)
+                \ && line =~ "^[ \t][ \t]*[^ \t]"
             if line =~ "^\t"
               setlocal noet
               echom "[FindTabStyle] No expand tab!"
@@ -147,6 +148,10 @@
           let l:found = 1
         endif
       endfor
+    endfunction
+
+    function FindTabStyle(prev_line_regex)
+      call FindTabStyle2(a:prev_line_regex, "")
     endfunction
 " }}}
 
@@ -356,7 +361,9 @@
     augroup ftgroup_ccppobjc
       au!
       au FileType c    setlocal ts=8 sw=8 sts=8 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
-      au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle('\(private:\|protected:\|public:\|{\)$') | call OverLengthHiOn(80)
+      au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0)
+            \ | call FindTabStyle2('\(private:\|protected:\|public:\|{\)$', '\(private:\|protected:\|public:\)$')
+            \ | call OverLengthHiOn(80)
       au FileType objc setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
       au BufNewFile *.c,*.cpp,*.h,*.hpp setlocal fileformat=unix
     augroup END
