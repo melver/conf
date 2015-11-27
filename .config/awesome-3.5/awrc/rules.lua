@@ -42,6 +42,7 @@ awful.rules.rules = {
 
     -- Mapped applications
     { rule = { class = "Chromium" }, callback = function(c) movetotag_wrap(tags[mouse.screen][2], c) end },
+    { rule = { class = "chromium" }, callback = function(c) movetotag_wrap(tags[mouse.screen][2], c) end },
 
     { rule = { class = "Firefox" }, callback = function(c) movetotag_wrap(tags[mouse.screen][2], c) end },
 
