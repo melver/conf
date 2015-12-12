@@ -198,86 +198,6 @@
     set spelllang=en
 " }}}
 
-" Vim UI {{{
-    if has("mouse") && !exists("no_mouse_please")
-      set mouse=a
-    endif
-
-    syntax on " syntax highlighting on
-
-    " Show unwanted chars
-    set nolist
-    if v:version >= 700
-      set listchars=tab:»·,trail:·
-    else
-      set listchars=tab:>-,trail:-
-    endif
-
-    "set showmatch
-    "set matchtime=5
-    set novisualbell
-    set report=0
-    set ruler
-    set scrolloff=3
-    set showcmd
-    set laststatus=2
-    set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
-    set titlestring=[%{hostname()}]%(\ %)%t%(\ %M%)%(\ (%{expand(\"%:.:h\")})%)%(\ %a%)%(\ -\ VIM%)
-    set incsearch
-    set hlsearch
-
-    " Autocompletion
-    set completeopt=menuone
-" }}}
-
-" Default Text Formatting {{{
-    if has("autocmd")
-      filetype plugin indent on
-    else
-      set autoindent
-    endif " has("autocmd")
-
-    "set formatoptions=rq " Automatically insert comment leader on return
-    set wrap
-" }}}
-
-" Folding {{{
-    set foldenable
-    set foldmarker={{{,}}}
-    set foldmethod=marker
-    set foldlevel=0
-" }}}
-
-" Mappings {{{
-    " Fold toggle
-    map <C-F> za
-
-    " Fold close all - zR to unfold all
-    "map <C-F> zM
-
-    map <C-H> <ESC>:noh<CR>
-
-    imap <S-CR> <ESC>
-
-    " NERDTree plugin; redraw! hack required for gvim in tiling WM
-    map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
-
-    " taglist plugin
-    map <C-P> <ESC>:TlistToggle<CR>
-
-    map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
-
-    " Function keys
-    map <F8> <ESC>:call ToggleNumber()<CR>
-    map <F9> <ESC>:call ToggleList()<CR>
-    map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-          \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-          \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-    " Open file under cursor with xdg-open
-    map xf <ESC>:call ExecuteCursorFile()<CR>
-" }}}
-
 " GUI/Term Specific Settings {{{
     if !exists("disable_italic")
       let disable_italic = 0
@@ -350,12 +270,120 @@
     endif
 " }}}
 
+" Vim UI {{{
+    if has("mouse") && !exists("no_mouse_please")
+      set mouse=a
+    endif
+
+    syntax on " syntax highlighting on
+
+    " Show unwanted chars
+    set nolist
+    if v:version >= 700
+      set listchars=tab:»·,trail:·
+    else
+      set listchars=tab:>-,trail:-
+    endif
+
+    "set showmatch
+    "set matchtime=5
+    set novisualbell
+    set report=0
+    set scrolloff=3
+    set showcmd
+    set laststatus=2
+    set incsearch
+    set hlsearch
+
+    set titlestring=[%{hostname()}]%(\ %)%t%(\ %M%)%(\ (%{expand(\"%:.:h\")})%)%(\ %a%)%(\ -\ VIM%)
+    "set ruler
+    "set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+
+    " Inspired by:
+    " http://stackoverflow.com/questions/5375240/a-more-useful-statusline-in-vim
+    set statusline=
+    set statusline+=%4*\ %n\                                  "buffernr
+    set statusline+=%5*\ %<%F\                                "File+path
+    set statusline+=%6*\ %y\                                  "FileType
+    set statusline+=%7*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+    set statusline+=%7*%{(&bomb?\",BOM\":\"\")}\              "Encoding2
+    set statusline+=%8*\ %{&ff}\                              "FileFormat (dos/unix..)
+    set statusline+=%9*\ %{&spelllang}\                       "Spellanguage
+    set statusline+=%9*\ %=\ R:%l/%L\ (%p%%)\                 "Rownumber/total (%)
+    set statusline+=%8*\ C:%c\                                "Colnr
+    set statusline+=%7*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+
+    hi User4 guifg=#878700 guibg=#00005f ctermfg=100 ctermbg=17 gui=bold cterm=bold
+    hi User5 guifg=#c6c6c6 guibg=#303030 ctermfg=251 ctermbg=236
+    hi User6 guifg=#c6c6c6 guibg=#262626 ctermfg=251 ctermbg=235 gui=bold cterm=bold
+    hi User7 guifg=#c6c6c6 guibg=#1c1c1c ctermfg=251 ctermbg=234
+    hi User8 guifg=#c6c6c6 guibg=#121212 ctermfg=251 ctermbg=233
+    hi User9 guifg=#c6c6c6 guibg=#080808 ctermfg=251 ctermbg=232
+
+    " Autocompletion
+    set completeopt=menuone
+" }}}
+
+" Default Text Formatting {{{
+    if has("autocmd")
+      filetype plugin indent on
+    else
+      set autoindent
+    endif " has("autocmd")
+
+    "set formatoptions=rq " Automatically insert comment leader on return
+    set wrap
+" }}}
+
+" Folding {{{
+    set foldenable
+    set foldmarker={{{,}}}
+    set foldmethod=marker
+    set foldlevel=0
+" }}}
+
+" Mappings {{{
+    " Fold toggle
+    map <C-F> za
+
+    " Fold close all - zR to unfold all
+    "map <C-F> zM
+
+    map <C-H> <ESC>:noh<CR>
+
+    imap <S-CR> <ESC>
+
+    " NERDTree plugin; redraw! hack required for gvim in tiling WM
+    map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
+
+    " taglist plugin
+    map <C-P> <ESC>:TlistToggle<CR>
+
+    map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
+
+    " Function keys
+    map <F8> <ESC>:call ToggleNumber()<CR>
+    map <F9> <ESC>:call ToggleList()<CR>
+    map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+          \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+          \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+    " Open file under cursor with xdg-open
+    map xf <ESC>:call ExecuteCursorFile()<CR>
+" }}}
+
 " Autocommands {{{
-    augroup ftgroup_python
+    augroup ftgroup_agda
       au!
-      au BufRead,BufNewFile *.py,*.pyw setf python
-      au FileType python setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
-      au BufNewFile *.py,*.pyw setlocal fileformat=unix
+      au BufRead,BufNewFile *.agda,*.lagda setf agda
+      au FileType agda call unicodekeys#setup() | setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.agda,*.lagda setlocal fileformat=unix
+    augroup END
+
+    augroup ftgroup_bibtex
+      au!
+      au FileType bib setlocal ts=2 sw=2 sts=2 et ai tw=109 foldmarker=@,}\ \ \  | call SetList(1)
+      au BufNewFile *.bib setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_ccppobjc
@@ -368,66 +396,17 @@
       au BufNewFile *.c,*.cpp,*.h,*.hpp setlocal fileformat=unix
     augroup END
 
-    augroup ftgroup_java
+    augroup ftgroup_cmake
       au!
-      au BufRead,BufNewFile *.java setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$")
-      au BufNewFile *.java setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_sh
-      au!
-      au FileType sh,bash,zsh setlocal ts=4 sw=4 sts=4 noet | call SetList(0)
-    augroup END
-
-    augroup ftgroup_perl
-      au!
-      au FileType perl setlocal ts=8 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
-      au BufNewFile *.pl setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_vim
-      au!
-      au FileType vim setlocal ts=8 sw=2 sts=2 et ai | call SetList(1)
-      au BufNewFile *.vim,*vimrc setlocal fileformat=unix
+      au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
+      au FileType cmake setlocal ts=8 sw=4 sts=4 et | call SetList(1)
+      au BufNewFile *.cmake,CMakeLists.txt setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_dot
       au!
       au FileType dot setlocal ts=4 sw=4 sts=4 noet ai | call SetList(0)
       au BufNewFile *.dot setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_tex
-      au!
-      au FileType tex,plaintex setlocal ts=2 sw=2 sts=2 et ai tw=79 spell | call SetList(1) | call OverLengthHiOn(80)
-      au BufNewFile *.tex setlocal fileformat=unix
-
-      if disable_italic
-        au FileType tex,plaintex hi texItalStyle gui=none cterm=none | hi texBoldItalStyle gui=bold cterm=bold | hi texItalBoldStyle gui=bold cterm=bold
-      endif
-    augroup END
-
-    augroup ftgroup_bibtex
-      au!
-      au FileType bib setlocal ts=2 sw=2 sts=2 et ai tw=109 foldmarker=@,}\ \ \  | call SetList(1)
-      au BufNewFile *.bib setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_sql
-      au!
-      au FileType sql setlocal ts=4 sw=2 sts=2 et | call SetList(1)
-      au BufNewFile *.sql setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_text
-      au!
-      au BufRead,BufNewFile *README*,*INSTALL*,*TODO* setlocal ts=4 sw=4 sts=4 tw=79 et | call SetList(0)
-    augroup END
-
-    augroup ftgroup_slice
-      au!
-      au FileType slice setlocal ts=4 sw=4 sts=4 et si | call SetList(0)
-      au BufNewFile *.ice setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_erlang
@@ -448,12 +427,10 @@
       au BufNewFile *.hs setlocal fileformat=unix
     augroup END
 
-    augroup ftgroup_ml
+    augroup ftgroup_hdl
       au!
-      au FileType ocaml setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
-      au FileType sml   setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
-      au BufNewFile *.ml,*.mli,*.mly,*.sml setlocal fileformat=unix
-      au BufRead,BufNewFile *.lem setf ocaml
+      au FileType verilog,systemverilog setlocal ts=2 sw=2 sts=2 et | call SetList(0) | call OverLengthHiOn(80) | call FindTabStyle("^module ")
+      au BufNewFile *.v,*.sv setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_htmlcss
@@ -462,28 +439,76 @@
       au BufNewFile *.htm,*.html,*.css setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_java
+      au!
+      au BufRead,BufNewFile *.java setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$")
+      au BufNewFile *.java setlocal fileformat=unix
+    augroup END
+
     augroup ftgroup_js
       au!
       au FileType javascript setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$")
       au BufNewFile *.js setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_lua
+      au!
+      au FileType lua setlocal ts=4 sw=4 sts=4 et | call SetList(1)
+    augroup END
+
+    augroup ftgroup_mail
+      au!
+      au FileType mail setlocal tw=72 spell | call OverLengthHiOn(72)
+    augroup END
+
+    augroup ftgroup_makefile
+      au!
+      au FileType automake,make setlocal noet
+      au BufNewFile Makefile* setlocal fileformat=unix
+    augroup END
+
+    augroup ftgroup_ml
+      au!
+      au FileType ocaml setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
+      au FileType sml   setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.ml,*.mli,*.mly,*.sml setlocal fileformat=unix
+      au BufRead,BufNewFile *.lem setf ocaml
+    augroup END
+
+    augroup ftgroup_murphi
+      au!
+      au FileType murphi setlocal ts=8 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
+    augroup END
+
+    augroup ftgroup_perl
+      au!
+      au FileType perl setlocal ts=8 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au BufNewFile *.pl setlocal fileformat=unix
+    augroup END
+
+    augroup ftgroup_python
+      au!
+      au BufRead,BufNewFile *.py,*.pyw setf python
+      au FileType python setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.py,*.pyw setlocal fileformat=unix
+    augroup END
+
     augroup ftgroup_php
       au!
-      " [fo]rmatoptions is setlocal to allow text-wrap like in HTML files.
+      " [fo]rmatoptions is set to allow text-wrap like in HTML files.
       au FileType php setlocal ts=2 sw=2 sts=2 tw=79 fo=tqrowcb noet | call SetList(0)
       au BufNewFile *.php setlocal fileformat=unix
+    augroup END
+
+    augroup ftgroup_promela
+      au!
+      au FileType promela setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au BufNewFile *.pml setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_puppet
       au!
       au FileType puppet setlocal ts=4 sw=4 sts=4 et | call SetList(1)
-    augroup END
-
-    augroup ftgroup_xmlant
-      au!
-      au FileType xml,ant setlocal ts=2 sw=2 sts=2 noet | call SetList(0)
-      au BufNewFile *.xml setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_rstmd
@@ -508,39 +533,36 @@
       au BufNewFile *.rs setlocal fileformat=unix
     augroup END
 
-    augroup ftgroup_cmake
+    augroup ftgroup_sh
       au!
-      au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
-      au FileType cmake setlocal ts=8 sw=4 sts=4 et | call SetList(1)
-      au BufNewFile *.cmake,CMakeLists.txt setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_Makefile
-      au!
-      au FileType automake,make setlocal noet
-      au BufNewFile Makefile* setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_hdl
-      au!
-      au FileType verilog,systemverilog setlocal ts=2 sw=2 sts=2 et | call SetList(0) | call OverLengthHiOn(80) | call FindTabStyle("^module ")
-      au BufNewFile *.v,*.sv setlocal fileformat=unix
-    augroup END
-
-    augroup ftgroup_lua
-      au!
-      au FileType lua setlocal ts=4 sw=4 sts=4 et | call SetList(1)
-    augroup END
-
-    augroup ftgroup_murphi
-      au!
-      au FileType murphi setlocal ts=8 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
+      au FileType sh,bash,zsh setlocal ts=4 sw=4 sts=4 noet | call SetList(0)
     augroup END
 
     augroup ftgroup_smv
       au!
       au FileType nusmv setlocal ts=4 sw=2 sts=2 et ai | call SetList(1)
       au BufNewFile *.smv setlocal fileformat=unix
+    augroup END
+
+    augroup ftgroup_sql
+      au!
+      au FileType sql setlocal ts=4 sw=2 sts=2 et | call SetList(1)
+      au BufNewFile *.sql setlocal fileformat=unix
+    augroup END
+
+    augroup ftgroup_tex
+      au!
+      au FileType tex,plaintex setlocal ts=2 sw=2 sts=2 et ai tw=79 spell | call SetList(1) | call OverLengthHiOn(80)
+      au BufNewFile *.tex setlocal fileformat=unix
+
+      if disable_italic
+        au FileType tex,plaintex hi texItalStyle gui=none cterm=none | hi texBoldItalStyle gui=bold cterm=bold | hi texItalBoldStyle gui=bold cterm=bold
+      endif
+    augroup END
+
+    augroup ftgroup_text
+      au!
+      au BufRead,BufNewFile *README*,*INSTALL*,*TODO* setlocal ts=4 sw=4 sts=4 tw=79 et | call SetList(0)
     augroup END
 
     augroup ftgroup_tla
@@ -550,22 +572,22 @@
       au BufNewFile *.tla setlocal fileformat=unix
     augroup END
 
-    augroup ftgroup_promela
+    augroup ftgroup_vim
       au!
-      au FileType promela setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call FindTabStyle("{$") | call OverLengthHiOn(80)
-      au BufNewFile *.pml setlocal fileformat=unix
+      au FileType vim setlocal ts=8 sw=2 sts=2 et ai | call SetList(1)
+      au BufNewFile *.vim,*vimrc setlocal fileformat=unix
     augroup END
 
-    augroup ftgroup_agda
+    augroup ftgroup_xmlant
       au!
-      au BufRead,BufNewFile *.agda,*.lagda setf agda
-      au FileType agda call unicodekeys#setup() | setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
-      au BufNewFile *.agda,*.lagda setlocal fileformat=unix
+      au FileType xml,ant setlocal ts=2 sw=2 sts=2 noet | call SetList(0)
+      au BufNewFile *.xml setlocal fileformat=unix
     augroup END
 
-    augroup ftgroup_mail
+    augroup ftgroup_yaml
       au!
-      au FileType mail setlocal tw=72 spell | call OverLengthHiOn(72)
+      au FileType yaml setlocal ts=2 sw=2 sts=2 et | call SetList(1)
+      au BufNewFile *.yml,*.yaml setlocal fileformat=unix
     augroup END
 
     " PLAN: last, override existing settings, use my taskman script.
@@ -573,7 +595,6 @@
       au!
       au BufRead,BufNewFile *PLAN*,*/gtd/*.rst call taskman#setup() | setlocal tw=109 | call OverLengthHiOn(110)
     augroup END
-
 " }}}
 
 " vim: set ts=8 sw=2 sts=2 et ai foldmarker={{{,}}} foldlevel=0 fen fdm=marker:
