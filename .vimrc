@@ -198,6 +198,84 @@
     set spelllang=en
 " }}}
 
+" Vim UI {{{
+    if has("mouse") && !exists("no_mouse_please")
+      set mouse=a
+    endif
+
+    syntax on " syntax highlighting on
+
+    " Show unwanted chars
+    set nolist
+    if v:version >= 700
+      set listchars=tab:»·,trail:·
+    else
+      set listchars=tab:>-,trail:-
+    endif
+
+    "set showmatch
+    "set matchtime=5
+    set novisualbell
+    set report=0
+    set scrolloff=3
+    set showcmd
+    set ruler
+    set laststatus=2
+    set incsearch
+    set hlsearch
+
+    " Autocompletion
+    set completeopt=menuone
+" }}}
+
+" Default Text Formatting {{{
+    if has("autocmd")
+      filetype plugin indent on
+    else
+      set autoindent
+    endif " has("autocmd")
+
+    "set formatoptions=rq " Automatically insert comment leader on return
+    set wrap
+" }}}
+
+" Folding {{{
+    set foldenable
+    set foldmarker={{{,}}}
+    set foldmethod=marker
+    set foldlevel=0
+" }}}
+
+" Mappings {{{
+    " Fold toggle
+    map <C-F> za
+
+    " Fold close all - zR to unfold all
+    "map <C-F> zM
+
+    map <C-H> <ESC>:noh<CR>
+
+    imap <S-CR> <ESC>
+
+    " NERDTree plugin; redraw! hack required for gvim in tiling WM
+    map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
+
+    " taglist plugin
+    map <C-P> <ESC>:TlistToggle<CR>
+
+    map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
+
+    " Function keys
+    map <F8> <ESC>:call ToggleNumber()<CR>
+    map <F9> <ESC>:call ToggleList()<CR>
+    map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+          \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+          \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+    " Open file under cursor with xdg-open
+    map xf <ESC>:call ExecuteCursorFile()<CR>
+" }}}
+
 " GUI/Term Specific Settings {{{
     if !exists("disable_italic")
       let disable_italic = 0
@@ -268,35 +346,8 @@
       colorscheme wombat256 " Should override background if neccessary
       " }}}
     endif
-" }}}
-
-" Vim UI {{{
-    if has("mouse") && !exists("no_mouse_please")
-      set mouse=a
-    endif
-
-    syntax on " syntax highlighting on
-
-    " Show unwanted chars
-    set nolist
-    if v:version >= 700
-      set listchars=tab:»·,trail:·
-    else
-      set listchars=tab:>-,trail:-
-    endif
-
-    "set showmatch
-    "set matchtime=5
-    set novisualbell
-    set report=0
-    set scrolloff=3
-    set showcmd
-    set laststatus=2
-    set incsearch
-    set hlsearch
 
     set titlestring=[%{hostname()}]%(\ %)%t%(\ %M%)%(\ (%{expand(\"%:.:h\")})%)%(\ %a%)%(\ -\ VIM%)
-    "set ruler
     "set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 
     " Inspired by:
@@ -319,57 +370,6 @@
     hi User7 guifg=#c6c6c6 guibg=#1c1c1c ctermfg=251 ctermbg=234
     hi User8 guifg=#c6c6c6 guibg=#121212 ctermfg=251 ctermbg=233
     hi User9 guifg=#c6c6c6 guibg=#080808 ctermfg=251 ctermbg=232
-
-    " Autocompletion
-    set completeopt=menuone
-" }}}
-
-" Default Text Formatting {{{
-    if has("autocmd")
-      filetype plugin indent on
-    else
-      set autoindent
-    endif " has("autocmd")
-
-    "set formatoptions=rq " Automatically insert comment leader on return
-    set wrap
-" }}}
-
-" Folding {{{
-    set foldenable
-    set foldmarker={{{,}}}
-    set foldmethod=marker
-    set foldlevel=0
-" }}}
-
-" Mappings {{{
-    " Fold toggle
-    map <C-F> za
-
-    " Fold close all - zR to unfold all
-    "map <C-F> zM
-
-    map <C-H> <ESC>:noh<CR>
-
-    imap <S-CR> <ESC>
-
-    " NERDTree plugin; redraw! hack required for gvim in tiling WM
-    map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
-
-    " taglist plugin
-    map <C-P> <ESC>:TlistToggle<CR>
-
-    map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
-
-    " Function keys
-    map <F8> <ESC>:call ToggleNumber()<CR>
-    map <F9> <ESC>:call ToggleList()<CR>
-    map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-          \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-          \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-    " Open file under cursor with xdg-open
-    map xf <ESC>:call ExecuteCursorFile()<CR>
 " }}}
 
 " Autocommands {{{
