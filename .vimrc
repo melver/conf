@@ -365,11 +365,11 @@
     set statusline+=%7*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
 
     hi User4 guifg=#878700 guibg=#00005f ctermfg=100 ctermbg=17 gui=bold cterm=bold
-    hi User5 guifg=#c6c6c6 guibg=#303030 ctermfg=251 ctermbg=236
+    hi User5 guifg=#c6c6c6 guibg=#303030 ctermfg=251 ctermbg=236 gui=bold cterm=bold
     hi User6 guifg=#c6c6c6 guibg=#262626 ctermfg=251 ctermbg=235 gui=bold cterm=bold
-    hi User7 guifg=#c6c6c6 guibg=#1c1c1c ctermfg=251 ctermbg=234
-    hi User8 guifg=#c6c6c6 guibg=#121212 ctermfg=251 ctermbg=233
-    hi User9 guifg=#c6c6c6 guibg=#080808 ctermfg=251 ctermbg=232
+    hi User7 guifg=#c6c6c6 guibg=#1c1c1c ctermfg=251 ctermbg=234 gui=bold cterm=bold
+    hi User8 guifg=#c6c6c6 guibg=#121212 ctermfg=251 ctermbg=233 gui=bold cterm=bold
+    hi User9 guifg=#c6c6c6 guibg=#080808 ctermfg=251 ctermbg=232 gui=bold cterm=bold
 " }}}
 
 " Autocommands {{{
