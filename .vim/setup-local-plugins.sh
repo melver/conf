@@ -48,12 +48,20 @@ fetch_plugins() {
 	## External via symlinks
 
 	# OCaml
-	ln -sv "${HOME}/.opam/system/share/merlin/vim" "merlin"
-	[[ -d "${HOME}/.opam/system/share/merlin/vim" ]] || echo "Merlin not installed!"
+	if [[ -d "${HOME}/.opam/system/share/merlin/vim" ]]; then
+		ln -sv "${HOME}/.opam/system/share/merlin/vim" "merlin"
+		echo "au FileType ocaml nnoremap <buffer> <Leader>c <ESC>:MerlinErrorCheck<CR>" >> "$INIT_BUNDLES_VIM"
+		echo "au FileType ocaml nnoremap <buffer> <Leader>x <ESC>:MerlinTypeOf<CR>" >> "$INIT_BUNDLES_VIM"
+	else
+		echo "Merlin not installed!"
+	fi
 
 	# YouCompleteMe
-	ln -sv "${HOME}/local/YouCompleteMe" "YouCompleteMe"
-	[[ -d "${HOME}/local/YouCompleteMe" ]] || echo "YouCompleteMe not installed!"
+	if [[ -d "${HOME}/local/YouCompleteMe" ]]; then
+		ln -sv "${HOME}/local/YouCompleteMe" "YouCompleteMe"
+	else
+		echo "YouCompleteMe not installed!"
+	fi
 }
 
 update_plugins() {
