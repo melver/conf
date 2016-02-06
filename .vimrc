@@ -101,6 +101,11 @@
         execute "silent !xdg-open '" . l:file_name . "' &> /dev/null &"
         redraw!
         echo "[ExecuteCursorFile] Opened '" . l:file_name . "'"
+
+        " If variale b:xf_cp set, will copy opened file to path.
+        if !l:is_url && exists("b:xf_cp") && b:xf_cp != ""
+          execute "!cp -v '" . l:file_name . "' '" . expand(b:xf_cp) . "'"
+        endif
       else
         echo "[ExecuteCursorFile] File '" . l:file_name . "' does not exist!"
       endif
