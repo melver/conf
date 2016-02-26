@@ -45,6 +45,9 @@ fetch_plugins() {
 	# Erlang
 	git clone "https://github.com/jimenezrick/vimerl.git" "vimerl"
 
+	# Racket
+	git clone "https://github.com/wlangstroth/vim-racket.git" "vim-racket"
+
 	## External via symlinks
 
 	# OCaml
