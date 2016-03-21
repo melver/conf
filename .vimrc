@@ -420,6 +420,11 @@
       au BufNewFile *.erl setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_gitcommit
+      au!
+      au FileType gitcommit setlocal spell
+    augroup END
+
     augroup ftgroup_go
       au!
       au FileType go setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
