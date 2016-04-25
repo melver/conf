@@ -1,0 +1,119 @@
+#lang racket
+
+snippet ()
+(${1:expr})
+endsnippet
+
+snippet []
+[${1:expr}]
+endsnippet
+
+snippet \
+(lambda (${1:args}) ${2:body})
+endsnippet
+
+snippet cond
+(cond
+  [${1:expr} ${2:then}]
+  [else ${3:else}])
+endsnippet
+
+snippet def
+(define ${1:id} ${2:expr})
+endsnippet
+
+snippet fun
+(define (${1:head} ${2:args})
+  ${3:body})
+endsnippet
+
+snippet if
+(if ${1:test-expr} ${2:then-expr} ${3:else-expr})
+endsnippet
+
+snippet let
+(let ([${1:id} ${2:val-expr}])
+  ${3:body})
+endsnippet
+
+snippet let*
+(let* ([${1:id} ${2:val-expr}])
+  ${2:body})
+endsnippet
+
+snippet letrec
+(letrec ([${1:id1} (lambda (${2:args1}) ${3:body1})]
+         [${4:id2} (lambda (${5:args2}) ${6:body2})])
+  ${7:letbody})
+endsnippet
+
+snippet let-values
+(let-values ([(${1:values}) ${2:val-expr}])
+  ${3:body})
+endsnippet
+
+snippet main
+(module+ main
+  ${1:decl})
+endsnippet
+
+snippet match
+(match ${1:val-expr}
+  [${2:pat} ${3:pat-body}]
+  [_ ${4:nomatch-body}])
+endsnippet
+
+snippet pro
+(provide ${1:spec})
+endsnippet
+
+snippet struct
+(struct ${1:id} (${2:fields}))
+endsnippet
+
+snippet syncase
+(define-syntax (${1:id} stx)
+  (syntax-case stx (${2:literal-ids})
+    [(${3:pattern}) #'(${4:template})]))
+endsnippet
+
+snippet synrule
+(define-syntax-rule (${1:pattern})
+  ${2:template})
+endsnippet
+
+snippet synrules
+(define-syntax ${1:id}
+  (syntax-rules (${2:literal-ids})
+    [(${3:pattern1}) ${4:template1}]
+    [(${5:pattern2}) ${6:template2}]))
+endsnippet
+
+snippet test
+(module+ test
+  (require rackunit rackunit/text-ui)
+
+  (define ${1:name}-suite
+    (test-suite
+     "${2:description}"
+
+     ${3:tests}))
+
+  (run-suite $1-suite))
+endsnippet
+
+snippet tdef
+(: ${1:id} ${2:type})
+(define $1 ${3:expr})
+endsnippet
+
+snippet tfun
+(: ${1:head} (-> ${2:args-type} ${3:result-type}))
+(define ($1 ${4:args})
+  ${5:body})
+endsnippet
+
+snippet with-handlers
+(with-handlers ([${1:pred-expr} ${2:handler-expr}])
+  ${3:body})
+endsnippet
