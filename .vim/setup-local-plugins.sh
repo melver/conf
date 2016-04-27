@@ -29,6 +29,9 @@ fetch_plugins() {
 	# Murphi syntax
 	git clone "https://github.com/melver/murphi.vim.git" "murphi.vim"
 
+	# Syntastic generic syntax checking
+	git clone "https://github.com/scrooloose/syntastic.git" "syntastic"
+
 	# Dependency for ghcmod-vim
 	git clone "https://github.com/Shougo/vimproc.vim.git" "vimproc.vim"
 	(cd "vimproc.vim" && make)
