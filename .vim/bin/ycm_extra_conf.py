@@ -11,7 +11,7 @@ CLANG_COMPLETE = '.clang_complete'
 def FileDependentFlags(filename):
     ext = filename.split('.')[-1]
     if ext in ['cpp', 'cc', 'hpp', 'hh']:
-        return ['-std=c++11', '-x', 'c++']
+        return ['-std=c++14', '-x', 'c++']
     elif ext in ['c']:
         return ['-std=c99', '-x', 'c']
     return []
@@ -43,10 +43,7 @@ def AppendFromClangComplete(filename, flags):
     return False
 
 def FlagsForFile(filename, **kwargs):
-    flags = [ '-isystem',
-              '/usr/include',
-              '-isystem',
-              '/usr/local/include' ]
+    flags = []
 
     if not AppendFromClangComplete(filename, flags):
         flags += DEFAULT_FLAGS
