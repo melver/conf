@@ -45,9 +45,6 @@ fetch_plugins() {
 	echo "au FileType haskell nnoremap <buffer> <Leader>x <ESC>:GhcModType<CR>" >> "$INIT_BUNDLES_VIM"
 	echo "au FileType haskell nnoremap <buffer> <silent> <Leader>z <ESC>:GhcModTypeClear<CR>" >> "$INIT_BUNDLES_VIM"
 
-	# Erlang
-	git clone "https://github.com/jimenezrick/vimerl.git" "vimerl"
-
 	# Racket
 	git clone "https://github.com/wlangstroth/vim-racket.git" "vim-racket"
 
