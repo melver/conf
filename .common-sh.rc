@@ -111,7 +111,7 @@ alias gvimaf='gvim --cmd "let use_alt_font=1"'
 alias vimnop='vim --cmd "let g:loaded_pathogen=1"'
 alias gvimnop='gvim --cmd "let g:loaded_pathogen=1"'
 alias vimnoac='vim +"let g:ycm_filetype_whitelist={}"'
-alias gvimnoac='gvim +"let g:ycm_filetype_whitelist={}'
+alias gvimnoac='gvim +"let g:ycm_filetype_whitelist={}"'
 alias vimtex='vim +"let NERDTreeIgnore=['"'"'\.\(out\|log\|ps\|dvi\|aux\|bbl\|blg\|toc\|lof\|lol\|lot\|nav\|snm\|bcf\|run\.xml\|pdf\)$'"'"', '"'"'\~$'"'"']"'
 alias gvimtex='gvim +"let NERDTreeIgnore=['"'"'\.\(out\|log\|ps\|dvi\|aux\|bbl\|blg\|toc\|lof\|lol\|lot\|nav\|snm\|bcf\|run\.xml\|pdf\)$'"'"', '"'"'\~$'"'"']"'
 
