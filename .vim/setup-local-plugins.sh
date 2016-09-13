@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
 #
-# setup-local-plugins.sh: TODO: Add description here.
+# setup-local-plugins.sh: Set up local Vim plugins.
 #
 # Author: Marco Elver <me AT marcoelver.com>
-# Date: Thu Apr 12 00:17:42 BST 2012
 
-cd `dirname $0`
-BUNDLE_DIR="$(pwd)/bundle"
+cd "$(dirname "$0")"
+BUNDLE_DIR="bundle"
 INIT_BUNDLES_VIM="$(pwd)/plugin/init_bundles.vim"
 
-setup_pathogen() {
-	echo "===== Fetching Pathogen ====="
-	mkdir -p "autoload" "$BUNDLE_DIR" "plugin"
-	wget "https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim" \
-		 -O "autoload/pathogen.vim"
+setup() {
+	mkdir -pv "autoload" "$BUNDLE_DIR" "plugin" "pack/${BUNDLE_DIR}"
+
+	if vim --version | grep -qi "VIM.* 7\."; then
+		# Compatibility with Vim < 8.00
+		wget "https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim" \
+			-O "autoload/pathogen.vim"
+	else
+		# For Vim >= 8.00
+		ln -sv "../../${BUNDLE_DIR}" "pack/${BUNDLE_DIR}/start"
+	fi
 }
 
 fetch_plugins() {
@@ -97,7 +102,7 @@ update_plugins() {
 }
 
 if [[ ! -f "autoload/pathogen.vim" ]]; then
-	setup_pathogen
+	setup
 	fetch_plugins
 else
 	update_plugins

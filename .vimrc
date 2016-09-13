@@ -162,9 +162,11 @@
 
 " Plugins {{{
     " Pathogen {{{
-      runtime! autoload/pathogen.vim
-      if exists("*pathogen#infect")
-        call pathogen#infect()
+      if v:version < 800
+        runtime! autoload/pathogen.vim
+        if exists("*pathogen#infect")
+          call pathogen#infect()
+        endif
       endif
     " }}}
 
