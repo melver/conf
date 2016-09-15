@@ -410,6 +410,12 @@
       au BufNewFile *.cmake,CMakeLists.txt setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_d
+      au!
+      au FileType d setlocal ts=4 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au BufNewFile *.d setlocal fileformat=unix
+    augroup END
+
     augroup ftgroup_dot
       au!
       au FileType dot setlocal ts=4 sw=4 sts=4 noet ai | call SetList(0)
