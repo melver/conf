@@ -1,7 +1,7 @@
 [	
 	{
 	"terminal" : [0, "urxvt"],
-	"calculator" : [10, "gcalctool"],
+	"calculator" : [10, "gnome-calculator"],
 	"unison" : [30, "unison-x11"]
 	},
 	{
