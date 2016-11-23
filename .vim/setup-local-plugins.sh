@@ -101,7 +101,7 @@ update_plugins() {
 	done
 }
 
-if [[ ! -f "autoload/pathogen.vim" ]]; then
+if [[ ! -d "$BUNDLE_DIR" ]]; then
 	setup
 	fetch_plugins
 else
