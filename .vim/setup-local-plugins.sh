@@ -25,6 +25,10 @@ fetch_plugins() {
 	echo "===== Fetching Plugins ====="
 	cd "$BUNDLE_DIR"
 
+	# Snippets
+	git clone "https://github.com/SirVer/ultisnips.git" "ultisnips"
+	git clone "https://github.com/honza/vim-snippets.git" "vim-snippets"
+
 	# NuSMV syntax
 	git clone "https://github.com/melver/wmnusmv.vim.git" "wmnusmv"
 
