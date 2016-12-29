@@ -127,8 +127,8 @@ endfunction
 function! taskman#start_timetrack()
   if !exists("b:taskman_trackstart")
     if s:RestartTracking()
-      let b:taskman_savestatusline = &statusline
-      execute "setlocal statusline=%([Tracked\\ time:\\ %{taskman#get_track_time()}]\\ %)" . b:taskman_savestatusline
+      let b:taskman_savestatusline = substitute(&statusline, "\\([ \"]\\)", "\\\\\\1", "g")
+      execute "setlocal statusline=%([%{taskman#get_track_time()}]\\ %)" . b:taskman_savestatusline
     endif
   else
     call s:UpdateTracked()
