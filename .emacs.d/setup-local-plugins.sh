@@ -41,6 +41,6 @@ else
 	git clone http://www.dr-qubit.org/git/undo-tree.git
 
 	# Scala Mode
-	git clone git://github.com/hvesalai/scala-mode2.git
+	git clone https://github.com/ensime/emacs-scala-mode.git
 fi
 

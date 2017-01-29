@@ -44,18 +44,32 @@ set cpo&vim
 " Variables {{{
 
 " Tags
-let s:tag_timetracking      = "+Ttracking"
-let s:tag_timetracked       = "+T"
+if !exists("g:taskman_tag_timetracking")
+  let g:taskman_tag_timetracking = "+Ttracking"
+endif
+if !exists("g:taskman_tag_timetracked")
+  let g:taskman_tag_timetracked = "+T"
+endif
 
 " Search due date options
-let s:search_dueyearsback   = 3
-let s:search_duedaysahead   = 5
-let s:onsetup_focusduesoon  = 1
+if !exists("g:taskman_search_dueyearsback")
+  let g:taskman_search_dueyearsback = 3
+endif
+if !exists("g:taskman_search_duedaysahead")
+  let g:taskman_search_duedaysahead = 5
+endif
+if !exists("g:taskman_onload_focusduesoon")
+  let g:taskman_onload_focusduesoon = 1
+endif
 
 " Date format; this should NOT be modified, unless the other hardcoded bits
 " that depend on this format are changed accordingly.
-let s:format_date           = "%Y-%m-%d"
-let s:format_datetime       = "%Y-%m-%d@%H:%M.%Z"
+if !exists("g:taskman_format_date")
+  let g:taskman_format_date = "%Y-%m-%d"
+endif
+if !exists("g:taskman_format_datetime")
+  let g:taskman_format_datetime = "%Y-%m-%d@%H:%M.%Z"
+endif
 
 " }}}
 
@@ -76,7 +90,7 @@ function! taskman#setup()
   call s:SetupOptions()
 
 
-  if s:onsetup_focusduesoon
+  if g:taskman_onload_focusduesoon
     call taskman#search_duesoon()
   endif
 endfunction
@@ -114,7 +128,7 @@ function! taskman#maketask()
     let l:result = l:result . " " . l:task_contexttags
   endif
 
-  let l:result = l:result . " (" . strftime(s:format_datetime)
+  let l:result = l:result . " (" . strftime(g:taskman_format_datetime)
   if strlen(l:task_estwork) != 0
     let l:result = l:result . ",~" . l:task_estwork
   endif
@@ -171,7 +185,7 @@ function! taskman#focus_tracking()
 
     if l:result == 0
       " Fallback. May not be accurate if there is a similar tag.
-      return search(s:tag_timetracking)
+      return search(g:taskman_tag_timetracking)
     endif
 
     return l:result
@@ -182,7 +196,7 @@ function! taskman#focus_tracking()
 endfunction
 
 function! taskman#mark_done()
-  let l:done_marker = "[x!" . strftime(s:format_datetime) . "]"
+  let l:done_marker = "[x!" . strftime(g:taskman_format_datetime) . "]"
 
   let l:indendation = matchstr(getline("."), "^\\s*")
   let l:syn_name = synIDattr(synID(line("."), strlen(l:indendation)+1, 1), 'name')
@@ -211,7 +225,7 @@ endfunction
 
 function! taskman#search_duesoon()
   let l:cur_pos = getpos(".")
-  let l:regex_due_date = s:GetRegexDueDate(s:search_duedaysahead)
+  let l:regex_due_date = s:GetRegexDueDate(g:taskman_search_duedaysahead)
   let l:result = searchpos(l:regex_due_date)
 
   " Update the syntax match rule
@@ -245,11 +259,11 @@ function! s:RestartTracking()
     return 0
   endif
 
-  let l:past_tracked = matchstr(getline("."), s:tag_timetracked . "{[^}]\\+}")
+  let l:past_tracked = matchstr(getline("."), g:taskman_tag_timetracked . "{[^}]\\+}")
   let b:taskman_trackstart = localtime()
 
   if l:past_tracked != ""
-    let l:current_line = substitute(l:current_line, l:past_tracked, s:tag_timetracking, '')
+    let l:current_line = substitute(l:current_line, l:past_tracked, g:taskman_tag_timetracking, '')
     let l:past_time = matchstr(l:past_tracked, "=\\d\\+:\\d\\d:\\d\\d")
     if l:past_time != ""
       let b:taskman_trackpast = s:GetTrackTimeSec(l:past_time[1:])
@@ -258,7 +272,7 @@ function! s:RestartTracking()
       let b:taskman_trackpast = 0 " fallback
     endif
   else
-    let l:current_line = l:current_line . " " . s:tag_timetracking
+    let l:current_line = l:current_line . " " . g:taskman_tag_timetracking
     let b:taskman_trackpast = 0
   endif
 
@@ -278,11 +292,11 @@ endfunction
 
 function! s:UpdateTracked()
   let l:cur_pos = getpos(".")
-  let l:new_tracking_info = s:tag_timetracked . "{" . strftime(s:format_date) . "," . taskman#get_track_time() . "}"
+  let l:new_tracking_info = g:taskman_tag_timetracked . "{" . strftime(g:taskman_format_date) . "," . taskman#get_track_time() . "}"
 
   let l:tracked_line = taskman#focus_tracking()
   if l:tracked_line != 0
-    call setline(l:tracked_line, substitute(getline(l:tracked_line), s:tag_timetracking, l:new_tracking_info, ''))
+    call setline(l:tracked_line, substitute(getline(l:tracked_line), g:taskman_tag_timetracking, l:new_tracking_info, ''))
   else
     echom "[taskman] WARNING: Could not update entry ('" . b:taskman_trackline . "') with: " . l:new_tracking_info
   endif
@@ -312,7 +326,7 @@ function! s:GetTrackTimeSec(timestr)
 endfunction
 
 function! s:GetRegexDueDate(days_from_today)
-  let l:due = strftime(s:format_date, localtime() + (a:days_from_today * 24 * 60 * 60))
+  let l:due = strftime(g:taskman_format_date, localtime() + (a:days_from_today * 24 * 60 * 60))
 
   let l:day   = str2nr(l:due[8:9])
   let l:year  = str2nr(l:due[0:3])
@@ -325,7 +339,7 @@ function! s:GetRegexDueDate(days_from_today)
 
   let l:regex_day    = l:due[0:7] . "\\(" . l:regex_day_part . "\\)"
   let l:regex_month  = l:due[0:4] . "0*\\(" . join(range(1, str2nr(l:due[5:6])-1), "\\|") . "\\)-\\d\\d"
-  let l:regex_year = "\\(" . join(range(l:year-s:search_dueyearsback, l:year-1), "\\|") . "\\)-\\d\\d-\\d\\d"
+  let l:regex_year = "\\(" . join(range(l:year-g:taskman_search_dueyearsback, l:year-1), "\\|") . "\\)-\\d\\d-\\d\\d"
 
   return l:regex_day . "\\|" . l:regex_month . "\\|" . l:regex_year
 endfunction
