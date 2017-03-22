@@ -766,7 +766,9 @@ awful.rules.rules = {
         name = {
           "term-mail",
         },
-      }, properties = { tag = tags[2] }
+      },
+      properties = { tag = tags[2] },
+      callback = awful.client.focus.history.add
     },
     -- doc
     { rule_any = {
@@ -777,7 +779,9 @@ awful.rules.rules = {
           "FBReader",
           "Evince",
         },
-      }, properties = { tag = tags[4] }
+      },
+      properties = { tag = tags[4] },
+      callback = awful.client.focus.history.add
     },
     -- chat
     { rule_any = {
@@ -788,7 +792,9 @@ awful.rules.rules = {
           "Xchat",
           "Mumble",
         },
-      }, properties = { tag = tags[5] }
+      },
+      properties = { tag = tags[5] },
+      callback = awful.client.focus.history.add
     },
     -- gfx
     { rule_any = {
@@ -798,7 +804,9 @@ awful.rules.rules = {
           "Inkscape",
           "Eog",
         },
-      }, properties = { tag = tags[6] }
+      },
+      properties = { tag = tags[6] },
+      callback = awful.client.focus.history.add
     },
     -- media
     { rule_any = {
@@ -807,7 +815,9 @@ awful.rules.rules = {
           "MPlayer",
           "Sonata",
         },
-      }, properties = { tag = tags[7] }
+      },
+      properties = { tag = tags[7] },
+      callback = awful.client.focus.history.add
     },
 }
 -- }}}
