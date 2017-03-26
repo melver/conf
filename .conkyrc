@@ -30,9 +30,9 @@ minimum_size 310 5
 draw_shades yes
  
 # Text stuff
-draw_outline yes # amplifies text if yes
+draw_outline yes
 draw_borders no
-uppercase no # set to yes if you want all text to be in uppercase
+uppercase no
  
 # Stippled borders?
 stippled_borders 3
@@ -60,10 +60,6 @@ color0 fcc006
 
 #END COLORS
 
- 
-own_window_colour brown
-own_window_transparent yes
- 
 # Text alignment, other possible values are commented
 #alignment top_left
 #alignment top_right
@@ -81,23 +77,11 @@ if_up_strictness address
 TEXT
 
 $color
-${color0}SYSTEM ${hr 2}$color
-$nodename $sysname $kernel on $machine
-Uptime: $uptime
- 
-${color0}CPU ${hr 2}$color
-Core 1:  ${freq 1}MHz  $alignr${hwmon 1 temp 2}°C  ${cpubar cpu1 6,70}${if_existing /sys/devices/system/cpu/cpu1}
-Core 2:  ${freq 2}MHz  $alignr${hwmon 1 temp 3}°C  ${cpubar cpu2 6,70}${endif}${if_existing /sys/devices/system/cpu/cpu2}
-Core 3:  ${freq 3}MHz  $alignr${hwmon 1 temp 4}°C  ${cpubar cpu3 6,70}${endif}${if_existing /sys/devices/system/cpu/cpu3}
-Core 4:  ${freq 4}MHz  $alignr${hwmon 1 temp 5}°C  ${cpubar cpu4 6,70}${endif}
+${color0}CPU / MEMORY ${hr 2}$color
+CPU:  Freq: ${freq 0}MHz $alignr Temp: ${hwmon 1 temp 1}°C
 ${cpugraph normal cpu0 000000 ffffff}
- 
-${color0}MEMORY / DISK Usage ${hr 2}$color
-RAM:   $mem   ${membar 6}$color
-Swap:  $swap   ${swapbar 6}$color
- 
-root:  ${fs_used /}   ${fs_bar 6 /}$color 
-home:  ${fs_used /home}   ${fs_bar 6 /home}$color
+Mem:  $mem   ${membar 6}$color
+Swap: $swap   ${swapbar 6}$color
  
 ${color0}NETWORK ${hr 2}$color
 ${if_up eth0}IP (eth0):$alignr${addr eth0}
@@ -122,7 +106,7 @@ Down: ${downspeed ppp0} k/s ${alignr}Up: ${upspeed ppp0} k/s
 ${downspeedgraph ppp0 20,90} ${alignr}${upspeedgraph ppp0 20,90}
 Total: ${totaldown ppp0} ${alignr}Total: ${totalup ppp0}
 
-${endif}${execi 30 netstat -apnut|awk 'BEGIN{tcp_l=0;tcp_e=0;udp=0;udp_e=0}/tcp.*LISTEN/{tcp_l+=1}/tcp.*ESTAB/{tcp_e+=1}/udp/{udp+=1}/udp.*ESTAB/{udp_e+=1}END{print "TCP LISTEN: "tcp_l"\nTCP ESTABLISHED: "tcp_e"\nUDP: "(udp-udp_e)"+"udp_e}'}
+${endif}${execi 30 netstat -apnut|awk 'BEGIN{tcp_l=0;tcp_e=0;udp=0;udp_e=0}/tcp.*LISTEN/{tcp_l+=1}/tcp.*ESTAB/{tcp_e+=1}/udp/{udp+=1}/udp.*ESTAB/{udp_e+=1}END{print "TCP: LISTEN: "tcp_l", ESTABLISHED: "tcp_e"\nUDP: "(udp-udp_e)"+"udp_e}'}
 
 ${if_existing /tmp/conky.notes}${color0}NOTES ${hr 2}$color
 ${tail /tmp/conky.notes 10}

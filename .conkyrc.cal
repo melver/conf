@@ -66,10 +66,6 @@ color3 5e92ef # calendar after today
 
 #END COLORS
 
- 
-own_window_colour brown
-own_window_transparent yes
- 
 # Text alignment, other possible values are commented
 #alignment top_left
 #alignment top_right
