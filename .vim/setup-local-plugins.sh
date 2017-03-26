@@ -68,6 +68,7 @@ fetch_plugins() {
 		ln -sv "${HOME}/.opam/system/share/merlin/vim" "merlin"
 		echo "au FileType ocaml nnoremap <buffer> <Leader>c <ESC>:MerlinErrorCheck<CR>" >> "$INIT_BUNDLES_VIM"
 		echo "au FileType ocaml nnoremap <buffer> <Leader>x <ESC>:MerlinTypeOf<CR>" >> "$INIT_BUNDLES_VIM"
+		echo "au FileType ocaml nnoremap <buffer> <Leader>jd <ESC>:MerlinLocate<CR>" >> "$INIT_BUNDLES_VIM"
 	else
 		echo "Merlin not installed!"
 	fi
