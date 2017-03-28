@@ -387,6 +387,13 @@
       au BufNewFile *.agda,*.lagda setlocal fileformat=unix
     augroup END
 
+    augroup ftgroup_alloy
+      au!
+      au BufRead,BufNewFile *.als setf alloy
+      au BufNewFile *.als setlocal fileformat=unix
+      au FileType alloy setlocal ts=2 sw=2 sts=2 et ai
+    augroup END
+
     augroup ftgroup_bibtex
       au!
       au FileType bib setlocal ts=2 sw=2 sts=2 et ai tw=109 foldmarker=@,}\ \ \  | call SetList(1)
