@@ -43,14 +43,14 @@ fetch_plugins() {
 
 	# Haskell
 	git clone "https://github.com/dag/vim2hs.git" "vim2hs"
+	git clone "https://github.com/eagletmt/neco-ghc.git" "neco-ghc"
+	echo "au FileType haskell setlocal omnifunc=necoghc#omnifunc" >> "$INIT_BUNDLES_VIM"
 
 	# Dependency for ghcmod-vim
 	#git clone "https://github.com/Shougo/vimproc.vim.git" "vimproc.vim"
 	#(cd "vimproc.vim" && make)
 
-	#git clone "https://github.com/eagletmt/neco-ghc.git" "neco-ghc"
 	#git clone "https://github.com/eagletmt/ghcmod-vim.git" "ghcmod-vim"
-	#echo "au FileType haskell setlocal omnifunc=necoghc#omnifunc" >> "$INIT_BUNDLES_VIM"
 	#echo "au FileType haskell nnoremap <buffer> <Leader>c <ESC>:w<CR>:GhcModCheckAndLintAsync<CR>" >> "$INIT_BUNDLES_VIM"
 	#echo "au FileType haskell nnoremap <buffer> <Leader>x <ESC>:GhcModType<CR>" >> "$INIT_BUNDLES_VIM"
 	#echo "au FileType haskell nnoremap <buffer> <silent> <Leader>z <ESC>:GhcModTypeClear<CR>" >> "$INIT_BUNDLES_VIM"
