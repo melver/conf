@@ -43,6 +43,9 @@ else
 	# Company-mode
 	git clone https://github.com/company-mode/company-mode.git
 
+	# Neo Tree
+	git clone https://github.com/jaypei/emacs-neotree.git
+
 	# Scala Mode
 	git clone https://github.com/ensime/emacs-scala-mode.git
 fi

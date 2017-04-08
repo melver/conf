@@ -32,6 +32,11 @@
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
+;; NEO TREE
+;;
+(add-to-list 'load-path "~/.emacs.d/bundle/emacs-neotree")
+(require 'neotree)
+
 ;; SCALA-MODE
 (add-to-list 'load-path "~/.emacs.d/bundle/emacs-scala-mode")
 (require 'scala-mode)
@@ -63,7 +68,8 @@
 
 ;; KEY-BINDINGS
 ;;
-(global-set-key (kbd "<f8>") 'linum-mode)
+(global-set-key (kbd "<f8>") 'linum-relative-mode)
+(global-set-key (kbd "<f7>") 'neotree-toggle)
 
 ;; Themes ------------------------------
 ;;
