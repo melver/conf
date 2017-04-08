@@ -40,6 +40,9 @@ else
 	# Undo-tree (Evil suggested)
 	git clone http://www.dr-qubit.org/git/undo-tree.git
 
+	# Company-mode
+	git clone https://github.com/company-mode/company-mode.git
+
 	# Scala Mode
 	git clone https://github.com/ensime/emacs-scala-mode.git
 fi

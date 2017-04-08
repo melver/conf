@@ -26,6 +26,12 @@
 (require 'linum-relative)
 ;(global-linum-mode 1)
 
+;; COMPANY
+;;
+(add-to-list 'load-path "~/.emacs.d/bundle/company-mode")
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+
 ;; SCALA-MODE
 (add-to-list 'load-path "~/.emacs.d/bundle/emacs-scala-mode")
 (require 'scala-mode)
