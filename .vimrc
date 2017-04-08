@@ -342,6 +342,9 @@
         nmap <C-M-V> "+gP
       " }
       " }}}
+
+      " With GUI, upon resize, make all windows equally high and wide.
+      autocmd VimResized * wincmd =
     else
       " Terminal {{{
       set background=dark
