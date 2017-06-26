@@ -226,7 +226,7 @@ set dsn_return="hdrs"	# what to return with DSN (hdrs or full)
 reset escape		# ESC-char for internal editor (use default).
 reset hostname		# FQDN (use default).
 set indent_string="> "	# Quoting mails with this string.
-#set locale="de_DE.UTF-8"	# locale settings (See send-hook section for changes!)
+#set attribution_locale="de_DE.UTF-8"	# locale settings (See send-hook section for changes!)
 set mailcap_path='~/.mutt/mailcap'	# Use local mailcap only for mutt
 set mh_seq_flagged="flagged"	# Name of MH sequence used for flagged msgs.
 set mh_seq_replied="replied"	# Name of MH sequence used for replied msgs.
