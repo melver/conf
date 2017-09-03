@@ -710,6 +710,7 @@ awful.rules.rules = {
           "Sxiv",
           "Wpa_gui",
           "pinentry",
+          "Pinentry",
           "veromix",
           "xtightvncviewer",
           "Xephyr",
