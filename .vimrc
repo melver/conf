@@ -42,10 +42,18 @@
     endfunction
 
     function OverLengthHiOn(length)
+      if !exists("b:over_length")
+        if a:length == 0
+          let b:over_length = &textwidth
+        else
+          let b:over_length = a:length
+        endif
+      endif
+
       " adjust colors/styles as desired
       highlight OverLength ctermbg=darkred gui=undercurl guisp=blue
       " change '81' to be 1+(number of columns)
-      let l:match_cmd = "match OverLength /\\%" . (str2nr(a:length)+1) . "v.\\+/"
+      let l:match_cmd = "match OverLength /\\%" . (str2nr(b:over_length)+1) . "v.\\+/"
       execute l:match_cmd
 
       let b:overlengthhi = 1
@@ -557,7 +565,7 @@
 
     augroup ftgroup_rust
       au!
-      au FileType rust setlocal ts=4 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
+      au FileType rust setlocal ts=4 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(0)
       au BufNewFile *.rs setlocal fileformat=unix
     augroup END
 
