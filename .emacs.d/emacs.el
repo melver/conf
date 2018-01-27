@@ -75,7 +75,7 @@
 ;;
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'desert t)
-(set-default-font "Terminus-12")
+;(set-default-font "Terminus-12")
 
 ;; Editing -----------------------------
 ;;

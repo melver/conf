@@ -327,6 +327,12 @@ XLock.planfontset: -misc-fixed-medium-r-normal-*-15-*-*-*-*-*-iso8859-1
 
 ! }}}
 
+!! Emacs settings {{{
+
+Emacs.font: xos4 Terminus-12
+
+! }}}
+
 !! Misc settings {{{
 
 vncviewer*grabKeyboard: True
