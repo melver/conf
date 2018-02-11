@@ -26,6 +26,9 @@
 (require 'linum-relative)
 ;(global-linum-mode 1)
 
+;; IDO-MODE
+(ido-mode t)
+
 ;; COMPANY
 ;;
 (add-to-list 'load-path "~/.emacs.d/bundle/company-mode")
