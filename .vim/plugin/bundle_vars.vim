@@ -7,8 +7,17 @@ map <Leader>ycm <ESC>:let g:ycm_filetype_whitelist = {'*':1}<CR>:e<CR>
 let g:ycm_global_ycm_extra_conf = $HOME . "/.vim/bin/ycm_extra_conf.py"
 map <Leader>jd <ESC>:YcmCompleter GoTo<CR>
 
-" Syntastic
-let g:syntastic_mode_map = { 'mode' : 'passive', 'active_filetypes' : [], 'passive_filetypes' : [] }
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-map <Leader>c <ESC>:w<CR>:SyntasticCheck<CR>
+" ALE
+let g:ale_enabled = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_fixers = {
+\   'c'    : ['clang-format'],
+\   'cpp'  : ['clang-format'],
+\   'rust' : ['rustfmt'],
+\}
+map <Leader>ale <Plug>(ale_toggle)
+map <F5>        <Plug>(ale_toggle)
+map <Leader>c   <Plug>(ale_lint)
+map <Leader>f   <Plug>(ale_fix)
+map <Leader>Jd  <Plug>(ale_go_to_definition)
