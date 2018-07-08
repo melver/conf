@@ -29,22 +29,22 @@ which_shell() {
 }
 
 xtract () {
-  if [[ -f $1 ]] ; then
-    case $1 in
-      *.tar.bz2)   tar xvvjf $1   ;;
-      *.tar.gz)    tar xvvzf $1   ;;
-      *.tar.lzma)  tar --lzma -xvvf $1 ;;
-      *.tar.xz)    tar xvvJf $1   ;;
-      *.tar)       tar xvvf $1    ;;
-      *.tbz2)      tar xvvjf $1   ;;
-      *.tgz)       tar xvvzf $1   ;;
-      *.txz)       tar xvvJf $1   ;;
-      *.bz2)       bunzip2 $1    ;;
-      *.rar)       unrar x $1    ;;
-      *.gz)        gunzip $1     ;;
-      *.zip)       unzip $1      ;;
-      *.Z)         uncompress $1 ;;
-      *.7z)        7z x $1       ;;
+  if [[ -f "$1" ]] ; then
+    case "$1" in
+      *.tar.bz2)   tar xvvjf "$1"   ;;
+      *.tar.gz)    tar xvvzf "$1"   ;;
+      *.tar.lzma)  tar --lzma -xvvf "$1" ;;
+      *.tar.xz)    tar xvvJf "$1"   ;;
+      *.tar)       tar xvvf "$1"    ;;
+      *.tbz2)      tar xvvjf "$1"   ;;
+      *.tgz)       tar xvvzf "$1"   ;;
+      *.txz)       tar xvvJf "$1"   ;;
+      *.bz2)       bunzip2 "$1"    ;;
+      *.rar)       unrar x "$1"    ;;
+      *.gz)        gunzip "$1"     ;;
+      *.zip)       unzip "$1"      ;;
+      *.Z)         uncompress "$1" ;;
+      *.7z)        7z x "$1"       ;;
       *)           echo "'$1' cannot be extracted (format unknown) !" ;;
     esac
   else
