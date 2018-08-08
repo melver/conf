@@ -29,6 +29,9 @@ fetch_plugins() {
 	git clone "https://github.com/SirVer/ultisnips.git" "ultisnips"
 	git clone "https://github.com/honza/vim-snippets.git" "vim-snippets"
 
+	# ALE generic syntax checking
+	git clone "https://github.com/w0rp/ale.git" "ale"
+
 	# NuSMV syntax
 	git clone "https://github.com/melver/wmnusmv.vim.git" "wmnusmv"
 
@@ -38,13 +41,8 @@ fetch_plugins() {
 	# Murphi syntax
 	git clone "https://github.com/melver/murphi.vim.git" "murphi.vim"
 
-	# ALE generic syntax checking
-	git clone "https://github.com/w0rp/ale.git" "ale"
-
 	# Haskell
 	git clone "https://github.com/dag/vim2hs.git" "vim2hs"
-	git clone "https://github.com/eagletmt/neco-ghc.git" "neco-ghc"
-	echo "au FileType haskell setlocal omnifunc=necoghc#omnifunc" >> "$INIT_BUNDLES_VIM"
 
 	# Racket
 	git clone "https://github.com/wlangstroth/vim-racket.git" "vim-racket"
