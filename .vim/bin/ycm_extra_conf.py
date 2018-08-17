@@ -11,7 +11,7 @@ CLANG_COMPLETE = '.clang_complete'
 def FileDependentFlags(filename):
     ext = filename.split('.')[-1]
     if ext in ['cpp', 'cc', 'hpp', 'hh']:
-        return ['-std=c++14', '-x', 'c++']
+        return ['-std=c++17', '-x', 'c++']
     elif ext in ['c']:
         return ['-std=c99', '-x', 'c']
     return []
