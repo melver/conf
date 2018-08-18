@@ -413,6 +413,7 @@
 
     augroup ftgroup_ccppobjc
       au!
+      au BufRead,BufNewFile *.cppm,*.ixx setf cpp
       au FileType c    setlocal ts=8 sw=8 sts=8 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
       au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0)
             \ | call FindTabStyle2('\(private:\|protected:\|public:\|{\)$', '\(private:\|protected:\|public:\)$')
