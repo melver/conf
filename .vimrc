@@ -241,6 +241,10 @@
 
     " Autocompletion
     set completeopt=menuone
+
+    " Filename completion
+    set wildmode=longest,list,full
+    set wildmenu
 " }}}
 
 " Default Text Formatting {{{
