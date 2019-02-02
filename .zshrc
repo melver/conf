@@ -53,6 +53,17 @@ bindkey "\eOF" end-of-line
 # }}}
 
 # Aliases {{{
+
+wrapped-expand-alias() {
+	if zle _expand_alias; then
+		if [[ "$LBUFFER" =~ "/" ]]; then
+			zle backward-delete-char
+		fi
+	fi
+}
+zle -N wrapped-expand-alias
+bindkey "^ " wrapped-expand-alias
+
 # }}}
 
 # Comp stuff {{{
