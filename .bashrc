@@ -1,8 +1,4 @@
-#-----------------------------------------------------
-# File:	    Minimalistic .bashrc
-# Version:  0.1.33.7
-# Author:   Marco Elver <me AT marcoelver.com>
-#-----------------------------------------------------
+# .bashrc
 
 # returns if not interactive shell
 [[ $- != *i* ]] && return

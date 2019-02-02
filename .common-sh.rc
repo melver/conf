@@ -1,9 +1,4 @@
-#-----------------------------------------------------
-# File:	    .common-sh.rc: Common shell rc definitions;
-#           Bash/Zsh common syntax.
-# Version:  0.1.33.7
-# Author:   Marco Elver <me AT marcoelver.com>
-#-----------------------------------------------------
+# .common-sh.rc
 
 # Options/Variables {{{
 
