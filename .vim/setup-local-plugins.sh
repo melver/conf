@@ -42,7 +42,7 @@ fetch_plugins() {
 	git clone "https://github.com/melver/murphi.vim.git" "murphi.vim"
 
 	# Haskell
-	git clone "https://github.com/dag/vim2hs.git" "vim2hs"
+	git clone "https://github.com/neovimhaskell/haskell-vim.git" "haskell-vim"
 
 	# Racket
 	git clone "https://github.com/wlangstroth/vim-racket.git" "vim-racket"
