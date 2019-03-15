@@ -53,13 +53,18 @@ fetch_plugins() {
 	## External via symlinks
 
 	# OCaml
-	if [[ -d "${HOME}/.opam/system/share/merlin/vim" ]]; then
-		ln -sv "${HOME}/.opam/system/share/merlin/vim" "merlin"
+	if [[ -d "${HOME}/.opam/default/share/merlin/vim" ]]; then
+		ln -sv "${HOME}/.opam/default/share/merlin/vim" "merlin"
 		echo "au FileType ocaml nnoremap <buffer> <Leader>c <ESC>:MerlinErrorCheck<CR>" >> "$INIT_BUNDLES_VIM"
 		echo "au FileType ocaml nnoremap <buffer> <Leader>x <ESC>:MerlinTypeOf<CR>" >> "$INIT_BUNDLES_VIM"
 		echo "au FileType ocaml nnoremap <buffer> <Leader>jd <ESC>:MerlinLocate<CR>" >> "$INIT_BUNDLES_VIM"
 	else
 		echo "Merlin not installed!"
+	fi
+	if [[ -d "${HOME}/.opam/default/share/ocp-indent/vim" ]]; then
+		ln -sv "${HOME}/.opam/default/share/ocp-indent/vim" "ocp-indent"
+	else
+		echo "ocp-indent not installed!"
 	fi
 
 	# YouCompleteMe
