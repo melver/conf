@@ -121,6 +121,8 @@ alias wget-wwwoffline='wget --adjust-extension --convert-links --page-requisites
 alias cabalenv='export PATH="$HOME/.cabal/bin:$PATH"'
 alias opamenv='eval `opam config env`'
 
+alias git-clean-fdx='git clean -fdx -e "${DIR_HISTFILE:-.dir-histfile}"'
+
 # }}}
 
 # vim: set ft=sh :

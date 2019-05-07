@@ -18,7 +18,7 @@ setopt HIST_NO_STORE
 
 # Custom directory-local history, only used if file already exists
 DIR_HISTFILE=.dir-histfile
-DIR_HIST_FORMAT="<%s>[%s@%s]$ %s"
+DIR_HIST_FORMAT="<%s>[%s@%s][%s]$ %s"
 
 # }}}
 
@@ -184,7 +184,7 @@ preexec() {
 	fi
 
 	if [[ -w "$DIR_HISTFILE" && ! "$1" =~ "^ " ]]; then
-		printf "$DIR_HIST_FORMAT\n" "$(date +"%Y-%m-%d %H:%M:%S %Z")" "$USER" "$HOST" "$1" >> "$DIR_HISTFILE"
+		printf "$DIR_HIST_FORMAT\n" "$(date +"%Y-%m-%d %H:%M:%S %Z")" "$USER" "$HOST" "${PWD##*/}" "$1" >> "$DIR_HISTFILE"
 	fi
 }
 
