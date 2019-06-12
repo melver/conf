@@ -95,18 +95,23 @@
       endif
     endfunction
 
-    function ExecuteCursorFile()
-      let l:file_name = expand(expand("<cfile>"))
+    function ExecuteCursorFile(expansion)
+      let l:file_name = expand(a:expansion)
       let l:is_url = stridx(l:file_name, "://") >= 0
 
-      " If not existing, it might a file relative to file being edited but the
-      " working directory is not the directory of the file being edited.
-      if !l:is_url && !filereadable(l:file_name)
-        let l:file_name = expand("%:p:h") . "/" . l:file_name
+      if !l:is_url
+        " Re-expand special chars e.g. '~'.
+        let l:file_name = expand(l:file_name)
+        if !filereadable(l:file_name)
+          " If does not exist, it might a file relative to file being edited but
+          " the working directory is not the directory of the file being edited.
+          let l:file_name = expand("%:p:h") . "/" . l:file_name
+        endif
       endif
 
       if l:is_url || filereadable(l:file_name)
-        execute "silent !xdg-open '" . l:file_name . "' &> /dev/null &"
+        let l:file_name_esc = escape(l:file_name, '#')
+        execute "silent !xdg-open '" . l:file_name_esc . "' &> /dev/null &"
         redraw!
         echo "[ExecuteCursorFile] Opened '" . l:file_name . "'"
 
@@ -292,7 +297,8 @@
           \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
     " Open file under cursor with xdg-open
-    map xf <ESC>:call ExecuteCursorFile()<CR>
+    map xf <ESC>:call ExecuteCursorFile("<cfile>")<CR>
+    map cf <ESC>:call ExecuteCursorFile("<cWORD>")<CR>
 " }}}
 
 " GUI/Term Specific Settings {{{
