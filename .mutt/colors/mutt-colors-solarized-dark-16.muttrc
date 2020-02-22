@@ -65,11 +65,11 @@ color index         magenta   default         "~Q"                        # mess
 color index         brightblue            default         "~N"                        # new messages
 color index         brightgreen            default         "~O"                        # old messages
 color index         brightcyan            default         "~N~p!~F"                   # new messages to me
-color index         red             default         "~F"                        # flagged messages
-color index         red             default         "~F~p"                      # flagged messages to me
-color index         red             default         "~N~F"                      # new flagged messages
-color index         red             default         "~N~F~p"                    # new flagged messages to me
-color index         red             default         "~U~F~p"                    # new flagged messages to me
+#color index         red             default         "~F"                        # flagged messages
+#color index         red             default         "~F~p"                      # flagged messages to me
+#color index         red             default         "~N~F"                      # new flagged messages
+color index         brightred       default         "~N~F~p"                    # new flagged messages to me
+color index         brightred       default         "~U~F~p"                    # new flagged messages to me
 color index         black           red             "~D"                        # deleted messages
 color index         yellow      default         "~v~(!~N)"                  # collapsed thread with no unread
 color index         brightyellow          default         "~v~(~N)"                   # collapsed thread with some unread
