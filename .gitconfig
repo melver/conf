@@ -3,6 +3,8 @@
 	email = me@marcoelver.com
 [push]
 	default = matching
+[pull]
+	ff = only
 [sendemail]
 	smtpserver = localhost
 	smtpserverport = 2525
