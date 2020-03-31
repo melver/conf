@@ -171,6 +171,11 @@
     function FindTabStyle(prev_line_regex)
       call FindTabStyle2(a:prev_line_regex, "")
     endfunction
+
+    function RemapDisplayMotion()
+      nnoremap <expr> j v:count ? (v:count > 8 ? "m'" . v:count : '') . 'j' : 'gj'
+      nnoremap <expr> k v:count ? (v:count > 8 ? "m'" . v:count : '') . 'k' : 'gk'
+    endfunction
 " }}}
 
 " Plugins {{{
@@ -486,7 +491,8 @@
 
     augroup ftgroup_htmlcss
       au!
-      au FileType html,xhtml,css setlocal ts=2 sw=2 sts=2 tw=79 noet | call SetList(0)
+      au FileType html,xhtml setlocal ts=8 sw=8 sts=8 tw=0 noet linebreak | call SetList(0) | call RemapDisplayMotion()
+      au FileType css        setlocal ts=2 sw=2 sts=2 tw=79 noet | call SetList(0)
       au BufNewFile *.htm,*.html,*.css setlocal fileformat=unix
     augroup END
 
