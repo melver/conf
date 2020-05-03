@@ -16,7 +16,7 @@ if [[ -d "bundle" ]]; then
 		echo "----- $bundle -----"
 
 		if [[ -d "${bundle}/.git" ]]; then
-			( cd "$bundle" && git pull )
+			( cd "$bundle" && git pull && git diff 'HEAD@{1.minutes.ago}' )
 		elif [[ -d "${bundle}/.hg" ]]; then
 			( cd "$bundle" && hg pull -u )
 		fi

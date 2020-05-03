@@ -30,7 +30,7 @@ fetch_plugins() {
 	git clone "https://github.com/honza/vim-snippets.git" "vim-snippets"
 
 	# ALE generic syntax checking
-	git clone "https://github.com/w0rp/ale.git" "ale"
+	git clone "https://github.com/dense-analysis/ale.git" "ale"
 
 	# NuSMV syntax
 	git clone "https://github.com/melver/wmnusmv.vim.git" "wmnusmv"
@@ -88,7 +88,7 @@ update_plugins() {
 		echo "----- $bundle -----"
 
 		if [[ -d "${bundle}/.git" ]]; then
-			( cd "$bundle" && git pull )
+			( cd "$bundle" && git pull && git diff 'HEAD@{1.minutes.ago}' )
 		elif [[ -d "${bundle}/.hg" ]]; then
 			( cd "$bundle" && hg pull -u )
 		fi
