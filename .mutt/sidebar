@@ -1,0 +1,25 @@
+# Mutt sidebar config
+
+set sidebar_visible = yes
+set sidebar_width = 35
+set sidebar_divider_char = ' '
+set mail_check_stats
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+
+bind index,pager ( sidebar-prev
+bind index,pager ) sidebar-next
+bind index,pager _ sidebar-open
+
+bind index,pager <F3> sidebar-page-up
+bind index,pager <F4> sidebar-page-down
+
+bind index,pager <F5> sidebar-prev-new
+bind index,pager <F6> sidebar-next-new
+bind index,pager .B sidebar-toggle-visible
+
+color sidebar_highlight black color8
+color sidebar_divider 	color8 black
+color sidebar_flagged 	red black
+color sidebar_new 	green black
+
+# vim: syntax=muttrc

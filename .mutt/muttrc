@@ -11,6 +11,7 @@ source ~/.mutt/gpg.rc
 source ~/.mutt/smime.rc
 source ~/.mutt/colorscheme
 source ~/.mutt/keybindings
+source ~/.mutt/sidebar
 
 source "gpg -dq ~/.mutt/local/secrets.gpg |"
 set alias_file=~/.mutt/local/aliases	# add the Aliases here

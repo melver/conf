@@ -197,11 +197,6 @@ set display_filter=""	# pipe message through this filter before displaying
 set editor="~/.mutt/bin/editor.sh"
 reset ispell		# ispell binary (compile time default)
 set pager=builtin	# internal pager: "builtin" or e.g. "less -e" 
-#set print_command=lpr			# simple print command
-#set print_command=prmail		# print using tricky script prmail
-#set print_command="a2ps -gEmail"	# print using a2ps to default printer
-#set print_command="a2psmail"		# print using a2ps to default printer
-#set query_command="lbdbq %s"	# query tlr's little brothers database.
 set record=""		# Don't save a copy of outgoing messages (Fcc)
 reset sendmail		# Default-Sendmail with options ("-oem -oi")
 reset shell		# Take shell from /etc/passwd 
@@ -471,24 +466,6 @@ set pgp_entry_format="%4n %t%f %[%y/%m/%d] %4l/0x%k %-4a %2c %u"
 # (address, keyid, date, trust) and reverse-*
 #
 set pgp_sort_keys=trust
-
-# }}}
-
-#===========================================================================
-# score <pattern> <value>
-# unscore <pattern>
-#
-# (pattern is something like '~A' (all), '~f aol\.com$', '~s mutt' ...)
-# (value is between -9999 and 9999. A prefix '=' sets otherwise incr/decr)
-#
-# {{{
-
-#unscore *
-#
-#unset score			# turn off scoring
-#set score_threshold_delete=-1	# mark messages with score <=value deleted
-#set score_threshold_flag=9999	# mark messages with score >=value flagged
-#set score_threshold_read=-1	# mark messages with score <=value read
 
 # }}}
 

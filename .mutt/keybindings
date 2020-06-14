@@ -4,12 +4,6 @@
 # Based on: http://dotfiles.org/~rndm_luser/.mutt/keybindings
 #===========================================================================
 
-# Macro Generic {{{
-#macro generic <f2> '<pipe-message>spamassassin -r<enter><save-message>=spam<enter>'
-#macro generic <f3> '<pipe-message>bogofilter -s<enter><save-message>=spam<enter>'
-#macro generic <f5> ':push <copy-message>=Todo<enter><enter><enter><toggle-new>'
-# }}}
-
 # Macro Index {{{
 macro index .N '<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>' 'Mark all new messages as read'
 macro index .o '<tag-pattern>~N<enter><tag-prefix><set-flag>O<untag-pattern>.<enter>'   'Mark all new messages as old'
@@ -20,14 +14,7 @@ macro index .S ':set sort=threads<enter>'
 # }}}
 
 # Macro Index/Pager {{{
-#macro index,pager A '!fetchmail -v -a -F -K<enter>'
-#macro index,pager A '!fetchmail<enter>'
-#macro index,pager \es '|festival --tts<enter>'
 macro index,pager <f1> '!less /usr/share/doc/mutt/manual.txt<enter>' 'Show Mutt documentation'
-#macro index,pager <f2> '<pipe-message>spamassassin -r<enter><save-message>=spam<enter>'
-#macro index,pager <f3> '<pipe-message>bogofilter -s<enter><save-message>=spam<enter>'
-#macro index,pager \cb '<pipe-message>urlview<enter>'
-#macro index,pager \ef '<pipe-message>view-x-face<enter>'
 macro index,pager .t ':unset weed<enter>|~/.mutt/bin/mailhops|less -c<enter>:set weed<enter>' 'Show trace of mail routing'
 # }}}
 
