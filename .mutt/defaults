@@ -261,48 +261,12 @@ set reply_regexp="^(\\[ ijbswa[^]]*\\] )?((re(\\^[0-9]|\\[[0-9]\\])? ?:|a(nt)?w(
 #
 # {{{ 
 
-set date_format="!%a %b %d, %Y at %I:%M:%S%p %Z"
-			# control output of %d in index_format. strftime(3)
-			# here: Monday Dec 06, 1997 at 08:30:42pm CET
-
-# Allows escape sequences: 
-#     (\n = newline, \r = carriage-return, \t = tab, \f = formfeed)
-# 
-# %a Author address	%b original mbox	%B destination list or mbox
-# %c bytes in message	%C Message number
-# %d date and time in senders timezone ($date_format)
-# %D date and time in local timezone ($date_format)
-# %e curr. msg no in thread	%E number of msgs in curr. thread
-# %f address+real name	%F address+realname (unless self)
-# %i Message-ID		%l number of lines	%L list-from function
-# %m # of msg in mbox	%M number of hidden messages in collapsed thread
-# %n author real name	%N score		%s subject of msg     
-# %S status of message (N/D/d/!/*/r)		
-# %t `to:' field	%T char from tochars	%u login name of author
-# %v author's firstname	%y X-Label		%Y X-Label, if changed
-# %Z message status flags
-# %>X	  right justify the rest of the string and pad with character "X"
-# %|X	  pad to the end of the line with character "X"
-# %{<s>} sent time+date in senders timezone  (<s> is an strftime(3) expression)
-# %[<s>] sent time+date in local timezone    (<s> is an strftime(3) expression)
-# %(<s>) receive time+date in local timezone (<s> is an strftime(3) expression)
-# %<<s>> current time in local timezone      (<s> is an strftime(3) expression)
-#	 if first char in <s> is "!", do not use locale.
+set date_format="!%a, %b %d %Y at %I:%M:%S%p %Z"
 
 set forward_format="Fwd: %s"
 			# subject of forwarded mails
 
 set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4c?) %s"
-			# message line in the index
-			# don't use locales here, because it's not needed and 
-			# it runs in a memory leak in Linux libc5 
-			# use %[!...] or %{!...} instead
-# In local folders display lines:
-#folder-hook . \
-#	'set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4l?) %s"'
-# In IMAP folders display KByte (because lines are not available):
-#folder-hook ^{ \
-#	'set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4c?) %s"'
 
 set message_format="%-.16n: %s"
 			# string for message/rfc822 in attachment list
@@ -314,7 +278,7 @@ set pager_format="-%Z- %C/%m [%[%H:%M]] %-17.17n   %s"
 set post_indent_string=""	# Footer (after quotes, before signature).
 
 
-set attribution='On %{%a, %d %b %Y}, %n wrote:\n'
+set attribution='On %{%a, %b %d %Y at %I:%M%p %Z}, %n wrote:\n'
 			# Default Reply-Intro (See send-hook for changes!)
 
 # %C current number	%d last modified	%f filename
@@ -324,7 +288,6 @@ set attribution='On %{%a, %d %b %Y}, %n wrote:\n'
 # %|X pad to the end of the line with character "X"
 set folder_format="%3C %t%N %F %-8.8u %-8.8g %8s %d %f"
 			# file browser menu
-
 
 #
 # status_format
