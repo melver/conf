@@ -277,8 +277,7 @@ set pager_format="-%Z- %C/%m [%[%H:%M]] %-17.17n   %s"
 
 set post_indent_string=""	# Footer (after quotes, before signature).
 
-
-set attribution='On %{%a, %b %d %Y at %I:%M%p %Z}, %n wrote:\n'
+set attribution='On %{%a, %b %d, %Y at %I:%M%p %Z}, %n wrote:'
 			# Default Reply-Intro (See send-hook for changes!)
 
 # %C current number	%d last modified	%f filename
