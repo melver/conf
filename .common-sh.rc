@@ -30,6 +30,7 @@ xtract () {
       *.tar.gz)    tar xvvzf "$1"   ;;
       *.tar.lzma)  tar --lzma -xvvf "$1" ;;
       *.tar.xz)    tar xvvJf "$1"   ;;
+      *.tar.zst)   tar --zstd -xvvf "$1" ;;
       *.tar)       tar xvvf "$1"    ;;
       *.tbz2)      tar xvvjf "$1"   ;;
       *.tgz)       tar xvvzf "$1"   ;;
