@@ -43,7 +43,7 @@
 		]],
 	"multimedia" : [20, [	
 		{
-		"mpd+sonata" : [0, "sh -c 'pidof mpd &> /dev/null || mpd ~/.mpd/mpd.conf ; exec sonata'"],
+		"mpd" : [0, "sh -c 'pidof mpd &> /dev/null || mpd ~/.mpd/mpd.conf'"],
 		"vlc" : [10, "vlc"],
 		"k3b" : [20, "k3b"],
 		"clementine" : [30, "clementine"]
