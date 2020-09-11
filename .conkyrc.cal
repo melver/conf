@@ -1,87 +1,34 @@
-#
-# Marco's .conkyrc
-#
+conky.config = {
+    own_window = true,
+    own_window_type = 'override',
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    double_buffer = true,
+    use_spacer = 'right',
+    use_xft = true,
+    font = 'Terminus:size=10',
+    xftalpha = 1.0,
+    text_buffer_size = 2048,
+    update_interval = 30.0,
+    minimum_width = 250, minimum_height = 5,
+    draw_shades = true,
+    draw_outline = true,
+    draw_borders = false,
+    uppercase = false,
+    stippled_borders = 3,
+    border_width = 10,
+    default_color = '#9dbcd4',
+    color0 = '#fcc006',
+    color1 = '#ffff11',-- calendar today
+    color2 = '#213286',-- calendar before today
+    color3 = '#5e92ef',-- calendar after today
+    alignment = 'bottom_left',
+    gap_x = 10,
+    gap_y = 10,
+    if_up_strictness = 'address',
+};
 
-# Create own window instead of using desktop (required in nautilus)
-own_window yes
-own_window_type override
-own_window_transparent yes
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
- 
-# Use double buffering (reduces flicker, may not work for everyone)
-double_buffer yes
- 
-# fiddle with window
-use_spacer right
-
-# Use Xft?
-use_xft yes
-xftfont Terminus:size=10
-xftalpha 1.0
-text_buffer_size 2048
- 
-# Update interval in seconds
-update_interval 30.0
- 
-# Minimum size of text area
-minimum_size 250 5
- 
-# Draw shades?
-draw_shades yes
- 
-# Text stuff
-draw_outline yes # amplifies text if yes
-draw_borders no
-uppercase no # set to yes if you want all text to be in uppercase
- 
-# Stippled borders?
-stippled_borders 3
- 
-# border margins
-#border_margin 9
- 
-# border width
-border_width 10
- 
-# Default colors and also border colors, grey90 == #e5e5e5
-#default_color grey
-
-# Dark Grey/Blue:
-#default_color 333333
-#color0 1111ee
-
-# Bright Grey/Blue:
-#default_color efefbf
-#color0 aaaaff
-
-# Light blue grey/Yellow-gold
-default_color 9dbcd4
-color0 fcc006
-
-
-# Other colors:
-color1 ffff11 # calendar today
-color2 213286 # calendar before today
-color3 5e92ef # calendar after today
-
-#END COLORS
-
-# Text alignment, other possible values are commented
-#alignment top_left
-#alignment top_right
-alignment bottom_left
-#alignment bottom_right
- 
-# Gap between borders of screen and text
-gap_x 10
-gap_y 10
-
-# New configuration
-if_up_strictness address
-
-# stuff after 'TEXT' will be formatted on screen
-
-TEXT
+conky.text = [[
 
 ${color0}${execi 61 date +"%B %Y" | tr "[:lower:]" "[:upper:]" } ${hr 1 }$color
 
@@ -92,3 +39,6 @@ ${font DejaVu Sans:size=10}${execi 65 [ -f $HOME/org/.reminders ] && remind -q -
 ${color0}INBOX ${hr 1}$color
 ${font DejaVu Sans:size=10}${execi 101 [ -f $HOME/gtd-inbox ] && fold -s -w 50 $HOME/gtd-inbox | sed 's/^\([^\[]\)/        \1/'}${font}
 
+]];
+
+-- vim: set ft=lua :
