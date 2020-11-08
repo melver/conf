@@ -1,7 +1,5 @@
 #===========================================================================
 # .mutt/defaults
-#
-# Based on: http://www.spinnaker.de/mutt/muttrc
 #===========================================================================
 
 reset all		# reset all variables to system defaults.
@@ -17,7 +15,8 @@ unhook *		# remove all hooks
 #	    ^^		  ^^^
 # {{{
 
-unset allow_8bit	# use QP or Base64 if unset.
+set allow_8bit		# use QP or Base64 if unset.
+unset encode_from	# use Quoted-Printable, if ^From in a mail.
 set allow_ansi		# allow ANSI color codes in messages.
 unset arrow_cursor	# "->" as cursor (faster on slow networks).
 unset ascii_chars	# Use ASCII chars for threading arrows.
@@ -38,7 +37,6 @@ set delete_untag	# untag messages when marking them for deletion
 set digest_collapse	# show digest parts in 'v' submenu
 set duplicate_threads	# thread messages with same message-id together
 set edit_headers	# put headers in editor when composing messages
-set encode_from		# use Quoted-Printable, if ^From in a mail.
 unset envelope_from	# don't set envelope from via -f option of sendmail
 set fast_reply		# do not ask for to, subject,... when replying.
 set fcc_attach		# store attachments too when doing a Fcc
@@ -59,7 +57,6 @@ set ignore_list_reply_to	# ignore Reply-To pointing back to mailinglist
 unset implicit_autoview	# use autoview, if a "copiousoutput" is in mailcap.
 unset keep_flagged	# don't move flagged mail to $mbox via mbox-hook
 set mailcap_sanitize	# remove ugly chars from mailcap % expands.
-#set maildir_header_cache_verify	# check if other progs have modified maildir
 unset maildir_trash	# if set: use maildir trash flag instead of removing
 set markers		# put a '+' at the beginning of wrapped lines.	
 unset mark_old		# mark new articles as old, when leaving mbox
@@ -101,7 +98,6 @@ unset uncollapse_jump	# don't move pointer, when uncollapsing thread
 unset use_8bitmime	# run sendmail 8.8.x with -B8BITMIME to enable 8bit 
 set use_domain		# add $domain to all addresses without @host
 set use_from		# generate a "From:" header (unless my_hdr From:)
-unset use_ipv6		# Only use IPv4 address resolution.
 set user_agent		# Create User-Agent: Mutt/<Version> header.
 unset wait_key		# Only "press a key" if return value non-zero
 set weed		# weed headers, when forwarding with forward_decode
@@ -147,10 +143,7 @@ set history=200		# Size of the history buffer
 set mail_check=60	# time (in seconds) how often buffy checks for new mail
 set pager_context=0	# number of lines, to display twice on PgUp/Down
 set pager_index_lines=4	# add small message index at top of pager (4)
-#set pager_index_lines=`zsh -c 'temp=($(stty size)) ; expr $temp[1] / 5 + 1'`
-#set pager_index_lines=`((stty size 2>/dev/null||echo 24 80);echo s0 5/1+p)|dc`
 set read_inc=10		# Mutt will notify when reading mailbox messages
-reset sendmail
 set sleep_time=2	# pause (in seconds) while showing info messages
 set timeout=60		# time in seconds, till Mutt looks for new mail
 set wrapmargin=0	# margin left at right when doing smart line wrapping
@@ -169,19 +162,7 @@ set write_inc=10	# Mutt will notify when writing mailbox messages
 
 set sort=threads
 set sort_aux=reverse-last-date-received
-
-#
-# Sorting in File-Browser:
-# (date, alpha, reverse-date, reverse-alpha)
-#
-
 set sort_browser=alpha
-
-
-#
-# Sorting of aliases:
-# (alias, address, unsorted)
-#
 set sort_alias=alias
 
 # }}}
@@ -193,16 +174,11 @@ set sort_alias=alias
 # {{{
 
 set display_filter=""	# pipe message through this filter before displaying
-#reset editor
 set editor="~/.mutt/bin/editor.sh"
-reset ispell		# ispell binary (compile time default)
 set pager=builtin	# internal pager: "builtin" or e.g. "less -e" 
 set record=""		# Don't save a copy of outgoing messages (Fcc)
-reset sendmail		# Default-Sendmail with options ("-oem -oi")
-reset shell		# Take shell from /etc/passwd 
 unset signature		# Signature (See send-hook!)
 set tmpdir="~/.mutt/tmp"
-reset visual		# use $VISUAL as builtin editor.
 
 # }}}
 
@@ -218,16 +194,11 @@ set content_type="text/plain"	# default Content-Type of message body
 set dsn_notify="failure,delay"	# delivery status notification 
 				# (never, failure, delay, succes)
 set dsn_return="hdrs"	# what to return with DSN (hdrs or full)
-reset escape		# ESC-char for internal editor (use default).
-reset hostname		# FQDN (use default).
 set indent_string="> "	# Quoting mails with this string.
-#set attribution_locale="de_DE.UTF-8"	# locale settings (See send-hook section for changes!)
 set mailcap_path='~/.mutt/mailcap'	# Use local mailcap only for mutt
 set mh_seq_flagged="flagged"	# Name of MH sequence used for flagged msgs.
 set mh_seq_replied="replied"	# Name of MH sequence used for replied msgs.
 set mh_seq_unseen="unseen"	# Name of MH sequence used for unseen msgs.
-reset pipe_sep		# separator between tagged mails (default: \n)
-reset realname		# get realname from /etc/passwd.
 set send_charset="us-ascii:iso-8859-1:utf-8"  # Charsets for outgoing messages.
 set simple_search="~f %s | ~C %s | ~s %s"	# default pattern (Fr|To|Cc|Su)
 set status_chars="-*%A"	# status of mbox (unchanged, changed, readonly, attach)
@@ -246,13 +217,8 @@ set mask="."			# Show these files in the file browser
 
 set quote_regexp="^( {0,5}[>|:%]| {0,5}[a-z0-9]+[>|]+)+"
 				# for color quotes
-
-#set reply_regexp="^((re(\\^[0-9]|\\[[0-9]\\])? ?:|a(nt)?w(ort)?:|wg:|\\(fwd\\))[ \t]*)*"
 set reply_regexp="^(\\[ ijbswa[^]]*\\] )?((re(\\^[0-9]|\\[[0-9]\\])? ?:|a(nt)?w(ort)?:|wg:|fwd:)[ \t]*)*"
 			# Subject prefixes (removed on answering and threading)
-#set reply_regexp="^(re|aw):[ \t]+"	# Default
-#set smileys="(>From )|(:[-^]?[][)(><}{|/DP])"
-			# Special chars, which are not quote regexps, but :-)
 
 # }}}
 
@@ -262,31 +228,14 @@ set reply_regexp="^(\\[ ijbswa[^]]*\\] )?((re(\\^[0-9]|\\[[0-9]\\])? ?:|a(nt)?w(
 # {{{ 
 
 set date_format="!%a, %b %d %Y at %I:%M:%S%p %Z"
-
 set forward_format="Fwd: %s"
-			# subject of forwarded mails
-
 set index_format="%4C %Z %[!%Y-%m-%d] %-15.15F (%?M?C%3M&%4c?) %s"
-
 set message_format="%-.16n: %s"
-			# string for message/rfc822 in attachment list
-
 set pager_format="-%Z- %C/%m [%[%H:%M]] %-17.17n   %s"
-			# status line of the pager
-			# (show time here, date can be seen in "pil")
-
 set post_indent_string=""	# Footer (after quotes, before signature).
-
 set attribution='On %{%a, %b %d, %Y at %I:%M%p %Z}, %n wrote:'
 			# Default Reply-Intro (See send-hook for changes!)
-
-# %C current number	%d last modified	%f filename
-# %F permissions	%g group		%l number of hard links
-# %N "N" if new mail	%s size in bytes	%t "*" if tagged
-# %u owner name		%>X right justify the rest and pad with "X"
-# %|X pad to the end of the line with character "X"
 set folder_format="%3C %t%N %F %-8.8u %-8.8g %8s %d %f"
-			# file browser menu
 
 #
 # status_format
@@ -307,38 +256,8 @@ set folder_format="%3C %t%N %F %-8.8u %-8.8g %8s %d %f"
 #set status_format="-%r-%v--[%?M?%M/?%m msgs%?n?, %n new?%?d?, %d del?%?F?, %F flag?%?t?, %t tag?%?p?, %p postp?%?b?, %b inc?%?l?, ?%?L?%L/?%?l?%l?]--(%f)--%s/%S-%>-%P-"
 set status_format="-%r-%v--[%?M?%M/?%m msgs, %n new%?o?, %o old?%?d?, %d del?%?F?, %F flag?%?t?, %t tag?%?p?, %p postp?, %b inc%?l?, %l?]--(%f)--%s/%S-%>-%P-"
 
-
-#
-# alias_format
-# (format of data displayed for the alias menu)
-# %a alias name    %n index number    %r address    %t tag-character 
-# %f flags (d for deleted)
-#
 set alias_format="%4n %2f %t %-12a  %r"
-
-
-#
-# attach_format
-# (controls the look of the compose and attach menu)
-# %c = requires charset conversion (n or c)	%C = Charset
-# %d = description	%D = deleted flag
-# %e = MIME content-transfer-encoding		%f = filename   
-# %I = disposition (I=inline, A=attachment)
-# %m = major MIME type	%M = MIME subtype	%n = attachment number
-# %s = size		%t = tagged flag	%T = tree
-# %u = unlink
-# %>X = right justify and pad with "X"	 %|X = pad with "X" to end of line
-#
-#set attach_format="%u%D%t%4n %T%.40d%> [%.7m/%.10M, %.6e%?C?, %C?, %s] "
 set attach_format="%u%D%I %t%4n %T%.40d%> [%.7m/%.10M, %.6e%?C?, %C?, %s] "
-
-
-#
-# compose_format
-# (Controls the status line of the compose menu)
-# %a = number of attachments	%h = local hostname
-# %l = approx. size of msg	%v = Mutt version
-#
 set compose_format="-- %v-- Compose  [Approximate Message Size: %l   Attachments: %a]%>-"
 
 # }}}
@@ -357,28 +276,6 @@ unset imap_login	# Login name on imap server
 unset imap_passive	# don't open new IMAP to look for new mail when set.
 set imap_peek		# avoid implicitly marking mail as read when fetching
 set imap_servernoise	# display warnings from IMAP server.
-reset imap_user		# IMAP user
-reset imap_pass		# IMAP password (don't store it here...)
-
-set preconnect=""	# exec this cmd before establishing IMAP/POP connect
-set tunnel=""		# exec remote command and communicate with it directly
-
-# }}}
-
-#===========================================================================
-# SSL (only if compiled with --enable-ssl)
-#
-# {{{
-
-#reset certifcate_file	# SSL certificate file
-#reset entropy_file	# random device
-#unset imap_force_ssl	# always use SSL for connections to IMAP servers
-#unset ssl_force_tls	# requires all remote sessions to be encrypted
-set ssl_starttls=yes	# use STARTTLS if available on server
-#set ssl_use_sslv2	# use SSLv2 authentication?
-#set ssl_use_sslv3	# use SSLv3 authentication?
-#set ssl_use_tlsv1	# use TLSv1 authentication?
-#set ssl_use_systemcerts	# use system wide certificates?
 
 # }}}
 
@@ -420,7 +317,6 @@ set pgp_timeout=7200	# forget PGP passphrase after 7200 seconds (=2 hours)
 # %f = flags	%F = flags of the princ. key	
 # %c = capabilities		%C = capabilities of the princ. key
 # %t = trust/validity of the key-uid association
-#set pgp_entry_format="%4n %t%f %4l/0x%k %-4a %2c %u"
 set pgp_entry_format="%4n %t%f %[%y/%m/%d] %4l/0x%k %-4a %2c %u"
 
 #
