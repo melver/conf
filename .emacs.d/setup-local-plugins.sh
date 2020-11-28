@@ -32,10 +32,7 @@ else
 	cd "bundle"
 
 	# Evil Mode
-	hg clone https://bitbucket.org/lyro/evil
-
-	# Relative line-numbering
-	git clone https://github.com/coldnew/linum-relative.git
+	git clone https://github.com/emacs-evil/evil.git
 
 	# Undo-tree (Evil suggested)
 	git clone http://www.dr-qubit.org/git/undo-tree.git

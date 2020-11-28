@@ -79,7 +79,7 @@
 
     function ToggleNumber()
       if !exists("b:toggle_number")
-        let b:toggle_number = 0 " disabled by default if not existing
+        let b:toggle_number = 1 " disabled by default if not existing
       endif
 
       if b:toggle_number == 0
@@ -255,6 +255,10 @@
     " Filename completion
     set wildmode=longest,list,full
     set wildmenu
+
+    " Line numbers
+    set number
+    set relativenumber
 " }}}
 
 " Default Text Formatting {{{

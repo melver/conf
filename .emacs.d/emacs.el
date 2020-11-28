@@ -20,12 +20,6 @@
 
 (evil-mode 1)
 
-;; RELATIVE LINUM
-;;
-(add-to-list 'load-path "~/.emacs.d/bundle/linum-relative")
-(require 'linum-relative)
-;(global-linum-mode 1)
-
 ;; IDO-MODE
 (ido-mode t)
 
@@ -58,6 +52,7 @@
 (show-paren-mode t)
 (line-number-mode t)
 (column-number-mode t)
+(global-display-line-numbers-mode)
 
 ;; disable backup and auto-save
 (setq backup-inhibited t)
@@ -71,7 +66,7 @@
 
 ;; KEY-BINDINGS
 ;;
-(global-set-key (kbd "<f8>") 'linum-relative-mode)
+(global-set-key (kbd "<f8>") 'display-line-numbers-mode)
 (global-set-key (kbd "<f7>") 'neotree-toggle)
 
 ;; Themes ------------------------------
@@ -129,10 +124,13 @@
 (add-hook 'isar-mode-hook 'proof-mode-keys)
 (add-hook 'coq-mode-hook  'proof-mode-keys)
 
-;; Misc custom settings ----------------
+;; Custom settings ----------------
 ;;
 (custom-set-variables
   '(indent-tabs-mode nil)
+  '(display-line-numbers-type 'relative)
+
+  ; PG
   '(isar-display:show-main-goal t)
   '(isar-maths-menu-enable t)
   '(isar-proof:Sledgehammer:\ Time\ Limit 60)
@@ -148,16 +146,18 @@
   )
 
 (custom-set-faces
+  '(linum ((t (:inherit (shadow default) :foreground "gold"))))
+  '(unicode-tokens-symbol-font-face ((t (:slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+
+  ; PG
   '(isabelle-free-name-face ((((type x) (class color) (background dark)) (:foreground "lightblue"))))
   '(isabelle-quote-face ((t (:foreground "grey"))))
   '(isabelle-string-face ((((type x) (class color) (background dark)) (:foreground "cyan3"))))
   '(isabelle-var-name-face ((((type x) (class color) (background dark)) (:foreground "lightblue3"))))
-  '(linum ((t (:inherit (shadow default) :foreground "gold"))))
   '(proof-boring-face ((((type x) (class color) (background dark)) (:foreground "cyan3"))))
   '(proof-highlight-dependency-face ((((type x) (class color) (background dark)) (:background "peru" :foreground "black"))))
   '(proof-highlight-dependent-face ((((type x) (class color) (background dark)) (:background "darkorange" :foreground "black"))))
   '(proof-region-mouse-highlight-face ((((type x) (class color) (background dark)) (:background "yellow3" :foreground "black"))))
   '(proof-warning-face ((((type x) (class color) (background dark)) (:background "orange2" :foreground "black"))))
-  '(unicode-tokens-symbol-font-face ((t (:slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
   )
 
