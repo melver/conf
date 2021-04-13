@@ -79,7 +79,7 @@
 
     function ToggleNumber()
       if !exists("b:toggle_number")
-        let b:toggle_number = 1 " disabled by default if not existing
+        let b:toggle_number = 1 " enabled by default
       endif
 
       if b:toggle_number == 0
