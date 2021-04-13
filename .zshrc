@@ -193,6 +193,7 @@ preexec() {
 }
 
 setprompt
+setprompt_vcs_info
 color_setup
 
 #}}}
