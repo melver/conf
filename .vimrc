@@ -282,23 +282,20 @@
 " Mappings {{{
     " Fold toggle
     map <C-F> za
-
     " Fold close all - zR to unfold all
     "map <C-F> zM
 
     map <C-H> <ESC>:noh<CR>
-
     imap <S-CR> <ESC>
 
     " NERDTree plugin; redraw! hack required for gvim in tiling WM
     map <C-N> <ESC>:NERDTreeToggle<Bar>redraw!<Bar>redraw!<CR>
-
     " taglist plugin
-    map <C-P> <ESC>:TlistToggle<CR>
+    map <F7> <ESC>:TlistToggle<CR>
+    " fzf plugin
+    map <C-P> <ESC>:FZF<CR>
 
     map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
-
-    " Function keys
     map <F8> <ESC>:call ToggleNumber()<CR>
     map <F9> <ESC>:call ToggleList()<CR>
     map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
