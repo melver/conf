@@ -1,6 +1,6 @@
 servers = (
   { address = "irc.quakenet.org";  chatnet = "quakenet";  port = "6667"; autoconnect = "no"; },
-  { address = "irc.freenode.org";  chatnet = "freenode";  port = "6667"; autoconnect = "no"; },
+  { address = "irc.libera.chat";   chatnet = "libera";    port = "6667"; autoconnect = "no"; },
   { address = "irc.efnet.org";     chatnet = "efnet";     port = "6667"; autoconnect = "no"; },
   { address = "uk.ircnet.org";     chatnet = "ircnet";    port = "6667"; autoconnect = "no"; },
   { address = "irc.oftc.net";      chatnet = "oftc";      port = "6667"; autoconnect = "no"; }
@@ -15,7 +15,7 @@ chatnets = {
     #autosendcmd = "/msg Q@CServe.quakenet.org AUTH <nick> <pw>; /mode <nick> +x";
   };
 
-  freenode = {
+  libera = {
     type = "IRC";
     #nick = "alt-nick";
     #autosendcmd = "/msg nickserv identify <nick> <pw>";
@@ -35,7 +35,7 @@ chatnets = {
 };
 
 channels = (
-  { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#archlinux"; chatnet = "libera"; autojoin = "yes"; },
 );
 
 settings = {
@@ -49,11 +49,11 @@ settings = {
 };
 
 ignores = (
-  { level = "JOINS PARTS QUITS"; channels = ( "#archlinux" ); network = "freenode"; }
+  { level = "JOINS PARTS QUITS"; channels = ( "#archlinux" ); network = "libera"; }
 );
 
 aliases = {
-  SETPROXYPORTS = "SET irssiproxy_ports quakenet=10190 freenode=10191 efnet=10192 ircnet=10193 oftc=10194";
+  SETPROXYPORTS = "SET irssiproxy_ports quakenet=10190 libera=10191 efnet=10192 ircnet=10193 oftc=10194";
   PROXYSERV     = "LOAD proxy; SET irssiproxy_bind 127.0.0.1; SET irssiproxy_password hunter2; SETPROXYPORTS";
 
   ATAG = "WINDOW SERVER";
