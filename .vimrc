@@ -295,7 +295,7 @@
     " fzf plugin
     map <C-P> <ESC>:FZF<CR>
 
-    map <C-L> <ESC>:call ToggleOverLengthHi(80)<CR>
+    map <C-L> <ESC>:call ToggleOverLengthHi(100)<CR>
     map <F8> <ESC>:call ToggleNumber()<CR>
     map <F9> <ESC>:call ToggleList()<CR>
     map <F10> <ESC>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -410,7 +410,7 @@
     augroup ftgroup_agda
       au!
       au BufRead,BufNewFile *.agda,*.lagda setf agda
-      au FileType agda call unicodekeys#setup() | setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
+      au FileType agda call unicodekeys#setup() | setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(100)
       au BufNewFile *.agda,*.lagda setlocal fileformat=unix
     augroup END
 
@@ -432,13 +432,13 @@
       au BufRead,BufNewFile *.cppm,*.ixx setf cpp
       au FileType c    setlocal ts=8 sw=8 sts=8 noet | call SetList(0)
             \ | call FindTabStyle("^[^*/]*{$")
-            \ | call OverLengthHiOn(80)
+            \ | call OverLengthHiOn(100)
       au FileType cpp  setlocal ts=4 sw=4 sts=4 noet | call SetList(0)
             \ | call FindTabStyle2('^[^*/]*\(private:\|protected:\|public:\|{\)$', '\(private:\|protected:\|public:\)$')
-            \ | call OverLengthHiOn(80)
+            \ | call OverLengthHiOn(100)
       au FileType objc setlocal ts=4 sw=4 sts=4 noet | call SetList(0)
             \ | call FindTabStyle("^[^*/]*{$")
-            \ | call OverLengthHiOn(80)
+            \ | call OverLengthHiOn(100)
       au BufNewFile *.c,*.cpp,*.h,*.hpp setlocal fileformat=unix
     augroup END
 
@@ -451,7 +451,7 @@
 
     augroup ftgroup_d
       au!
-      au FileType d setlocal ts=4 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType d setlocal ts=4 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(100)
       au BufNewFile *.d setlocal fileformat=unix
     augroup END
 
@@ -474,19 +474,19 @@
 
     augroup ftgroup_go
       au!
-      au FileType go setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType go setlocal ts=4 sw=4 sts=4 noet | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(100)
       au BufNewFile *.go setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_haskell
       au!
-      au FileType haskell setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
+      au FileType haskell setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(100)
       au BufNewFile *.hs setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_hdl
       au!
-      au FileType verilog,systemverilog setlocal ts=2 sw=2 sts=2 et | call SetList(0) | call OverLengthHiOn(80) | call FindTabStyle("^module ")
+      au FileType verilog,systemverilog setlocal ts=2 sw=2 sts=2 et | call SetList(0) | call OverLengthHiOn(100) | call FindTabStyle("^module ")
       au BufNewFile *.v,*.sv setlocal fileformat=unix
     augroup END
 
@@ -527,27 +527,27 @@
 
     augroup ftgroup_ml
       au!
-      au FileType ocaml setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
-      au FileType sml   setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
+      au FileType ocaml setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(100)
+      au FileType sml   setlocal ts=2 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(100)
       au BufNewFile *.ml,*.mli,*.mly,*.sml setlocal fileformat=unix
       au BufRead,BufNewFile *.lem setf ocaml
     augroup END
 
     augroup ftgroup_murphi
       au!
-      au FileType murphi setlocal ts=8 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(80)
+      au FileType murphi setlocal ts=8 sw=2 sts=2 et ai | call SetList(1) | call OverLengthHiOn(100)
     augroup END
 
     augroup ftgroup_perl
       au!
-      au FileType perl setlocal ts=8 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType perl setlocal ts=8 sw=4 sts=4 et | call SetList(0) | call FindTabStyle("{$") | call OverLengthHiOn(100)
       au BufNewFile *.pl setlocal fileformat=unix
     augroup END
 
     augroup ftgroup_python
       au!
       au BufRead,BufNewFile *.py,*.pyw setf python
-      au FileType python setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(80)
+      au FileType python setlocal ts=8 sw=4 sts=4 et | call SetList(1) | call OverLengthHiOn(100)
       au BufNewFile *.py,*.pyw setlocal fileformat=unix
     augroup END
 
@@ -560,7 +560,7 @@
 
     augroup ftgroup_promela
       au!
-      au FileType promela setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call FindTabStyle("{$") | call OverLengthHiOn(80)
+      au FileType promela setlocal ts=4 sw=2 sts=2 et ai | call SetList(1) | call FindTabStyle("{$") | call OverLengthHiOn(100)
       au BufNewFile *.pml setlocal fileformat=unix
     augroup END
 
@@ -581,7 +581,7 @@
 
     augroup ftgroup_ruby
       au!
-      au FileType ruby setlocal ts=4 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(80)
+      au FileType ruby setlocal ts=4 sw=2 sts=2 et | call SetList(1) | call OverLengthHiOn(100)
       au BufNewFile *.rb setlocal fileformat=unix
     augroup END
 
