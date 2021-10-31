@@ -20,6 +20,7 @@ let g:ale_fixers = {
 \   'c'    : ['clang-format'],
 \   'cpp'  : ['clang-format'],
 \   'rust' : ['rustfmt'],
+\   'ocaml': ['ocamlformat'],
 \}
 map <F5>        <Plug>(ale_toggle)
 map <Leader>ale <Plug>(ale_toggle)
