@@ -91,7 +91,7 @@ case "$OSTYPE" in
 	*linux*)
 		alias ls='ls --color=auto'
 		;;
-	*freebsd*|*FreeBSD*)
+	*freebsd*|*FreeBSD*|*darwin*)
 		alias ls='ls -G'
 		;;
 esac
