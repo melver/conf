@@ -150,7 +150,7 @@ statusbar = {
 
       items = {
         barstart = { priority = "100"; };
-        time = { };
+        #time = { };
         user = { };
         window = { };
         window_empty = { };
