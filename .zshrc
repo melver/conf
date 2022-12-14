@@ -54,6 +54,22 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd '!' edit-command-line
 
+_fzf-dir-histfile() {
+	zle -I
+	if [[ -r "$DIR_HISTFILE" ]]; then
+		local cmd="$(sed 's/^[^$]*$ //' "$DIR_HISTFILE" | uniq | fzf --tac --no-sort)"
+		echo "$cmd"
+		eval "$cmd" </dev/tty
+		print -sr -- ${cmd%%$'\n'}
+	else
+		echo "$DIR_HISTFILE not found!" 1>&2
+		echo
+	fi
+	zle redisplay
+}
+zle -N _fzf-dir-histfile
+bindkey "^T" _fzf-dir-histfile
+
 # }}}
 
 # Aliases {{{
