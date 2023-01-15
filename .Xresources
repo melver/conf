@@ -11,6 +11,7 @@ xterm*faceSize: 12
 URxvt.scrollBar: false
 URxvt*loginShell: false
 URxvt.pointerBlank: true
+URxvt*geometry: 100x67
 
 !! Overriding the following option may cause unwanted side-effects!
 !URxvt*termName: xterm-256color
