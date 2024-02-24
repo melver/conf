@@ -115,7 +115,7 @@ zstyle ':completion:*:killall:*'   force-list always
 # Window title {{{
 
 case $TERM in
-	*xterm*|rxvt*|(dt|k|E)term)
+	*xterm*|rxvt*|(dt|k|E)term|alacritty*)
 		precmd() { print -Pn "\e]0;(%L) [%n@%m]%# [%~]\a" }
 		preexec_settitle() { print -Pn "\e]0;(%L) [%n@%m]%# [%~] ("; printf "%s)\a" "$1" }
 	;;

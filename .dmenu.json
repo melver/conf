@@ -1,6 +1,6 @@
 [	
 	{
-	"terminal" : [0, "urxvt"],
+	"terminal" : [0, "term"],
 	"calculator" : [10, "gnome-calculator"],
 	"unison" : [30, "unison-x11"]
 	},
@@ -29,7 +29,7 @@
 		]],
 	"mail" : [60, [
 		{
-		"term-mail" : [0, "term-mail urxvt"],
+		"term-mail" : [0, "term-mail term"],
 		"thunderbird" : [10, "thunderbird"]
 		}
 		]]

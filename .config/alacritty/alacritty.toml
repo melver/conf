@@ -1,0 +1,43 @@
+live_config_reload = false
+
+[window]
+padding = { x = 2, y = 2}
+
+[mouse]
+hide_when_typing = true
+
+[font]
+size = 12
+normal = {family = "Terminus", style = "Regular"}
+offset = {x = 0, y = 1}
+glyph_offset = {x = 0, y = 1}
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+foreground = "#EEEEEC"
+background = "#232221"
+
+[colors.cursor]
+cursor = "#BDB4B5"
+
+[colors.normal]
+black = "#2E3436"
+red = "#F12C26"
+green = "#4EA012"
+yellow = "#AD9F37"
+blue = "#456BC0"
+magenta = "#945E8D"
+cyan = "#06989A"
+white = "#F8F9FA"
+
+[colors.bright]
+black = "#6F7074"
+red = "#F53029"
+green = "#76D456"
+yellow = "#EAD84D"
+blue = "#72A2E2"
+magenta = "#CD94C6"
+cyan = "#34E2E2"
+white = "#FCFAFA"

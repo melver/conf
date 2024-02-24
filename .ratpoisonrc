@@ -18,6 +18,6 @@ definekey top s-j next
 definekey top s-k prev
 
 # Programs
-bind C-c exec urxvt
-bind C-Return exec urxvt
+bind C-c exec term
+bind C-Return exec term
 bind C-p exec dmenu-apps

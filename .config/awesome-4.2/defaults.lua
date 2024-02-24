@@ -4,8 +4,8 @@ local dpi = xresources.apply_dpi
 -- Variable definitions
 
 -- Programs
-terminal     = "urxvt"
-terminal_alt = "urxvt -e zsh"
+terminal     = "term"
+terminal_alt = "term -e zsh"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "chromium --disk-cache-size=268435456"

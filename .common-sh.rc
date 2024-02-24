@@ -60,11 +60,11 @@ xsess() {
 
 color_setup() {
 	case "$TERM" in
-		*256color)
+		*256color|alacritty*)
 			export SCREEN_CMD="screen -T screen-256color -s $(which_shell)"
 
 			case "$TERM" in
-				rxvt-unicode-256color)
+				rxvt-unicode-256color|alacritty*)
 					export TMUX_CMD="SHELL=$(which_shell) _COLOR_TERM=screen-256color-it tmux"
 					;;
 				*)

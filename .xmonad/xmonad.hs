@@ -27,7 +27,7 @@ main = do
          { normalBorderColor  = "#222222"
          , focusedBorderColor = "#EF2929"
          , borderWidth        = 1
-         , terminal = "urxvt"
+         , terminal = "term"
          , logHook = dynamicLogWithPP defaultPP { ppTitle  = shorten 90
                                                 , ppLayout = (>> "")
                                                 , ppOutput = hPutStrLn xmobar }
