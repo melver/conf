@@ -20,12 +20,11 @@ mount_private() {
 	[[ $- != *i* ]] && return  # not interactive shell
 
 	if [[ ! -d "${private_src}" ]]; then
-		echo "Invalid source: $private_src"
 		return
 	fi
 
 	if [[ ! -d "${private_dst}" ]]; then
-		echo "Invalid destination: $private_src"
+		echo "Invalid mountpoint: $private_src"
 		return
 	fi
 
