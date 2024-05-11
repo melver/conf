@@ -35,7 +35,7 @@ else
 	git clone https://github.com/emacs-evil/evil.git
 
 	# Undo-tree (Evil suggested)
-	git clone http://www.dr-qubit.org/git/undo-tree.git
+	git clone https://gitlab.com/tsc25/undo-tree.git
 
 	# Company-mode
 	git clone https://github.com/company-mode/company-mode.git
