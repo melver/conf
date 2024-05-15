@@ -28,7 +28,7 @@ mount_private() {
 		return
 	fi
 
-	if [[ -f "${private_dst}/.ssh" ]] || mountpoint -q "$private_dst"; then
+	if [[ -d "${private_dst}/.ssh" ]] || mountpoint -q "$private_dst"; then
 		return
 	fi
 
