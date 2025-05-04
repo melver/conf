@@ -17,11 +17,10 @@ pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 defscrollback 1000
 nonblock on
 
-backtick 1 0 0 sys-stat
-
 # Status line
-hardstatus alwayslastline
-hardstatus string '%{= kg}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{Y} %1` |%{w}| %Y-%m-%d %{W}%c %{g}]'
+truecolor on
+hardstatus off
+hardstatus alwayslastline '%{=#4EA012;#2E3436}[ %{#76D456;#2E3436}%H%{#456BC0;#2E3436}:%{#72A2E2;#2E3436}%S %{#4EA012;#2E3436}][%= %{#F8F9FA;#2E3436}%-w%{=b #FCFAFA;#F53029}%n %t%{=#F8F9FA;#2E3436}%+w %=%{=#4EA012;#2E3436}][%{#F8F9FA;#2E3436} %Y-%m-%d %c %{=#4EA012;#2E3436}]%{-}'
 
 
 ################
