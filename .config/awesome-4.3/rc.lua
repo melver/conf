@@ -735,6 +735,7 @@ awful.rules.rules = {
           "Xephyr",
           "Xmessage",
           "Gxmessage",
+          "gxmessage",
           "Gcalctool",
           "Cssh",
           "Gimp",
